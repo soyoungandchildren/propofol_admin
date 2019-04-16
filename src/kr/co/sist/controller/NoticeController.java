@@ -9,7 +9,7 @@ public class NoticeController {
 
 	@RequestMapping(value="notice.do", method=GET)
 	public String goNotice() {
-		return "notice/notice_board";
+		return "inquiry/inquiry_board";
 	}
 	
 }//Class
