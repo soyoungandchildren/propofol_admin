@@ -43,11 +43,25 @@
       .nav-item>a{color : #57606f; font-size: 15px; margin-top: 20px;}
       .nav-item>a:hover{color : #007bff; font-size: 15px; margin-top: 20px;}
       
+      
+      /* 내가 수정한 부분 */
+      .btn{background-color: #0000FF;}
+      
      </style>
     <!-- Custom styles for this template -->
     <link href="dashboard.css" rel="stylesheet">
   <style type="text/css">/* Chart.js */
 @-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}
+/* ---------------------------------------------------------- */
+	#th1{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 120px;text-align: center;}
+	#th2{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 420px;text-align: center;}
+	#th3{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 120px;text-align: center;}
+	#th4{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 120px;text-align: center;}
+	#th5{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 120px;text-align: center;}
+	#contentsList{ text-align: center;}
+
+
+
 </style>
 </head>
 <body>
@@ -55,7 +69,7 @@
   <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">프로포폴 관리자</a>
   <ul class="navbar-nav px-3">
     <li class="text-nowrap">
-      <a class="nav-link" href="#">Sign out</a>
+      <a class="nav-link" href="#void">Sign out</a>
     </li>
   </ul>
 </nav>
@@ -118,37 +132,63 @@
 	    </div>
     </div>
 
-      <h2>공지사항</h2>
+      <h2>후&nbsp;기</h2>
       
       <div class="content_div">
       
-        <table border="1" class="notice_table">
-          <thead>
-            <tr>
-              <th>글 번호</th>
-              <th>글 제목</th>
-              <th>작성자</th>
-              <th>게시일</th>
-              <th>조회수</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1,001</td>
-              <td>Lorem</td>
-              <td>ipsum</td>
-              <td>dolor</td>
-              <td>sit</td>
-            </tr>
-            <tr>
-              <td>1,002</td>
-              <td>amet</td>
-              <td>consectetur</td>
-              <td>adipiscing</td>
-              <td>elit</td>
-            </tr>
-          </tbody>
-        </table>
+        <table border="1" >
+      		  <tr>
+						<th id="th1">No</th>
+						<th id="th2">제목</th>
+						<th id="th3">아이디</th>
+						<th id="th4">작성날짜</th>
+						<th id="th5">조회수</th>
+				</tr>
+						<%
+							for(int i=0; i<10;i++){
+						%>
+						<tr>
+							<td id="contentsList">1</td>
+							<td id="contentsList">2</td>
+							<td id="contentsList">3</td>
+							<td id="contentsList">4</td>
+							<td id="contentsList">5</td>
+						</tr>
+						<%
+							}
+						%>
+					</table>
+				
+				</div><br/>
+				<div style="text-align: center; max-width: 900px;">
+				<%for(int i=1; i<11;i++){
+				%>
+					<a href="#void"><%=i %></a>
+					<%} %>
+				</div>
+				
+				<br/>
+					<div id="div_bottom">
+						<table border="1" >
+							<tr>
+								<td style="width: 450px; height:10px">No:</td>
+								<td style="width: 450px; height:10px">날짜</td>
+							
+							</tr>
+							<tr>
+								<td style="width: 370px; height:10px">제목</td>
+								<td>작성자</td>
+							</tr>
+							<tr>
+								<td colspan="2" style="min-height: 100px">내용:</td>
+							</tr>
+							<tr>
+								<td colspan="2" style="width: 740px; height:10px; text-align:center;">
+									<input type="submit" value="삭제"class="btn">&nbsp;&nbsp;&nbsp;
+									<input type="submit" value="답변"class="btn">
+								</td>
+							</tr>
+       		 </table>
         
       </div>
       

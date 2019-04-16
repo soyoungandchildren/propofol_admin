@@ -122,7 +122,7 @@
       
       <div class="content_div">
       
-        <table border="1" class="notice_table">
+        <table class="notice_table">
           <thead>
             <tr>
               <th>글 번호</th>
