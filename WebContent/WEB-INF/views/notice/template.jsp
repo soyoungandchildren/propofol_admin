@@ -44,14 +44,8 @@
 	.nav-item>a{color : #57606f; font-size: 15px; margin-top: 20px;}
 	.nav-item>a:hover{color : #007bff; font-size: 15px; margin-top: 20px;}
       
-    #btnWrite{margin-top: 10px; margin-right: 10px; float: right;}
-    #btn_search{height: 27px; line-height: 1.0;}
     
     #body{border: 1px solid #FF0000; width: 95%; margin-left: 30px; margin-top: 15px; min-height: 500px; overflow: hidden; margin-bottom: 50px;}
-	#body>table{width:90%; margin-left: 5%; margin-top: 30px;}
-	thead>tr>td{ text-align: center; font-size: 16px; font-family: 맑은 고딕; font-weight: bold;}
-	tbody>tr{height: 35px;}
-	tbody>tr>td{ text-align: center; font-size: 15px; font-family: 맑은 고딕;}
       
             
      </style>
@@ -132,109 +126,6 @@
       <h2>공지사항</h2>
       
 				<div id="body">
-					<table border="1">
-						<thead>
-							<tr style="height: 45px;">
-								<td></td>
-								<td>글 제목</td>
-								<td>작성자</td>
-								<td>게시일</td>
-								<td>조회수</td>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-						</tbody>
-						
-					</table>
-					
-					<div style="float: right; width: 100%; padding-bottom: 20px;">
-					<input type="button" class="btn btn-outline-primary" id="btnWrite" value="공지 작성"/>
-					</div>
-					
-					<div style="text-align: center; padding-bottom: 35px;">
-						<span id="pageIndex">◁ 1 2 3 4 5 6 7 8 9 10 ▶</span>
-					</div>
-					
-					
-					<div style="text-align: center; padding-bottom: 40px;">
-						<select style="height: 30px;">
-							<option>글 제목</option>
-							<option>작성자</option>
-							<option>내용</option>
-						</select>
-						<input type="text" style="height: 25px;"/>
-						<input type="button" class="btn btn-outline-secondary" id="btn_search" value="검색"/>
-					</div>
 					
 				</div>
       

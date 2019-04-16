@@ -12,4 +12,9 @@ public class NoticeController {
 		return "notice/notice_board";
 	}
 	
+	@RequestMapping(value="notice_write.do", method=GET)
+	public String goNoticeWrite() {
+		return "notice/notice_write";
+	}
+	
 }//Class
