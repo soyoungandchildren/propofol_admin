@@ -61,7 +61,7 @@
 				</ul>
 			</div>	
 			<form>
-				<div id="content"><span id="contentTitle">문의사항</span>
+				<div id="content"><span id="contentTitle">후&nbsp;&nbsp;기</span>
 				
 					<div id="body">
 					<div id="div_top">

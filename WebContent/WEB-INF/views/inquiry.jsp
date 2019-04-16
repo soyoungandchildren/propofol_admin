@@ -20,14 +20,14 @@
 	
 	#contentTitle{font-size: 30px; padding-left: 20px;}
 	#body{border: 1px solid #FF0000; width: 740px; margin-left: 30px; margin-top: 15px; min-height: 500px; overflow: hidden; margin-bottom: 50px;}
-	
+	/* -------------------------------------------------------------------------------------------------- */
 	#th1{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 100px}
 	#th2{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 400px}
 	#th3{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 100px}
 	#th4{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 100px}
 	#th5{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 100px}
 	#th6{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 100px}
-	#contents{ text-align: center;}
+	#contentsList{ text-align: center;}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
@@ -57,7 +57,7 @@
 				<div id="div_top">
 					<table border="1">
 						<tr>
-						<th id="th1">no</th>
+						<th id="th1">No</th>
 						<th id="th2">제목</th>
 						<th id="th3">아이디</th>
 						<th id="th4">작성날짜</th>
@@ -68,35 +68,51 @@
 							for(int i=0; i<10;i++){
 						%>
 						<tr>
-							<td id="contents">1</td>
-							<td id="contents">2</td>
-							<td id="contents">3</td>
-							<td id="contents">4</td>
-							<td id="contents">5</td>
-							<td id="contents">6</td>
+							<td id="contentsList">1</td>
+							<td id="contentsList">2</td>
+							<td id="contentsList">3</td>
+							<td id="contentsList">4</td>
+							<td id="contentsList">5</td>
+							<td id="contentsList">6</td>
 						</tr>
 						<%
 							}
 						%>
 					</table>
 				
+				</div><br/>
+				<div style="text-align: center">
+				<%for(int i=1; i<11;i++){
+				%>
+					<a href="#void"><%=i %></a>
+					<%} %>
 				</div>
 				
 				<br/>
-				<input type="button" value="이걸왰ㅅ지"class="btn">
-				<div id="div_bottom">
-					<table border="1">
-					
-						<tr>
-							<td>asdf</td>
-						</tr>
-						<tr>
-							<td>asdf</td>
-						</tr>
-						
-					</table>
-				</div>
-				
+				<form action="">
+					<div id="div_bottom">
+						<table style="width:740px; min-height: 300px">
+							<tr>
+								<td style="width: 370px; height:10px">No:</td>
+								<td style="width: 370px; height:10px">날짜</td>
+							
+							</tr>
+							<tr>
+								<td style="width: 370px; height:10px">제목</td>
+								<td>작성자</td>
+							</tr>
+							<tr>
+								<td colspan="2">내용:</td>
+							</tr>
+							<tr>
+								<td colspan="2" style="width: 740px; height:10px; text-align:center;">
+									<input type="submit" value="삭제"class="btn">&nbsp;&nbsp;&nbsp;
+									<input type="submit" value="답변"class="btn">
+								</td>
+							</tr>
+						</table>
+					</div>
+				</form>
 
 				</div>
 				
