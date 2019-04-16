@@ -3,179 +3,157 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title></title>
-<style type="text/css">
-	#wrap{margin: 0px auto; width:1000px; }
-	/* header, container, footer는 상위 wrap이 같은 width를 가지므로 별로도 선언안해도 사이즈가 정해진다. */
-	#header{position: relative; height: 120px;}
-	#headerTitle{font-family: HY견고딕, 고딕; font-size: 35px; font-weight: bold; margin-left: 20px;
-		position:absolute; left:0; top:50%; width:100%; transform:translateY(-50%)}
-	#container{position:relative; width:100%; overflow:hidden; }
-	#footer{width:100%; height: 130px; background-color: maroon;}
-	#footerTitle{float: left; font-size: 15px; padding-left: 5px;}
-	
-	#nav{/* float: left; */ position:absolute; top:0; left:0; width: 200px; background-color: green; height: 100%;}
-	#content{float: right; width: 800px; height: 100%; min-height: 600px; background-color: gray;}
-	
-	#contentTitle{font-size: 30px; padding-left: 20px;}
-	
-	#body{border: 1px solid #FF0000; width: 740px; margin-left: 30px; margin-top: 15px; min-height: 500px; overflow: hidden; margin-bottom: 50px;}
-	#body>table{width:90%; margin-left: 5%; margin-top: 30px;}
-	thead>tr>td{ text-align: center; font-size: 16px; font-family: 맑은 고딕; font-weight: bold;}
-	tbody>tr{height: 35px;}
-	tbody>tr>td{ text-align: center; font-size: 15px; font-family: 맑은 고딕;}
-	
-	.notice_no{width:6%; font-size: 6px;}
-	.notice_title{width:50%; text-align: left;}
-	.notice_writer{width:21%;font-size: 15px;}
-	.notice_date{width:15%;}
-	.view{width:8%;}
-	#btnWrite{margin-top: 10px; margin-right: 10px; width: 130px; height: 40px; border-radius: 7px; font-size: 20px; float: right;
-					border: none;}
-					
-	
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>노양심 디자인</title>
+
+
+<!-- Bootstrap CDN -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      
+      
+      .navbar{height: 50px;}
+      #nav{ position:fixed; padding-top:57px; height:100%;}
+      #main{ padding-top:57px;}
+      
+      .nav-item>a{color : #57606f; font-size: 15px; margin-top: 20px;}
+      .nav-item>a:hover{color : #007bff; font-size: 15px; margin-top: 20px;}
+      
+     </style>
+    <!-- Custom styles for this template -->
+    <link href="dashboard.css" rel="stylesheet">
+  <style type="text/css">/* Chart.js */
+@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script type="text/javascript">
-</script>
 </head>
 <body>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">프로포폴 관리자</a>
+  <ul class="navbar-nav px-3">
+    <li class="text-nowrap">
+      <a class="nav-link" href="#">Sign out</a>
+    </li>
+  </ul>
+</nav>
 
-	<div id="wrap">
-		<div id="header">
-		
-			<div id="headerTitle">로고</div>
-		</div>
-		<div id="container">
-		
-			
-			<div id="nav">
-				<ul>
-					<li><a href="">공지사항</a></li>
-					<li><a href="">문의사항</a></li>
-					<li><a href="">회원관리</a></li>
-					<li><a href="">관리자 메뉴</a></li>
-					<li><a href="">후기 관리</a></li>
-				</ul>
-			</div>	
-			<div id="content">
-				<span id="contentTitle">공지사항</span>
-				
-				<div id="body">
-					<table border="1">
-						<thead>
-							<tr style="height: 45px;">
-								<td></td>
-								<td>글 제목</td>
-								<td>작성자</td>
-								<td>게시일</td>
-								<td>조회수</td>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-						</tbody>
-						
-					</table>
-					
-					<div style="float: right; width: 100%; padding-bottom: 20px;">
-					<input id="btnWrite" type="button" value="공지 작성"/>
-					</div>
-					
-					<div style="text-align: center; padding-bottom: 35px;">
-						<span id="pageIndex">◁ 1 2 3 4 5 6 7 8 9 10 ▶</span>
-					</div>
-					
-					
-					<div style="text-align: center; padding-bottom: 40px;">
-						<select style="height: 30px;">
-							<option>글 제목</option>
-							<option>작성자</option>
-							<option>내용</option>
-						</select>
-						<input type="text" style="height: 25px;"/>
-						<input type="button" value="버튼" style="height: 30px;"/>
-					</div>
-					
-				</div>
-						
-			</div>
-		</div>
-		<div id="footer">
-			<div id="footerTitle">copyright&copy; all right reserved.</div>
-		</div>
-	</div>
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar" id="nav">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+              공지사항
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              문의사항
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" 
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              회원관리
+            </a>
+          </li> 
+          <li class="nav-item"> 
+            <a class="nav-link" href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+              관리자 메뉴
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              후기관리
+            </a>
+          </li>
+        </ul>
+        
+      </div>
+      
+    </nav>
 
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" id="main">
+    <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; 
+    bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+	    <div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;
+	   		overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+		    <div style="position:absolute;width:200%;height:200%;left:0; top:0">
+		    </div>
+	    </div>
+    </div>
+
+      <h2>공지사항</h2>
+      
+      <div class="content_div">
+      
+        <table class="notice_table">
+          <thead>
+            <tr>
+              <th>글 번호</th>
+              <th>글 제목</th>
+              <th>작성자</th>
+              <th>게시일</th>
+              <th>조회수</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1,001</td>
+              <td>Lorem</td>
+              <td>ipsum</td>
+              <td>dolor</td>
+              <td>sit</td>
+            </tr>
+            <tr>
+              <td>1,002</td>
+              <td>amet</td>
+              <td>consectetur</td>
+              <td>adipiscing</td>
+              <td>elit</td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+      
+    </main>
+  </div>
+</div>
 </body>
-
 </html>
