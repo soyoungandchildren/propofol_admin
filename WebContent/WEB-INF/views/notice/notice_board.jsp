@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>노양심 디자인</title>
+    <title>공지사항</title>
 
 
 <!-- Bootstrap CDN -->
@@ -47,7 +47,7 @@
     #btnWrite{margin-top: 10px; margin-right: 10px; float: right;}
     #btn_search{height: 27px; line-height: 1.0;}
     
-    #body{border: 1px solid #FF0000; width: 95%; margin-left: 30px; margin-top: 15px; min-height: 500px; overflow: hidden; margin-bottom: 50px;}
+    #body{border: 1px solid #bdc3c7; border-radius: 7px; width: 95%; margin-left: 30px; margin-top: 15px; min-height: 500px; overflow: hidden; margin-bottom: 50px;}
 	#body>table{width:90%; margin-left: 5%; margin-top: 30px;}
 	thead>tr>td{ text-align: center; font-size: 16px; font-family: 맑은 고딕; font-weight: bold;}
 	tbody>tr{height: 35px;}
@@ -56,7 +56,6 @@
             
      </style>
     <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
   <style type="text/css">/* Chart.js */
 @-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}
 </style>
@@ -217,13 +216,30 @@
 						
 					</table>
 					
-					<div style="float: right; width: 100%; padding-bottom: 20px;">
+					<div style="width: 100%; padding-bottom: 20px; display: block;">
 					<input type="button" class="btn btn-outline-primary" id="btnWrite" value="공지 작성"/>
 					</div>
 					
-					<div style="text-align: center; padding-bottom: 35px;">
-						<span id="pageIndex">◁ 1 2 3 4 5 6 7 8 9 10 ▶</span>
+					
+					<div>
+						<nav aria-label="Page navigation example">
+						  <ul class="pagination">
+						    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+						    <li class="page-item"><a class="page-link" href="#">1</a></li>
+						    <li class="page-item"><a class="page-link" href="#">2</a></li>
+						    <li class="page-item"><a class="page-link" href="#">3</a></li>
+						    <li class="page-item"><a class="page-link" href="#">4</a></li>
+						    <li class="page-item"><a class="page-link" href="#">5</a></li>
+						    <li class="page-item"><a class="page-link" href="#">6</a></li>
+						    <li class="page-item"><a class="page-link" href="#">7</a></li>
+						    <li class="page-item"><a class="page-link" href="#">8</a></li>
+						    <li class="page-item"><a class="page-link" href="#">9</a></li>
+						    <li class="page-item"><a class="page-link" href="#">10</a></li>
+						    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+						  </ul>
+						</nav>
 					</div>
+					
 					
 					
 					<div style="text-align: center; padding-bottom: 40px;">

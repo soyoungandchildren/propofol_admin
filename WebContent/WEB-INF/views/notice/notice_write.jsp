@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>노양심 디자인</title>
+    <title>공지사항 작성</title>
 
 
 <!-- Bootstrap CDN -->
@@ -45,12 +45,14 @@
 	.nav-item>a:hover{color : #007bff; font-size: 15px; margin-top: 20px;}
       
     
-    #body{border: 1px solid #FF0000; width: 95%; margin-left: 30px; margin-top: 15px; min-height: 500px; overflow: hidden; margin-bottom: 50px;}
-      
+    #body{border: 1px solid #bdc3c7; border-radius: 7px; width: 95%; margin-left: 30px; margin-top: 15px; min-height: 700px; overflow: hidden; margin-bottom: 20px;}
+    
+    textarea {resize: none;}
+    .form-control{display: initial; margin-left: 15px; width: 90%;}
+    .content_label{font-size: 18px;}
             
      </style>
     <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
   <style type="text/css">/* Chart.js */
 @-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}
 </style>
@@ -123,10 +125,22 @@
 	    </div>
     </div>
 
-      <h2>공지사항</h2>
+      <h2>공지사항 작성</h2>
       
 		<div id="body">
+		
+			<div style="margin: 15px;">
+				<span class="content_label">제목</span><input class="form-control" type="text" placeholder="제목">
+			</div>
+			<div style="margin-left: 15px;">
+				<span class="content_label" style="float: left; display: block;">내용</span>
+				<textarea class="form-control" id="" rows="3" style="height: 600px;"></textarea>
+			</div>
 			
+		</div>
+		<div>
+			<button type="button" class="btn btn-outline-primary">작성 완료</button>
+			<button type="button" class="btn btn-outline-dark">나가기</button>
 		</div>
       
     </main>

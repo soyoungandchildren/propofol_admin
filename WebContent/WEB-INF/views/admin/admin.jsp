@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>노양심 디자인</title>
+    <title>관리자 메뉴</title>
 
 
 <!-- Bootstrap CDN -->
@@ -43,10 +43,14 @@
 	
 	.nav-item>a{color : #57606f; font-size: 15px; margin-top: 20px;}
 	.nav-item>a:hover{color : #007bff; font-size: 15px; margin-top: 20px;}
-      
     
-    #body{border: 1px solid #bdc3c7; border-radius: 7px; width: 95%; margin-left: 30px; margin-top: 15px; min-height: 700px; overflow: hidden; margin-bottom: 20px;}
+    #body{border: 1px solid #bdc3c7; border-radius: 7px; width: 95%; margin-left: 30px; margin-top: 15px; min-height: 350px; overflow: hidden; margin-bottom: 20px;}
+    
+    .input-group{margin-left: 30px; margin-top: 30px;}
+    .input-group-text{font-weight: 550; width: 140px; display: initial;}
+    .input-group>.form-control{flex: initial; width: 250px;}
       
+    #btn_account{margin-left: 30px;width: 200px;height: 80px;font-size: 20px;font-weight: 550;margin-top: 10px;}
             
      </style>
     <!-- Custom styles for this template -->
@@ -124,9 +128,38 @@
 
       <h2>공지사항</h2>
       
-				<div id="body">
-					
-				</div>
+		<div id="body">
+		
+			<div class="input-group mb-3">
+			  <div class="input-group-prepend">
+			    <span class="input-group-text" id="basic-addon3">비밀번호</span>
+			  </div>
+			  <input type="password" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+			</div>
+			
+			<div class="input-group mb-3" style="margin-top: 15px;">
+			  <div class="input-group-prepend">
+			    <span class="input-group-text" id="basic-addon3">비밀번호 확인</span>
+			  </div>
+			  <input type="password" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+			</div>
+			
+			<div class="input-group mb-3" style="margin-top: 15px;">
+			  <div class="input-group-prepend">
+			    <span class="input-group-text" id="basic-addon3">관리자 이름</span>
+			  </div>
+			  <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+			</div>
+			
+			<div>
+				<button type="button" class="btn btn-primary" style="width: 90px; margin-left: 328px;">변경</button>
+			</div>
+			
+			<div>
+				<button type="button" class="btn btn-outline-info" id="btn_account">관리자 계정 관리</button>
+			</div>
+			
+		</div>
       
     </main>
   </div>

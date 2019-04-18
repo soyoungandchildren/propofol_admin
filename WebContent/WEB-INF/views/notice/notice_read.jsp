@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>노양심 디자인</title>
+    <title>공지사항 읽기</title>
 
 
 <!-- Bootstrap CDN -->
@@ -46,7 +46,10 @@
       
     
     #body{border: 1px solid #bdc3c7; border-radius: 7px; width: 95%; margin-left: 30px; margin-top: 15px; min-height: 700px; overflow: hidden; margin-bottom: 20px;}
-      
+    
+    textarea {resize: none;}
+    .form-control{display: initial; margin-left: 15px; width: 90%;}
+    .content_label{font-size: 18px;}
             
      </style>
     <!-- Custom styles for this template -->
@@ -124,9 +127,22 @@
 
       <h2>공지사항</h2>
       
-				<div id="body">
-					
-				</div>
+		<div id="body">
+		
+			<div style="margin: 15px;">
+				<span class="content_label">제목</span><input class="form-control" type="text" placeholder="제목">
+			</div>
+			<div style="margin-left: 15px;">
+				<span class="content_label" style="float: left; display: block;">내용</span>
+				<textarea class="form-control" id="" rows="3" style="height: 600px;"></textarea>
+			</div>
+			
+		</div>
+		<div>
+			<button type="button" class="btn btn-outline-primary">수정하기</button>
+			<button type="button" class="btn btn-outline-danger">삭제하기</button>
+			<button type="button" class="btn btn-outline-dark">나가기</button>
+		</div>
       
     </main>
   </div>
