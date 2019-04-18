@@ -8,14 +8,13 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>공지사항 읽기</title>
+    <title>관리자 메뉴</title>
 
 
 <!-- Bootstrap CDN -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!-- Google jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-
 
 
     <style>
@@ -42,13 +41,14 @@
 	
 	.nav-item>a{color : #57606f; font-size: 15px; margin-top: 20px;}
 	.nav-item>a:hover{color : #007bff; font-size: 15px; margin-top: 20px;}
+    
+    #body{border: 1px solid #bdc3c7; border-radius: 7px; width: 95%; margin-left: 30px; margin-top: 15px; min-height: 350px; overflow: hidden; margin-bottom: 20px;}
+    
+    .input-group{margin-left: 30px; margin-top: 30px;}
+    .input-group-text{font-weight: 550; width: 140px; display: initial;}
+    .input-group>.form-control{flex: initial; width: 250px;}
       
-    
-    #body{border: 1px solid #bdc3c7; border-radius: 7px; width: 95%; margin-left: 30px; margin-top: 15px; min-height: 700px; overflow: hidden; margin-bottom: 20px;}
-    
-    textarea {resize: none;}
-    .form-control{display: initial; margin-left: 15px; width: 90%;}
-    .content_label{font-size: 18px;}
+    #btn_account{margin-left: 30px;width: 200px;height: 80px;font-size: 20px;font-weight: 550;margin-top: 10px;}
             
      </style>
     <!-- Custom styles for this template -->
@@ -124,24 +124,56 @@
 	    </div>
     </div>
 
-      <h2>공지사항</h2>
+      <h2>관리자 계정 목록</h2>
+      
+      	<button type="button" class="btn btn-primary btn-lg">계정 추가</button>
       
 		<div id="body">
 		
-			<div style="margin: 15px;">
-				<span class="content_label">제목</span><input class="form-control" type="text" placeholder="제목">
+		
+			<div>
+				<table class="table">
+				  <thead class="thead-dark">
+				    <tr>
+				      <th scope="col">아이디</th>
+				      <th scope="col">권한</th>
+				      <th scope="col">관리자명</th>
+				      <th scope="col">생성일</th>
+				      <th scope="col"></th>
+				      <th scope="col"></th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <th scope="row">아이디1</th>
+				      <td>ADMIN</td>
+				      <td>곽우신</td>
+				      <td>1994-03-11</td>
+				      <td><button type="button" class="btn btn-outline-success">권한 변경</button></td>
+				      <td><button type="button" class="btn btn-outline-danger">계정 삭제</button></td>
+				    </tr>
+				    <tr>
+				      <th scope="row">아이디2</th>
+				      <td>MANAGER</td>
+				      <td>김희철</td>
+				      <td>2088-29-32</td>
+				      <td><button type="button" class="btn btn-outline-success">권한 변경</button></td>
+				      <td><button type="button" class="btn btn-outline-danger">계정 삭제</button></td>
+				    </tr>
+				    <tr>
+				      <th scope="row">아이디2</th>
+				      <td>MANAGER</td>
+				      <td>노진경</td>
+				      <td>3931-23-42</td>
+				      <td><button type="button" class="btn btn-outline-success">권한 변경</button></td>
+				      <td><button type="button" class="btn btn-outline-danger">계정 삭제</button></td>
+				    </tr>
+				  </tbody>
+				</table>
 			</div>
-			<div style="margin-left: 15px;">
-				<span class="content_label" style="float: left; display: block;">내용</span>
-				<textarea class="form-control" id="" rows="3" style="height: 600px;"></textarea>
-			</div>
-			
+		
 		</div>
-		<div>
-			<button type="button" class="btn btn-outline-primary">수정하기</button>
-			<button type="button" class="btn btn-outline-danger">삭제하기</button>
-			<button type="button" class="btn btn-outline-dark">나가기</button>
-		</div>
+		<button type="button" class="btn btn-outline-secondary">뒤로 가기</button>
       
     </main>
   </div>
