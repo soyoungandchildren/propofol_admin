@@ -13,9 +13,6 @@
 
 <!-- Bootstrap CDN -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 
 
 
@@ -61,7 +58,10 @@
 	#th6{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 100px}
 	#contentsList{ text-align: center;}
 
-
+	th{text-align: center; background-color: }
+	
+	.mine_th{width: 11%;}
+	
 
 </style>
 </head>
@@ -137,16 +137,20 @@
       
       <div class="content_div">
       
-        <table border="1" >
-      		  <tr>
-						<th id="th1">No</th>
-						<th id="th2">제목</th>
-						<th id="th3">아이디</th>
-						<th id="th4">작성날짜</th>
-						<th id="th5">상태</th>
-						<th id="th6">조회수</th>
-				</tr>
-						<%
+       <table border="1" class="table" style="max-width: 1000px">
+					  <thead>
+					    <tr >
+					      <th scope="col">No</th>
+					      <th scope="col">제목</th>
+					      <th scope="col">아이디</th>
+					      <th scope="col">작성날짜</th>
+					      <th scope="col" class="mine_th">상태</th>
+					      <th scope="col" class="mine_th">조회수</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr>
+					    <%
 							for(int i=0; i<10;i++){
 						%>
 						<tr>
@@ -160,6 +164,8 @@
 						<%
 							}
 						%>
+					     
+					  </tbody>
 					</table>
 				
 				</div><br/>
@@ -178,6 +184,12 @@
 				
 					
 				</div>
+				
+				
+				
+				
+				
+				
 				<form style="max-width:900px;">
 					  <div class="form-group">
 					    <label for="exampleInputEmail1">Email address</label>
@@ -196,6 +208,8 @@
 					</form>
 				  
 				<br/>
+				
+				
 					<div id="div_bottom">
 						<table border="1" >
 							<tr>
