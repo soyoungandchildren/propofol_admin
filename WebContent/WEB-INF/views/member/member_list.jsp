@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>관리자 메뉴</title>
+    <title>회원관리</title>
 
 
 <!-- Bootstrap CDN -->
@@ -44,11 +44,7 @@
     
     #body{border: 1px solid #bdc3c7; border-radius: 7px; width: 95%; margin-left: 30px; margin-top: 15px; min-height: 350px; overflow: hidden; margin-bottom: 20px;}
     
-    .input-group{margin-left: 30px; margin-top: 30px;}
-    .input-group-text{font-weight: 550; width: 140px; display: initial;}
-    .input-group>.form-control{flex: initial; width: 250px;}
-      
-    #btn_account{margin-left: 30px;width: 200px;height: 80px;font-size: 20px;font-weight: 550;margin-top: 10px;}
+    #condition_group{text-align: right; margin-top: 20px; margin-right: 15px;}
             
      </style>
     <!-- Custom styles for this template -->
@@ -73,7 +69,7 @@
         <ul class="nav flex-column">
           
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="notice.do">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
               공지사항
             </a>
@@ -85,7 +81,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="member_list.do">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" 
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
@@ -97,7 +93,7 @@
             </a>
           </li> 
           <li class="nav-item"> 
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="admin.do">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
               관리자 메뉴
             </a>
@@ -124,56 +120,78 @@
 	    </div>
     </div>
 
-      <h2>관리자 계정 목록</h2>
+      <h2>회원관리</h2>
       
-      	<button type="button" class="btn btn-primary btn-lg">계정 추가</button>
       
 		<div id="body">
 		
-		
+			<div id="condition_group">
+				<select style="height: 30px;">
+					<option>글 제목</option>
+					<option>작성자</option>
+					<option>내용</option>
+				</select>
+				<input type="text" style="height: 25px;"/>
+				<input type="button" class="btn btn-outline-secondary" id="btn_search" value="검색"/>
+				<button type="button" class="btn btn-secondary">전체 계정 조회</button>
+				<button type="button" class="btn btn-secondary">차단 계정 조회</button>
+				<button type="button" class="btn btn-secondary">포폴 대기 조회</button>
+			</div>
+			
 			<div>
 				<table class="table">
-				  <thead class="thead-dark">
+				  <thead>
 				    <tr>
-				      <th scope="col">아이디</th>
-				      <th scope="col">권한</th>
-				      <th scope="col">관리자명</th>
-				      <th scope="col">생성일</th>
-				      <th scope="col"></th>
-				      <th scope="col"></th>
+				      <th scope="col">#</th>
+				      <th scope="col">First</th>
+				      <th scope="col">Last</th>
+				      <th scope="col">Handle</th>
 				    </tr>
 				  </thead>
 				  <tbody>
 				    <tr>
-				      <th scope="row">아이디1</th>
-				      <td>ADMIN</td>
-				      <td>곽우신</td>
-				      <td>1994-03-11</td>
-				      <td><button type="button" class="btn btn-outline-success">권한 변경</button></td>
-				      <td><button type="button" class="btn btn-outline-danger">계정 삭제</button></td>
+				      <th scope="row">1</th>
+				      <td>Mark</td>
+				      <td>Otto</td>
+				      <td>@mdo</td>
 				    </tr>
 				    <tr>
-				      <th scope="row">아이디2</th>
-				      <td>MANAGER</td>
-				      <td>김희철</td>
-				      <td>2088-29-32</td>
-				      <td><button type="button" class="btn btn-outline-success">권한 변경</button></td>
-				      <td><button type="button" class="btn btn-outline-danger">계정 삭제</button></td>
+				      <th scope="row">2</th>
+				      <td>Jacob</td>
+				      <td>Thornton</td>
+				      <td>@fat</td>
 				    </tr>
 				    <tr>
-				      <th scope="row">아이디2</th>
-				      <td>MANAGER</td>
-				      <td>노진경</td>
-				      <td>3931-23-42</td>
-				      <td><button type="button" class="btn btn-outline-success">권한 변경</button></td>
-				      <td><button type="button" class="btn btn-outline-danger">계정 삭제</button></td>
+				      <th scope="row">3</th>
+				      <td>Larry</td>
+				      <td>the Bird</td>
+				      <td>@twitter</td>
 				    </tr>
 				  </tbody>
 				</table>
 			</div>
+			
+			<div>
+				<nav aria-label="Page navigation example">
+				  <ul class="pagination">
+				    <li class="page-item">
+				      <a class="page-link" href="#" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				    <li class="page-item"><a class="page-link" href="#">1</a></li>
+				    <li class="page-item"><a class="page-link" href="#">2</a></li>
+				    <li class="page-item"><a class="page-link" href="#">3</a></li>
+				    <li class="page-item">
+				      <a class="page-link" href="#" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+				  </ul>
+				</nav>
+			</div>
 		
 		</div>
-		<button type="button" class="btn btn-outline-secondary">뒤로 가기</button>
       
     </main>
   </div>

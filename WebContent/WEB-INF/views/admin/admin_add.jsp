@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>공지사항 작성</title>
+    <title>관리자 추가</title>
 
 
 <!-- Bootstrap CDN -->
@@ -44,11 +44,16 @@
 	.nav-item>a:hover{color : #007bff; font-size: 15px; margin-top: 20px;}
       
     
-    #body{border: 1px solid #bdc3c7; border-radius: 7px; width: 95%; margin-left: 30px; margin-top: 15px; min-height: 700px; overflow: hidden; margin-bottom: 20px;}
+    #body{border: 1px solid #bdc3c7; border-radius: 7px; width: 490px; margin-left: 30px; margin-top: 15px; min-height: 260px; overflow: hidden; margin-bottom: 20px;}
     
-    textarea {resize: none;}
-    .form-control{display: initial; margin-left: 15px; width: 90%;}
-    .content_label{font-size: 18px;}
+    .input-group{margin-left: 30px; margin-top: 30px;}
+    .input-group-text{font-weight: 550; width: 140px; display: initial;}
+    .input-group>.form-control{flex: initial; width: 250px;}
+      
+    #btn_account{margin-left: 30px;width: 200px;height: 80px;font-size: 20px;font-weight: 550;margin-top: 10px;}
+    #button_group{margin-top: -10px; margin-left: 295px;}
+    #button_group>button{font-size: 1.2rem; width: 110px; height: 45px;}
+      
             
      </style>
     <!-- Custom styles for this template -->
@@ -124,22 +129,40 @@
 	    </div>
     </div>
 
-      <h2>공지사항 작성</h2>
+      <h2>관리자 추가</h2>
       
 		<div id="body">
-		
-			<div style="margin: 15px;">
-				<span class="content_label">제목</span><input class="form-control" type="text" placeholder="제목">
+			
+			<div class="input-group mb-3">
+			  <div class="input-group-prepend">
+			    <span class="input-group-text" id="basic-addon3">아이디</span>
+			  </div>
+			  <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="아이디 입력">
 			</div>
-			<div style="margin-left: 15px;">
-				<span class="content_label" style="float: left; display: block;">내용</span>
-				<textarea class="form-control" id="" rows="3" style="height: 600px;"></textarea>
+			
+			<div class="input-group mb-3" style="margin-top: 15px;">
+			  <div class="input-group-prepend">
+			    <span class="input-group-text" id="basic-addon3">비밀번호 확인</span>
+			  </div>
+			  <input type="password" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="비밀번호 입력">
+			</div>
+			
+			<div class="input-group mb-3" style="margin-top: 15px; margin-left: 170px; margin-top: -15px;">
+				<input type="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호 확인">
+			</div>
+			
+			<div class="input-group mb-3" style="margin-top: 15px;">
+			  <div class="input-group-prepend">
+			    <span class="input-group-text" id="basic-addon3">관리자 이름</span>
+			  </div>
+			  <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="관리자명 입력">
 			</div>
 			
 		</div>
-		<div>
-			<button type="button" class="btn btn-outline-primary">작성 완료</button>
-			<button type="button" class="btn btn-outline-dark">나가기</button>
+		
+		<div id="button_group">
+			<button type="button" class="btn btn-outline-primary">계정추가</button>
+			<button type="button" class="btn btn-outline-secondary">뒤로가기</button>
 		</div>
       
     </main>
