@@ -44,7 +44,7 @@
     
     #body{border: 1px solid #bdc3c7; border-radius: 7px; width: 95%; margin-left: 30px; margin-top: 15px; min-height: 350px; overflow: hidden; margin-bottom: 20px;}
     
-    #condition_group{text-align: right; margin-top: 20px; margin-right: 15px;}
+    #condition_group{text-align: right; margin-top: 20px; margin-right: 15px; margin-bottom: 10px;}
             
      </style>
     <!-- Custom styles for this template -->
@@ -133,9 +133,9 @@
 				</select>
 				<input type="text" style="height: 25px;"/>
 				<input type="button" class="btn btn-outline-secondary" id="btn_search" value="검색"/>
-				<button type="button" class="btn btn-secondary">전체 계정 조회</button>
-				<button type="button" class="btn btn-secondary">차단 계정 조회</button>
-				<button type="button" class="btn btn-secondary">포폴 대기 조회</button>
+				<button type="button" class="btn btn-outline-info">전체 계정 조회</button>
+				<button type="button" class="btn btn-outline-warning">차단 계정 조회</button>
+				<button type="button" class="btn btn-outline-info">포폴 대기 조회</button>
 			</div>
 			
 			<div>
@@ -171,21 +171,17 @@
 				</table>
 			</div>
 			
-			<div>
+			<div style="margin-top: 50px;">
 				<nav aria-label="Page navigation example">
-				  <ul class="pagination">
-				    <li class="page-item">
-				      <a class="page-link" href="#" aria-label="Previous">
-				        <span aria-hidden="true">&laquo;</span>
-				      </a>
+				  <ul class="pagination justify-content-center">
+				    <li class="page-item disabled">
+				      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
 				    </li>
 				    <li class="page-item"><a class="page-link" href="#">1</a></li>
 				    <li class="page-item"><a class="page-link" href="#">2</a></li>
 				    <li class="page-item"><a class="page-link" href="#">3</a></li>
 				    <li class="page-item">
-				      <a class="page-link" href="#" aria-label="Next">
-				        <span aria-hidden="true">&raquo;</span>
-				      </a>
+				      <a class="page-link" href="#">Next</a>
 				    </li>
 				  </ul>
 				</nav>

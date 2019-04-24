@@ -13,5 +13,11 @@ public class MemberController {
 	}//
 	
 	
+	@RequestMapping(value="/member_info.do", method=GET)
+	public String goToMemberInfo() {
+		return "member/member_info";
+	}//
+	
+	
 	
 }//Class

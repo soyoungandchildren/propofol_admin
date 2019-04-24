@@ -8,13 +8,14 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>관리자 추가</title>
+    <title>회원정보</title>
 
 
 <!-- Bootstrap CDN -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!-- Google jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
 
 
     <style>
@@ -41,14 +42,17 @@
 	
 	.nav-item>a{color : #57606f; font-size: 15px; margin-top: 20px;}
 	.nav-item>a:hover{color : #007bff; font-size: 15px; margin-top: 20px;}
-    
-    #body{border: 1px solid #bdc3c7; border-radius: 7px; width: 95%; margin-left: 30px; margin-top: 15px; min-height: 350px; overflow: hidden; margin-bottom: 20px;}
-    
-    .input-group{margin-left: 30px; margin-top: 30px;}
-    .input-group-text{font-weight: 550; width: 140px; display: initial;}
-    .input-group>.form-control{flex: initial; width: 250px;}
       
-    #btn_account{margin-left: 30px;width: 200px;height: 80px;font-size: 20px;font-weight: 550;margin-top: 10px;}
+    
+    #body{border: 1px solid #bdc3c7; border-radius: 7px; width: 450px; margin-left: 30px; margin-top: 15px; min-height: 615px; overflow: hidden; margin-bottom: 20px;}
+    
+    #button_panel1{text-align: right;}
+    
+	#title_div{margin-top: 5px; margin-left: 10px;}      
+    #title{font-size: 1.8rem;}
+    .input-group-text{display: initial; width: 130px; text-align: right;}
+    .input-group{width: 400px; margin: 0px auto;}
+    .btn_bottom{width: 130px;}
             
      </style>
     <!-- Custom styles for this template -->
@@ -123,38 +127,88 @@
 		    </div>
 	    </div>
     </div>
-
-      <h2>관리자 메뉴</h2>
       
 		<div id="body">
-		
-			<div class="input-group mb-3">
-			  <div class="input-group-prepend">
-			    <span class="input-group-text" id="basic-addon3">비밀번호</span>
-			  </div>
-			  <input type="password" class="form-control" id="" aria-describedby="basic-addon3">
-			</div>
-			
-			<div class="input-group mb-3" style="margin-top: 15px;">
-			  <div class="input-group-prepend">
-			    <span class="input-group-text">비밀번호 확인</span>
-			  </div>
-			  <input type="password" class="form-control" aria-describedby="basic-addon3">
-			</div>
-			
-			<div class="input-group mb-3" style="margin-top: 15px;">
-			  <div class="input-group-prepend">
-			    <span class="input-group-text">관리자 이름</span>
-			  </div>
-			  <input type="text" class="form-control" aria-describedby="basic-addon3">
-			</div>
-			
 			<div>
-				<button type="button" class="btn btn-outline-primary" style="width: 90px; margin-left: 328px;">변경</button>
+				<div id="title_div">
+					<label id="title">회원 정보</label>
+				    <button type="button" class="btn btn-outline-primary" style="margin-left: 50px;">포트폴리오 관리</button>
+				    <button type="button" class="btn btn-outline-danger">회원탈퇴</button>
+				</div>
+				
+				<div>
+				
+					<div class="input-group mb-3" style="margin-top: 15px;">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text">아이디</span>
+					  </div>
+					  <input type="text" class="form-control" aria-describedby="basic-addon3" readonly>
+					</div>
+					
+					<div class="input-group mb-3" style="margin-top: 15px;">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text">비밀번호</span>
+					  </div>
+					  <input type="password" class="form-control" aria-describedby="basic-addon3">
+					</div>
+					
+					<div class="input-group mb-3" style="margin-top: -15px;">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text">비밀번호 확인</span>
+					  </div>
+					  <input type="password" class="form-control" aria-describedby="basic-addon3">
+					</div>
+					
+					<div class="input-group mb-3" style="margin-top: 15px;">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text">이름</span>
+					  </div>
+					  <input type="text" class="form-control" aria-describedby="basic-addon3">
+					</div>
+					
+					<div class="input-group mb-3" style="margin-top: 15px;">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text">생년월일</span>
+					  </div>
+					  <input type="text" class="form-control" aria-describedby="basic-addon3">
+					</div>
+					
+					<div class="input-group mb-3" style="margin-top: 15px;">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text">핸드폰번호</span>
+					  </div>
+					  <input type="text" class="form-control" aria-describedby="basic-addon3">
+					</div>
+					
+					<div class="input-group mb-3" style="margin-top: 15px;">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text">가입일</span>
+					  </div>
+					  <input type="text" class="form-control" aria-describedby="basic-addon3" readonly>
+					</div>
+					
+					<div class="input-group mb-3" style="margin-top: 15px;">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text">차단여부</span>
+					  </div>
+					  <input type="text" class="form-control" aria-describedby="basic-addon3" readonly>
+					</div>
+					
+					<div class="input-group mb-3" style="margin-top: 15px;">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text">포폴상태</span>
+					  </div>
+					  <input type="text" class="form-control" aria-describedby="basic-addon3" readonly>
+					</div>
+					
+				</div>
+				
 			</div>
 			
-			<div>
-				<button type="button" class="btn btn-outline-info" id="btn_account">관리자 계정 관리</button>
+			<div style="text-align: center; margin-top: 30px;">
+				<button type="button" class="btn btn-outline-primary btn_bottom">회원정보 수정</button>
+				<button type="button" class="btn btn-outline-primary btn_bottom">차단상태 변경</button>
+				<button type="button" class="btn btn-outline-primary btn_bottom">닫기</button>
 			</div>
 			
 		</div>
