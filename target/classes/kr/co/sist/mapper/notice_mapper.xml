@@ -24,5 +24,9 @@
 		)
 		where r_num between #{startNum} and #{endNum}
 	</select>
+	<select id="SelectTotalPageCount" resultType="int">
+		select count(*) cnt
+		from mine_notice
+	</select>
   
 </mapper>

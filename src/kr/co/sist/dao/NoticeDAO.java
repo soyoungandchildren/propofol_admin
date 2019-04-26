@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import kr.co.sist.domain.SearchNotice;
 import kr.co.sist.vo.SearchNoticeVO;
-
+@Component
 public class NoticeDAO {
 
 	
@@ -16,19 +16,19 @@ public class NoticeDAO {
 		
 		SqlSession ss = SqlSessionFactory.getInstance().getSqlSessionFactory().openSession();
 		list = ss.selectList("SelectNoticeList", snVO);
+		ss.close();
 		
 		return list;
 	}//selectNotice
 	
 	
-//	public static void main(String[] args) {
-//		NoticeDAO nDAO = new NoticeDAO();
-//		SearchNoticeVO snVO = new SearchNoticeVO();
-//		snVO.setStartNum(5);
-//		snVO.setEndNum(10);
-//		System.out.println(nDAO.selectNotice(snVO));
-//	}
-	
+	public int selectTotalPageCount() {
+		SqlSession ss = SqlSessionFactory.getInstance().getSqlSessionFactory().openSession();
+		int pageCount = ss.selectOne("SelectTotalPageCount");
+		ss.close();
+		
+		return pageCount; 
+	}//selectTotalPageCount
 	
 	
 }//Class

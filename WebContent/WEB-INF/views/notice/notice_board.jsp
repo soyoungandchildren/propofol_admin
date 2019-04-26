@@ -16,7 +16,24 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!-- Google jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
 
+	/* 
+	function moveIndex(i){
+		var move = document.page;
+		if(i<=0){
+			i = 1;
+		}
+		
+		move.selectedPageIndex.value = i;
+	//	move.method = "post";
+		move.action = "notice.do";
+		move.submit();
+	} */
+
+
+
+</script>
 
     <style>
       .bd-placeholder-img {
@@ -51,6 +68,9 @@
 	thead>tr>td{ text-align: center; font-size: 16px; font-family: 맑은 고딕; font-weight: bold;}
 	tbody>tr{height: 35px;}
 	tbody>tr>td{ text-align: center; font-size: 15px; font-family: 맑은 고딕;}
+	
+	#table_notice>thead>tr{border-bottom: 2px solid #333;}
+	#table_notice>tbody>tr{border-bottom: 1px solid #b2bec3;}
       
             
      </style>
@@ -58,6 +78,34 @@
   <style type="text/css">/* Chart.js */
 @-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}
 </style>
+
+<script type="text/javascript">
+
+ function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+  $(function(){
+	 var paramPage = getParameterByName('selectedPageIndex');
+	 
+	 $(".page-link").click(function(){
+		var move = document.page;
+		move.selectedPageIndex.value =$(this).text();
+	//	move.method = "post";
+		move.action = "notice.do";
+		move.submit();
+
+	 });
+	 
+	//".page-link" 의 색을 변경 class 
+		alert(paramPage)
+		
+	
+  });
+</script>
 </head>
 <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -130,89 +178,27 @@
       <h2>공지사항</h2>
       
 				<div id="body">
-					<table border="1">
+					<table id="table_notice">
 						<thead>
 							<tr style="height: 45px;">
-								<td></td>
+								<td style="width: 10%;">글 번호</td>
 								<td>글 제목</td>
-								<td>작성자</td>
-								<td>게시일</td>
-								<td>조회수</td>
+								<td style="width: 15%">작성자</td>
+								<td style="width: 15%">게시일</td>
+								<td style="width: 10%">조회수</td>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
-							<tr>
-								<td class="notice_no">93984</td>
-								<td class="notice_title">가제목</td>
-								<td class="notice_writer">가작ㄴㅇ성자</td>
-								<td class="notice_date">2000-88-88</td>
-								<td class="view">999</td>
-							</tr>
+							<c:forEach var="nl" items="${ requestScope.noticeList}">
+								<tr>
+									<td class="notice_no"><c:out value="${nl.notice_no }"/></td>
+									<td class="notice_title"><c:out value="${nl.title }"/></td>
+									<td class="notice_writer"><c:out value="${nl.admin_id }"/></td>
+									<td class="notice_date"><c:out value="${nl.inputdate }"/></td>
+									<td class="view"><c:out value="${nl.view_count }"/></td>
+								</tr>
+							</c:forEach>
 						</tbody>
-						
 					</table>
 					
 					<div style="width: 100%; padding-bottom: 20px; display: block;">
@@ -223,19 +209,11 @@
 					<div style="margin-top: 50px;">
 						<nav aria-label="Page navigation example">
 						  <ul class="pagination justify-content-center">
-						    <li class="page-item disabled">
-						      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+						    <li class="page-item">
+						      <a class="page-link" href="javascript:moveIndex(${param.selectedPageIndex-1 });"  tabindex="-1" aria-disabled="true">Previous</a>
+						      <!-- <li class='page-item'><a class='page-link' href='javascript:moveIndex(1);'>1</a></li><li class='page-item'> -->
 						    </li>
-						    <li class="page-item"><a class="page-link" href="#">1</a></li>
-						    <li class="page-item"><a class="page-link" href="#">2</a></li>
-						    <li class="page-item"><a class="page-link" href="#">3</a></li>
-						    <li class="page-item"><a class="page-link" href="#">4</a></li>
-						    <li class="page-item"><a class="page-link" href="#">5</a></li>
-						    <li class="page-item"><a class="page-link" href="#">6</a></li>
-						    <li class="page-item"><a class="page-link" href="#">7</a></li>
-						    <li class="page-item"><a class="page-link" href="#">8</a></li>
-						    <li class="page-item"><a class="page-link" href="#">9</a></li>
-						    <li class="page-item"><a class="page-link" href="#">10</a></li>
+						    <c:out value="${ requestScope.pageIdx }" escapeXml="false"/>
 						    <li class="page-item">
 						      <a class="page-link" href="#">Next</a>
 						    </li>
@@ -243,13 +221,15 @@
 						</nav>
 					</div>
 					
+					<form name="page">
+						<input type="hidden" name="selectedPageIndex"/>
+					</form>
 					
 					
 					<div style="text-align: center; padding-bottom: 40px;">
 						<select style="height: 30px;">
 							<option>글 제목</option>
 							<option>작성자</option>
-							<option>내용</option>
 						</select>
 						<input type="text" style="height: 25px;"/>
 						<input type="button" class="btn btn-outline-secondary" id="btn_search" value="검색"/>
@@ -257,14 +237,6 @@
 					
 				</div>
 				
-				<c:forEach var="list" items="${noticeList }">
-					<c:out value="${list.notice_no }"/><br/>
-					<c:out value="${list.title }"/><br/>
-					<c:out value="${list.admin_id }"/><br/>
-					<c:out value="${list.inputdate }"/><br/>
-					<c:out value="${list.view_count }"/><br/>
-					<br/>
-				</c:forEach>
       
     </main>
   </div>

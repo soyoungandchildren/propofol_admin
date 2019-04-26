@@ -3,7 +3,7 @@ package kr.co.sist.vo;
 public class SearchNoticeVO {
 	
 	private String searchKeyword;
-	private int searchFlag, startNum, endNum, selectedPageIndex;
+	private int searchFlag, startNum, endNum, selectedPageIndex, pageCnt;
 	public String getSearchKeyword() {
 		return searchKeyword;
 	}
@@ -33,5 +33,11 @@ public class SearchNoticeVO {
 	}
 	public void setSelectedPageIndex(int selectedPageIndex) {
 		this.selectedPageIndex = selectedPageIndex;
+	}
+	public int getPageCnt() {
+		return pageCnt;
+	}
+	public void setPageCnt(int pageCnt) {
+		this.pageCnt = pageCnt;
 	}
 }

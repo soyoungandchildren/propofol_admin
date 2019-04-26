@@ -6,8 +6,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,20 +17,26 @@ import kr.co.sist.vo.SearchNoticeVO;
 @Controller
 public class NoticeController {
 
+	@Autowired(required=false)
+	NoticeService ns;
+	
 	
 	@RequestMapping(value="/notice.do", method= {GET,POST})
 	public String selectNotice(SearchNoticeVO snVO, Model m) {
 		
-		NoticeService ns = new NoticeService();
 		
-		if(snVO == null) {
-			snVO = new SearchNoticeVO();
+		if(snVO.getSelectedPageIndex() == 0) {
 			snVO.setSelectedPageIndex(1);
 		}
 		
 		
 		List<SearchNotice> list = ns.searchNoticeList(snVO);
+		String pageIdx = ns.totalPageIndexList();
+		
 		m.addAttribute("noticeList", list);
+		m.addAttribute("pageIdx", pageIdx);
+			
+		
 		
 		return "notice/notice_board";
 	}
@@ -46,12 +50,5 @@ public class NoticeController {
 	public String goNoticeUpdate() {
 		return "notice/notice_read";
 	}
-	
-//	public static void main(String[] args) {
-//		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/applicationContext.xml");
-//
-//		NoticeService ns = ac.getBean("notice_service", NoticeService.class);
-//		System.out.println(ns);
-//	}
 	
 }//Class
