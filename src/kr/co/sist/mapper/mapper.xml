@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.sist.login">
+	<resultMap type="kr.co.sist.domain.LoginCheckResult" id="LoginCheckResult">
+		<result column="name" property="name"/>
+		<result column="auth" property="authority"/>
+	
+	</resultMap>
+  <select id="logincheck" resultMap="LoginCheckResult" parameterType="kr.co.sist.vo.LoginCheckVO">
+    	select name, auth from admin where admin_id=#{id} and password=#{pass}
+  </select>
+</mapper>
