@@ -5,10 +5,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.List;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.sist.domain.NoticeDetail;
 import kr.co.sist.domain.SearchNotice;
@@ -55,21 +57,18 @@ public class NoticeController {
 	}//goNoticeUpdate
 	
 	
+	@ResponseBody
 	@RequestMapping(value="/modify_notice.do", method=POST)
 	public String modifyNotice(ModifyNoticeVO mnVO, Model model) {
+		System.out.println(mnVO.getTitle());
+		System.out.println(mnVO.getBody());
+		System.out.println(mnVO.getNum());
 		
-		boolean sqlResult = ns.modifyNoticeDetail(mnVO);
-		String resultMsg = "변경 작업 중 오류가 발생했습니다. 나중에 다시 시도해주십시오.";
-		boolean resultFlag = false;
-		if(sqlResult) {
-			resultMsg = "공지사항을 성공적으로 수정하였습니다.";
-			resultFlag = true;
-		}//end if
-		model.addAttribute("noticeDetail", mnVO);
-		model.addAttribute("resultMsg", resultMsg);
-		model.addAttribute("resultFlag", resultFlag);
+		JSONObject json = ns.modifyNoticeDetail(mnVO);
 		
-		return "notice/notice_read";
+		return json.toJSONString();
 	}//goNoticeUpdate
+	
+	
 	
 }//Class

@@ -21,24 +21,20 @@
 		
 		$("#btnModify").click(function(){
 			/* 로그인 계정의 권한 확인 과정 필요 */
-			/* var flag = checkAuth(); 
-			if(flag)*/
-			
-			/* var frm = document.frmNotice;	
-			frm.action = "modify_notice.do";
-			frm.submit(); */
-			
+			/* 들어오는 값에대한 검증 과정 필요 */
 			$.ajax({
 				url:"modify_notice.do",
 				type:"post",
 				dataType:"json",
+				data: $("[name='frmNotice']").serialize(),
 				error:function(xhr){
 					alert(xhr.status+" / "+xhr.statusText);
+					alert(decodeURI(jsonObj.resultMsg));
 				},
 				success:function(jsonObj){
-					alert(jsonObj);
-					$("#name").val(jsonObj.name);
-					$("#age").val(jsonObj.age);
+					var resultMsg = decodeURI(jsonObj.resultMsg);
+					
+					alert(resultMsg.replace(/+/gi, " "));
 				}
 			})//ajax
 			

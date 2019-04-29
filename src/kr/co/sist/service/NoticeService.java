@@ -1,7 +1,12 @@
 package kr.co.sist.service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -57,14 +62,26 @@ public class NoticeService {
 	}//searchNoticeDetail
 	
 	
-	public boolean modifyNoticeDetail(ModifyNoticeVO mnVO) {
-		boolean sqlResult = false;
-		
+	public JSONObject modifyNoticeDetail(ModifyNoticeVO mnVO) {
+		boolean resultFlag = false;
+		String resultMsg = "변경 작업 중 오류가 발생했습니다. 나중에 다시 시도해주십시오.";
+		Map<Object, Object> map = new HashMap<>();
+				
 		if(nDAO.updateNoticeDetail(mnVO)==1) {
-			sqlResult = true;
+			resultMsg = "공지사항을 성공적으로 수정하였습니다.";
+			resultFlag = true;
 		}//end if
 		
-		return sqlResult;
+		try {
+			map.put("resultFlag", resultFlag);
+			map.put("resultMsg", URLEncoder.encode(resultMsg, "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		JSONObject json = new JSONObject(map);
+		
+		return json;
 	}//modifyNoticeDetail
 	
 	
