@@ -7,10 +7,10 @@
 <mapper namespace="kr.co.sist.login">
 	<resultMap type="kr.co.sist.domain.LoginCheckResult" id="LoginCheckResult">
 		<result column="name" property="name"/>
-		<result column="auth" property="authority"/>
+		<result column="authority" property="authority"/>
 	
 	</resultMap>
   <select id="logincheck" resultMap="LoginCheckResult" parameterType="kr.co.sist.vo.LoginCheckVO">
-    	select name, auth from admin where admin_id=#{id} and password=#{pass}
+    	select name, authority from admin where admin_id=#{id} and password=#{pass}
   </select>
 </mapper>

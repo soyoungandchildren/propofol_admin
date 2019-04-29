@@ -18,6 +18,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function(){
+		$(".btn").click(function(){
+			location.href="logout.do";
+
+		});
+		$(".btninquery").click(function(){
+			location.href="inquiry_board.do";
+
+		});
 		
 	});
 </script>
@@ -38,6 +46,9 @@
    	   새션== ${sessionScope.name }      <br/>
    	   		${sessionScope.auth }<br/>
                
+               <br>
+              <input type="button" value="세션 삭제" class="btn"/>
+              <input type="button" value="문의 게시판 이동" class="btninquery"/>
       </div>
       
       <div id="footer">

@@ -80,7 +80,8 @@ h4 {
       <div id="container">
       
         <div class="col-md-offset-5 col-md-3" style="padding-top: 100px">
-        <form action="loginform.do">
+        
+        <form action="loginform.do" method="post">
             <div class="form-login">
            	 <h4>가즈아~~~~</h4>
            	 <div style="padding-top: 70px; text-align: center;">

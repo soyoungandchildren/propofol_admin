@@ -56,14 +56,30 @@
 	#th4{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 100px}
 	#th5{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 100px}
 	#th6{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 100px}
-	#contentsList{padding:1px; text-align: center; height: 12px; word-break:break-all;}
-  
+	#contentsList{ text-align: center;}
+
 	th{text-align: center; background-color:#A2A099; }
 	
 	.mine_th{width: 11%;}
-	
+	#write{display: none;}
 
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$(".btn").click(function(){
+			alert("adsfasdfasdfasdf");
+	           var txt = $("#replyView").text();
+	         if(txt == "댓글 열기"){
+	            $("#replyView").text("댓글 접기")
+	         } else {
+	            $("#replyView").text("댓글 열기")
+	         } // end else 
+	         $("#write").slideToggle(500); 
+	      });  
+	});
+	
+</script>
 </head>
 <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -123,7 +139,7 @@
       
     </nav>
 
-     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" id="main"> 
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" id="main">
     <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; 
     bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
 	    <div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;
@@ -133,58 +149,69 @@
 	    </div>
     </div>
 
-      <h2>문의사항</h2>
+      <h2>문의사항</h2><br/>
       
       <div class="content_div">
-      
-       <table border="1" class="table table-striped" style="max-width: 1000px">
-					  <thead>
-					    <tr >
-					      <th style="width: 50px" >No</th>
-					      <th style="width: 300px" >제목</th>
-					      <th style="width: 100px" >아이디</th>
-					      <th style="width: 100px" >작성날짜</th>
-					      <th style="width: 100px" >상태</th>
-					      <th style="width: 100px" >조회수</th>
-					    </tr>
-					  </thead>
-					  <tbody>
-					    <tr>
-					    <%
-							for(int i=0; i<20;i++){
-						%>
-						<tr>
-							<td id="contentsList">9999999999999999</td>
-							<td id="contentsList">2</td>
-							<td id="contentsList">3</td>
-							<td id="contentsList">4</td>
-							<td id="contentsList">5</td>
-							<td id="contentsList">6</td>
-						</tr>
-						<%
-							}
-						%>
-					     
-					  </tbody>
-					</table>
-				
-				</div><br/>
-				<div style="text-align: center; max-width: 900px;">
-					<nav aria-label="Page navigation example">
-					  <ul class="pagination justify-content-center" >
-				      <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-					<%for(int i=1; i<11;i++){
-					%>
-					   <li class="page-item"><a class="page-link" href="#"><%=i %></a></li>
-					
-					<%} %>
-				    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-				  </ul>
-				</nav>
-				
-					
-				</div>
 	
+				<form >
+					  <div class="form-group" style="max-width:1000px; border: 1px solid gold">
+					    <label >제&nbsp;&nbsp;&nbsp;목</label>
+					    <input type="text" class="form-control" id="" maxlength="30" style="max-width: 445px; display:inline-block;" readonly>
+					    <label >작성자</label>
+					    <input type="text" class="form-control" id="" style="max-width: 445px; display:inline-block;" readonly><br/>
+					    <label >글번호</label>
+					    <input type="text" class="form-control" id="" style="max-width: 445px; display:inline-block;" readonly>
+					    <label >작성일</label>
+					    <input type="text" class="form-control" id="" style="max-width: 440px; display:inline-block;" readonly>
+					     
+					  </div> 
+					  <div class="input-group"> 
+						  <div class="input-group-prepend" >
+						    <span class="input-group-text">내&nbsp;용</span>
+						  </div>
+						  <textarea class="form-control"  style="max-width:945px; min-height: 300px" readonly>bhjklf</textarea>
+						</div>  
+						<br/>
+					  <div style="text-align: center; max-width: 1000px;">
+						  <input type="button" class="btn" value="리스트로" style="color: #ffffff" >
+						  <input type="button" class="btn btn-primary" value="삭&nbsp;&nbsp;제" style="color: #ffffff" >
+						  <input type="button" class="btn" value="답변쓰기" style="color: #ffffff">
+						
+					  </div>   
+					</form>
+				   
+		</div><br/>
+		
+		<div id="write">
+			<form >
+					  <div class="form-group" style="max-width:1000px; border: 1px solid gold">
+					    <label >제&nbsp;&nbsp;&nbsp;목</label>
+					    <input type="text" class="form-control" id="" maxlength="30" style="max-width: 445px; display:inline-block;">
+					    <label >작성자</label>
+					    <input type="text" class="form-control" id="" style="max-width: 445px; display:inline-block;"><br/>
+					    <label >글번호</label>
+					    <input type="text" class="form-control" id="" style="max-width: 445px; display:inline-block;">
+					    <label >작성일</label>
+					    <input type="text" class="form-control" id="" style="max-width: 440px; display:inline-block;">
+					     
+					  </div> 
+					  <div class="input-group"> 
+						  <div class="input-group-prepend" >
+						    <span class="input-group-text">내&nbsp;용</span>
+						  </div>
+						  <textarea class="form-control"  style="max-width:945px; min-height: 300px">bhjklf</textarea>
+						</div>  
+						<br/>
+					  <div style="text-align: center; max-width: 1000px;">
+						  <input type="button" class="btn btn-primary" />리스트로
+						  <input type="button" class="btn btn-primary" />삭&nbsp;&nbsp;제
+						  <input type="button" class="btnsave" />답변 저장
+					  </div>
+			</form>
+		
+		
+		</div>
+      
     </main>
   </div>
 </div>

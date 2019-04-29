@@ -13,16 +13,16 @@ import kr.co.sist.domain.LoginCheckResult;
 import kr.co.sist.vo.LoginCheckVO;
 
 @Component
-public class MyBatisDAO {
+public class MyBatisDao {
 
-	private static MyBatisDAO mb_dao;
+	private static MyBatisDao mb_dao;
 	
-	private MyBatisDAO() {
+	private MyBatisDao() {
 	} // MyBatisDAO
 	
-	public static MyBatisDAO getInstance() {
+	public static MyBatisDao getInstance() {
 		if(mb_dao == null) {
-			mb_dao = new MyBatisDAO();
+			mb_dao = new MyBatisDao();
 			org.apache.ibatis.logging.LogFactory.useLog4JLogging();
 		} // end if
 		return mb_dao;
@@ -49,19 +49,35 @@ public class MyBatisDAO {
 	} // getSessionFactory
 	
 	public LoginCheckResult idCheck(LoginCheckVO lcvo) {
-		SqlSession ss=MyBatisDAO.getInstance().getSessionFactory().openSession();
-		kr.co.sist.domain.LoginCheckResult cnt=ss.selectOne("logincheck",lcvo);
+		SqlSession ss=MyBatisDao.getInstance().getSessionFactory().openSession();
+		LoginCheckResult lcr=null;
+		try {
+		lcr=ss.selectOne("logincheck",lcvo);
+		System.out.println(lcr);	
+		if(null==lcr) {
+				new LoginCheckResult();
+			}
+		}
+		catch(NullPointerException npe) {
+			System.out.println("널널 하구만");
+			System.out.println("======="+lcr);
+			System.out.println(lcr.getName()+"///"+lcr.getAuthority());
+			
+			
+		}
 		ss.close();
-		System.out.println(cnt.getName()+" / "+cnt.getAuthority());
+		System.out.println(lcr.getName()+" /DAO "+lcr.getAuthority());
 		
-		return cnt;
+		
+		
+		return lcr;
 		
 	}	
 	
-/*	public static void main(String[] args) {
-		MyBatisDAO mm=new MyBatisDAO();
+	public static void main(String[] args) {
+		MyBatisDao mm=new MyBatisDao();
 		LoginCheckVO dd=new LoginCheckVO("sso",	"1234");
 		mm.idCheck(dd); 
-	}*/
+	}
 	
 } // class
