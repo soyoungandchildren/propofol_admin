@@ -17,8 +17,6 @@
 <!-- Google jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
-
-	/* 
 	function moveIndex(i){
 		var move = document.page;
 		if(i<=0){
@@ -26,13 +24,10 @@
 		}
 		
 		move.selectedPageIndex.value = i;
-	//	move.method = "post";
+		move.method = "post";
 		move.action = "notice.do";
 		move.submit();
-	} */
-
-
-
+	}
 </script>
 
     <style>
@@ -79,33 +74,6 @@
 @-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}
 </style>
 
-<script type="text/javascript">
-
- function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
-
-  $(function(){
-	 var paramPage = getParameterByName('selectedPageIndex');
-	 
-	 $(".page-link").click(function(){
-		var move = document.page;
-		move.selectedPageIndex.value =$(this).text();
-	//	move.method = "post";
-		move.action = "notice.do";
-		move.submit();
-
-	 });
-	 
-	//".page-link" 의 색을 변경 class 
-		alert(paramPage)
-		
-	
-  });
-</script>
 </head>
 <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -192,7 +160,7 @@
 							<c:forEach var="nl" items="${ requestScope.noticeList}">
 								<tr>
 									<td class="notice_no"><c:out value="${nl.notice_no }"/></td>
-									<td class="notice_title"><c:out value="${nl.title }"/></td>
+									<td class="notice_title"><a href="notice_read.do?num=${nl.notice_no }"><c:out value="${nl.title }"/></a></td>
 									<td class="notice_writer"><c:out value="${nl.admin_id }"/></td>
 									<td class="notice_date"><c:out value="${nl.inputdate }"/></td>
 									<td class="view"><c:out value="${nl.view_count }"/></td>
@@ -211,11 +179,10 @@
 						  <ul class="pagination justify-content-center">
 						    <li class="page-item">
 						      <a class="page-link" href="javascript:moveIndex(${param.selectedPageIndex-1 });"  tabindex="-1" aria-disabled="true">Previous</a>
-						      <!-- <li class='page-item'><a class='page-link' href='javascript:moveIndex(1);'>1</a></li><li class='page-item'> -->
 						    </li>
 						    <c:out value="${ requestScope.pageIdx }" escapeXml="false"/>
 						    <li class="page-item">
-						      <a class="page-link" href="#">Next</a>
+						      <a class="page-link" href="javascript:moveIndex(${param.selectedPageIndex+1 });">Next</a>
 						    </li>
 						  </ul>
 						</nav>

@@ -7,16 +7,16 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-public class SqlSessionFactory {
+public class PropofolSqlSessionFactory {
 
-	private static SqlSessionFactory ssf;
+	private static PropofolSqlSessionFactory ssf;
 	
-	private SqlSessionFactory() {
+	private PropofolSqlSessionFactory() {
 	}
 	
-	public static SqlSessionFactory getInstance() {
+	public static PropofolSqlSessionFactory getInstance() {
 		if(ssf == null) {
-			ssf = new SqlSessionFactory();
+			ssf = new PropofolSqlSessionFactory();
 		}
 		return ssf;
 	}

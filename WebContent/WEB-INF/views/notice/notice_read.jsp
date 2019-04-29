@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +16,56 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!-- Google jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		
+		$("#btnModify").click(function(){
+			/* 로그인 계정의 권한 확인 과정 필요 */
+			/* var flag = checkAuth(); 
+			if(flag)*/
+			
+			/* var frm = document.frmNotice;	
+			frm.action = "modify_notice.do";
+			frm.submit(); */
+			
+			$.ajax({
+				url:"modify_notice.do",
+				type:"post",
+				dataType:"json",
+				error:function(xhr){
+					alert(xhr.status+" / "+xhr.statusText);
+				},
+				success:function(jsonObj){
+					alert(jsonObj);
+					$("#name").val(jsonObj.name);
+					$("#age").val(jsonObj.age);
+				}
+			})//ajax
+			
+		})//btnModify
+		
+		$("#btnRemove").click(function(){
+			/* 로그인 계정의 권한 확인 과정 필요 */
+			/* var flag = checkAuth(); 
+			if(flag)*/
+			
+		})//btnRemove
+		
+	})
+	
+	function goToMain(){
+		if(confirm("변경된 내용은 저장되지 않습니다. 나가시겠습니까?")){
+			location.href = "notice.do";
+		}
+	}//goToMain
+	
+	function checkAuth(){
+		var flag = false;
+		
+		return flag;
+	}//checkAuth
+	
+</script>
 
 
 
@@ -128,19 +179,26 @@
       
 		<div id="body">
 		
-			<div style="margin: 15px;">
-				<span class="content_label">제목</span><input class="form-control" type="text" placeholder="제목">
-			</div>
-			<div style="margin-left: 15px;">
-				<span class="content_label" style="float: left; display: block;">내용</span>
-				<textarea class="form-control" id="" rows="3" style="height: 600px;"></textarea>
-			</div>
-			
+			<c:set var="nd" value="${requestScope.noticeDetail }"/>
+			<form name="frmNotice" method="post">
+				<input type="hidden" value="${param.num }" name="num"/>
+				<div style="margin: 15px;">
+					<span class="content_label">제목</span>
+					<input class="form-control" type="text" placeholder="제목" value="${nd.title }" name="title"/>
+				</div>
+				<div style="margin-left: 15px;">
+					<span class="content_label" style="float: left; display: block;">내용</span>
+					<textarea class="form-control" id="" rows="3" style="height: 600px;" name="body">${nd.body }</textarea>
+				</div>
+			</form>
+		<c:if test="${not empty resultMsg }">
+		 ${resultMsg }
+		</c:if>
 		</div>
 		<div>
-			<button type="button" class="btn btn-outline-primary">수정하기</button>
-			<button type="button" class="btn btn-outline-danger">삭제하기</button>
-			<button type="button" class="btn btn-outline-dark">나가기</button>
+			<button type="button" class="btn btn-outline-primary" id="btnModify">수정하기</button>
+			<button type="button" class="btn btn-outline-danger" id="btnRemove">삭제하기</button>
+			<button type="button" class="btn btn-outline-dark" onclick="goToMain();">나가기</button>
 		</div>
       
     </main>

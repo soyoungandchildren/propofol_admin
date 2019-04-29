@@ -11,6 +11,13 @@
 		<result column="inputdate" property="inputdate"/>
 		<result column="view_count" property="view_count"/>
 	</resultMap>
+	
+	<resultMap type="kr.co.sist.domain.NoticeDetail" id="NoticeDetail">
+		<result column="title" property="title"/>
+		<result column="body" property="body"/>
+		<result column="admin_id" property="admin_id"/>
+		<result column="inputdate" property="inputdate"/>
+	</resultMap>
 
 	<select id="SelectNoticeList" parameterType="kr.co.sist.vo.SearchNoticeVO" resultMap="NoticeResult">
 		select notice_no, admin_id, title, to_char(inputdate, 'yy.mm.dd') inputdate, view_count
@@ -28,5 +35,15 @@
 		select count(*) cnt
 		from mine_notice
 	</select>
+	<select id="selectNoticeDetail" parameterType="int" resultMap="NoticeDetail">
+		select admin_id, title, body, to_char(inputdate, 'yyyy.mm.dd hh24:mi') inputdate 
+		from mine_notice 
+		where notice_no = #{notice_no} 
+	</select> 
+	<update id="updateNoticeDetail" parameterType="kr.co.sist.vo.ModifyNoticeVO">
+		update mine_notice 
+		set title=#{title}, body=#{body} 
+		where notice_no = #{num} 
+	</update>
   
 </mapper>
