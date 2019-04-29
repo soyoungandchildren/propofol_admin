@@ -10,7 +10,7 @@ public class InquiryService {
 
 	
 	 private MyBatisDao mb_dao;
-	   public inquiryService() {
+	   public InquiryService() {
 	      mb_dao= MyBatisDao.getInstance();
 	   }//mb_dao
 	   
@@ -163,7 +163,7 @@ public class InquiryService {
 	    return strList;
 	    }//indexList
 	    
-	    public DiaryDetail searchBbs(int num) {
+/*	    public DiaryDetail searchBbs(int num) {
 	    	DiaryDetail dd=mb_dao.selectDiaryDetail(num);
 	    	return dd;
 	    }
@@ -181,5 +181,5 @@ public class InquiryService {
 	        
 	        return json;
 	     } // writeReply
-
+*/
 }
