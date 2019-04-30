@@ -1,7 +1,5 @@
 package kr.co.sist.service;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +13,7 @@ import kr.co.sist.domain.NoticeDetail;
 import kr.co.sist.domain.SearchNotice;
 import kr.co.sist.vo.ModifyNoticeVO;
 import kr.co.sist.vo.SearchNoticeVO;
+import kr.co.sist.vo.WriteNoticeVO;
 @Component
 public class NoticeService {
 
@@ -72,17 +71,43 @@ public class NoticeService {
 			resultFlag = true;
 		}//end if
 		
-		try {
-			map.put("resultFlag", resultFlag);
-			map.put("resultMsg", URLEncoder.encode(resultMsg, "UTF-8"));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		map.put("resultFlag", resultFlag);
+		map.put("resultMsg", resultMsg);
 		
 		JSONObject json = new JSONObject(map);
 		
 		return json;
 	}//modifyNoticeDetail
 	
+	
+	public JSONObject writeNotice(WriteNoticeVO wnVO) {
+		boolean resultFlag = false;
+		String resultMsg = "공지사항 등록 중 오류가 발생했습니다. 나중에 다시 시도해주십시오.";
+		Map<Object, Object> map = new HashMap<>();
+		if(nDAO.insertNotice(wnVO)==1) {
+			resultFlag = true;
+			resultMsg = "공지사항을 성공적으로 등록하였습니다.";
+		}//end if
+		map.put("resultFlag", resultFlag);
+		map.put("resultMsg", resultMsg);
+		
+		JSONObject json = new JSONObject(map);
+		return json;
+	}//writeNotice
+	
+	
+	public JSONObject removeNotice(int num) {
+		String resultMsg = "공지사항 삭제 중 오류가 발생했습니다. 나중에 다시 시도해주십시오.";
+		
+		if(nDAO.deleteNotice(num)==1) {
+			resultMsg = "삭제하였습니다.";
+		}//end if
+		
+		Map<Object, Object> map = new HashMap<>();
+		map.put("resultMsg", resultMsg);
+		
+		JSONObject json = new JSONObject(map);
+		return json;
+	}//removeNotice
 	
 }//Class

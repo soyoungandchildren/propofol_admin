@@ -32,9 +32,8 @@
 					alert(decodeURI(jsonObj.resultMsg));
 				},
 				success:function(jsonObj){
-					var resultMsg = decodeURI(jsonObj.resultMsg);
-					
-					alert(resultMsg.replace(/+/gi, " "));
+					var resultMsg = jsonObj.resultMsg;
+					alert(resultMsg);
 				}
 			})//ajax
 			
@@ -42,17 +41,36 @@
 		
 		$("#btnRemove").click(function(){
 			/* 로그인 계정의 권한 확인 과정 필요 */
-			/* var flag = checkAuth(); 
-			if(flag)*/
 			
+			if(confirm("해당 공지사항을 정말 삭제하시겠습니까?")){
+	 			$.ajax({
+					url:"remove_notice.do",
+					type:"post",
+					dataType:"json",
+					data: "num="+$("[name='num']").val(),
+					error:function(xhr){
+						alert(xhr.status+" / "+xhr.statusText);
+						alert(decodeURI(jsonObj.resultMsg));
+					},
+					success:function(jsonObj){
+						var resultMsg = jsonObj.resultMsg;
+						alert(resultMsg);
+						location.replace("notice.do");
+					}//success
+				})//ajax */
+				
+				
+			}//end if
 		})//btnRemove
 		
 	})
 	
 	function goToMain(){
+		
 		if(confirm("변경된 내용은 저장되지 않습니다. 나가시겠습니까?")){
 			location.href = "notice.do";
-		}
+		}//end if
+		
 	}//goToMain
 	
 	function checkAuth(){

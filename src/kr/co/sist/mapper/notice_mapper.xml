@@ -45,5 +45,13 @@
 		set title=#{title}, body=#{body} 
 		where notice_no = #{num} 
 	</update>
+	<insert id="insertNotice" parameterType="kr.co.sist.vo.WriteNoticeVO">
+		insert into mine_notice(notice_no, admin_id, title, body)
+		values(seq_notice_num.nextval, #{admin_id}, #{title}, #{body})
+	</insert>
+	<delete id="deleteNotice" parameterType="int">
+		delete from mine_notice
+		where notice_no = #{notice_no}
+	</delete>
   
 </mapper>

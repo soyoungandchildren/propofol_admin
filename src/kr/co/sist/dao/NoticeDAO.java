@@ -9,6 +9,7 @@ import kr.co.sist.domain.NoticeDetail;
 import kr.co.sist.domain.SearchNotice;
 import kr.co.sist.vo.ModifyNoticeVO;
 import kr.co.sist.vo.SearchNoticeVO;
+import kr.co.sist.vo.WriteNoticeVO;
 @Component
 public class NoticeDAO {
 
@@ -49,6 +50,26 @@ public class NoticeDAO {
 		ss.close();
 		return sqlResult;
 	}//updateNoticeDetail
+	
+	
+	public int insertNotice(WriteNoticeVO wnVO) {
+		SqlSession ss = PropofolSqlSessionFactory.getInstance().getSqlSessionFactory().openSession();
+		int sqlResult = ss.insert("insertNotice", wnVO);
+		ss.commit();
+		ss.close();
+		
+		return sqlResult;
+	}//insertNotice
+	
+	
+	public int deleteNotice(int notice_no) {
+		SqlSession ss = PropofolSqlSessionFactory.getInstance().getSqlSessionFactory().openSession();
+		int sqlResult = ss.delete("deleteNotice", notice_no);
+		ss.commit();
+		ss.close();
+		
+		return sqlResult;
+	}//
 	
 	
 }//Class

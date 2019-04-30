@@ -15,6 +15,33 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!-- Google jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#btnWrite").click(function(){
+			$.ajax({
+				url:"confirm_write.do",
+				type:"post",
+				dataType:"json",
+				data:$("[name='writeFrm']").serialize(),
+				error:function(xhr){
+					console.log(xhr.status+"///"+xhr.statusText)
+				},
+				success:function(jsonObj){
+					alert(jsonObj.resultMsg);
+					location.replace("notice.do");
+				}
+			})
+		})//btnWrite
+		
+		$("#btnExit").click(function(){
+			if(confirm("작성하신 내용은 저장되지 않으며 소실됩니다. 정말 나가시겠습니까?")){
+				history.back();
+			}//end if
+		})
+		
+	})//ready	
+
+</script>
 
 
 
@@ -128,18 +155,20 @@
       
 		<div id="body">
 		
-			<div style="margin: 15px;">
-				<span class="content_label">제목</span><input class="form-control" type="text" placeholder="제목">
-			</div>
-			<div style="margin-left: 15px;">
-				<span class="content_label" style="float: left; display: block;">내용</span>
-				<textarea class="form-control" id="" rows="3" style="height: 600px;"></textarea>
-			</div>
+			<form name="writeFrm">
+				<div style="margin: 15px;">
+					<span class="content_label">제목</span><input class="form-control" type="text" placeholder="제목" name="title"/>
+				</div>
+				<div style="margin-left: 15px;">
+					<span class="content_label" style="float: left; display: block;">내용</span>
+					<textarea class="form-control" id="" rows="3" style="height: 600px;" name="body"></textarea>
+				</div>
+			</form>
 			
 		</div>
 		<div>
-			<button type="button" class="btn btn-outline-primary">작성 완료</button>
-			<button type="button" class="btn btn-outline-dark">나가기</button>
+			<button type="button" class="btn btn-outline-primary" id="btnWrite">작성 완료</button>
+			<button type="button" class="btn btn-outline-dark" id="btnExit">나가기</button>
 		</div>
       
     </main>

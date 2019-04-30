@@ -15,6 +15,13 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!-- Google jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#btnAccount").click(function(){
+			location.href="admin_list.do";
+		})//btnAccount
+	})//ready
+</script>
 
 
     <style>
@@ -48,7 +55,7 @@
     .input-group-text{font-weight: 550; width: 140px; display: initial;}
     .input-group>.form-control{flex: initial; width: 250px;}
       
-    #btn_account{margin-left: 30px;width: 200px;height: 80px;font-size: 20px;font-weight: 550;margin-top: 10px;}
+    #btnAccount{margin-left: 30px;width: 200px;height: 80px;font-size: 20px;font-weight: 550;margin-top: 10px;}
             
      </style>
     <!-- Custom styles for this template -->
@@ -154,7 +161,7 @@
 			</div>
 			
 			<div>
-				<button type="button" class="btn btn-outline-info" id="btn_account">관리자 계정 관리</button>
+				<button type="button" class="btn btn-outline-info" id="btnAccount">관리자 계정 관리</button>
 			</div>
 			
 		</div>

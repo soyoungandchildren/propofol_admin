@@ -17,12 +17,13 @@ import kr.co.sist.domain.SearchNotice;
 import kr.co.sist.service.NoticeService;
 import kr.co.sist.vo.ModifyNoticeVO;
 import kr.co.sist.vo.SearchNoticeVO;
+import kr.co.sist.vo.WriteNoticeVO;
 
 @Controller
 public class NoticeController {
 
 	@Autowired(required=false)
-	NoticeService ns;
+	private NoticeService ns;
 	
 	
 	@RequestMapping(value="/notice.do", method= {GET,POST})
@@ -30,8 +31,7 @@ public class NoticeController {
 		
 		if(snVO.getSelectedPageIndex() == 0) {
 			snVO.setSelectedPageIndex(1);
-		}
-		
+		}//end if
 		
 		List<SearchNotice> list = ns.searchNoticeList(snVO);
 		String pageIdx = ns.totalPageIndexList();
@@ -40,12 +40,25 @@ public class NoticeController {
 		m.addAttribute("pageIdx", pageIdx);
 		
 		return "notice/notice_board";
-	}
+	}//searchNoticeList
+	
 	
 	@RequestMapping(value="/notice_write.do", method=GET)
 	public String moveToNoticeWrite() {
 		return "notice/notice_write";
-	}
+	}//moveToNoticeWrite
+
+	@ResponseBody
+	@RequestMapping(value="/confirm_write.do", method=POST, produces="text/plain;charset=UTF-8")
+	public String writeNotice(WriteNoticeVO wnVO) {
+		System.out.println("오긴하냐");
+		System.out.println(wnVO.getTitle());
+		System.out.println(wnVO.getBody());
+		wnVO.setAdmin_id("test");
+		JSONObject js = ns.writeNotice(wnVO);
+		return js.toJSONString();
+	}//writeNotice
+	
 	
 	@RequestMapping(value="/notice_read.do", method=GET)
 	public String moveToNoticeRead(int num, Model model) {
@@ -58,17 +71,18 @@ public class NoticeController {
 	
 	
 	@ResponseBody
-	@RequestMapping(value="/modify_notice.do", method=POST)
+	@RequestMapping(value="/modify_notice.do", method=POST, produces="text/plain;charset=UTF-8")
 	public String modifyNotice(ModifyNoticeVO mnVO, Model model) {
-		System.out.println(mnVO.getTitle());
-		System.out.println(mnVO.getBody());
-		System.out.println(mnVO.getNum());
-		
 		JSONObject json = ns.modifyNoticeDetail(mnVO);
 		
 		return json.toJSONString();
 	}//goNoticeUpdate
 	
-	
+	@ResponseBody
+	@RequestMapping(value="/remove_notice.do", method=POST, produces="text/plain;charset=UTF-8")
+	public String removeNotice(int num) {
+		JSONObject json = ns.removeNotice(num);
+		return json.toJSONString();
+	}//removeNotice
 	
 }//Class
