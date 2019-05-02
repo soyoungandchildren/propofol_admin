@@ -15,6 +15,70 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!-- Google jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#btnAddAdmin").click(function(){
+			var frm = document.frmAddAdmin;
+			var name = $("[name='name']").val();
+			var password = $("[name='password']").val();
+			var confirmPassword = $("[name='confirmPassword']").val();
+			var admin_id = $("[name='admin_id']").val();
+			        
+			
+			if( password != confirmPassword ){
+				alert("작성한 비밀번호를 확인해주세요.");
+				frm.password.value = "";
+				frm.confirmPassword.value = "";
+				frm.password.focus();
+				return;
+			}//end if
+			
+			if( name==null || password==null || admin_id==null ){
+				alert("내용을 입력해주세요.");
+				return;
+			}//end if
+			
+			if( ""==name || ""==password || ""==admin_id ){
+				alert("내용을 입력해주세요.");
+				return;
+			}//end if
+			
+			if( password.indexOf(" ") != -1 ){
+				alert("비밀번호에는 공백이 들어갈 수 없습니다.");
+				frm.password.value = "";
+				frm.confirmPassword.value = "";
+				frm.password.focus();
+				return;
+			}//end if
+			
+			if( admin_id.indexOf(" ") != -1 ){
+				alert("아이디에는 공백이 들어갈 수 없습니다.");
+				frm.admin_id.value = "";
+				frm.admin_id.focus();
+				return;
+			}//end if
+			
+			$.ajax({
+				url:"add_admin_account.do",
+				type:"post",
+				dataType:"json",
+				data:$("[name='frmAddAdmin']").serialize(),
+				error:function(xhr){
+					console.log(xhr.status+"///"+xhr.statusText);
+				},
+				success:function(jsonObj){
+					alert(jsonObj.resultMsg);
+					if(jsonObj.resultFlag){
+						location.replace("admin_list.do");
+					}//end if
+				}
+			});//ajax
+			
+		})//click
+		
+	})//ready
+
+</script>
 
 
 
@@ -133,36 +197,38 @@
       
 		<div id="body">
 			
-			<div class="input-group mb-3">
-			  <div class="input-group-prepend">
-			    <span class="input-group-text" id="basic-addon3">아이디</span>
-			  </div>
-			  <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="아이디 입력">
-			</div>
-			
-			<div class="input-group mb-3" style="margin-top: 15px;">
-			  <div class="input-group-prepend">
-			    <span class="input-group-text" id="basic-addon3">비밀번호 확인</span>
-			  </div>
-			  <input type="password" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="비밀번호 입력">
-			</div>
-			
-			<div class="input-group mb-3" style="margin-top: 15px; margin-left: 170px; margin-top: -15px;">
-				<input type="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호 확인">
-			</div>
-			
-			<div class="input-group mb-3" style="margin-top: 15px;">
-			  <div class="input-group-prepend">
-			    <span class="input-group-text" id="basic-addon3">관리자 이름</span>
-			  </div>
-			  <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="관리자명 입력">
-			</div>
+			<form name="frmAddAdmin">
+				<div class="input-group mb-3">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text" id="basic-addon3">아이디</span>
+				  </div>
+				  <input type="text" class="form-control" aria-describedby="basic-addon3" placeholder="아이디 입력" name="admin_id">
+				</div>
+				
+				<div class="input-group mb-3" style="margin-top: 15px;">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text" id="basic-addon3">비밀번호 확인</span>
+				  </div>
+				  <input type="password" class="form-control" aria-describedby="basic-addon3" placeholder="비밀번호 입력" name="password">
+				</div>
+				
+				<div class="input-group mb-3" style="margin-top: 15px; margin-left: 170px; margin-top: -15px;">
+					<input type="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호 확인" name="confirmPassword">
+				</div>
+				
+				<div class="input-group mb-3" style="margin-top: 15px;">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text" id="basic-addon3">관리자 이름</span>
+				  </div>
+				  <input type="text" class="form-control" aria-describedby="basic-addon3" placeholder="관리자명 입력" name="name">
+				</div>
+			</form>
 			
 		</div>
 		
 		<div id="button_group">
-			<button type="button" class="btn btn-outline-primary">계정추가</button>
-			<button type="button" class="btn btn-outline-secondary">뒤로가기</button>
+			<button type="button" class="btn btn-outline-primary" id="btnAddAdmin">계정추가</button>
+			<button type="button" class="btn btn-outline-secondary" onclick="javascript:history.back();">뒤로가기</button>
 		</div>
       
     </main>

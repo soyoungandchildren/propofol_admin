@@ -1,7 +1,7 @@
 package kr.co.sist.domain;
 
 public class Admin {
-	String admin_id, authority, inputdate, name, isremoved;
+	String admin_id, authority, inputdate, name;
 
 	public String getAdmin_id() {
 		return admin_id;
@@ -33,13 +33,5 @@ public class Admin {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getIsremoved() {
-		return isremoved;
-	}
-
-	public void setIsremoved(String isremoved) {
-		this.isremoved = isremoved;
 	}
 }

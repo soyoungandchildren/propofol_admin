@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +16,40 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!-- Google jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		
+		$("#btnAddAdmin").click(function(){
+			location.href = "admin_add.do";
+		})//btnAddAdmin
+		
+	})//ready
+	
+	function changeAuth(data){
+		/* 로그인 계정의 권한 확인 과정 필요 */
+		
+		
+		alert(data[0]);
+		
+	/* 	if( confirm("정말 "+data[0]+" 계정의 권한을 변경하시겠습니까?") ){
+			$.ajax({
+				url:"change_auth.do",
+				type:"post",
+				dataType:"json",
+				data: data,
+				error:function(xhr){
+					console.log(xhr.status+"///"+xhr.statusText);
+				},
+				success:function(resultMsg){
+					console.log("성공");
+				}
+			});
+		}else{
+			return;
+		}//end else */
+			
+	}//changeAuth
+</script>
 
 
     <style>
@@ -126,7 +161,7 @@
 
       <h2>관리자 계정 목록</h2>
       
-      	<button type="button" class="btn btn-outline-primary" style="width: 130px; height: 50px; font-size: 1.25rem;">계정 추가</button>
+      	<button type="button" class="btn btn-outline-primary" style="width: 130px; height: 50px; font-size: 1.25rem;" id="btnAddAdmin">계정 추가</button>
       
 		<div id="body">
 		
@@ -144,36 +179,31 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-				    <tr>
-				      <th scope="row">아이디1</th>
-				      <td>ADMIN</td>
-				      <td>곽우신</td>
-				      <td>1994-03-11</td>
-				      <td><button type="button" class="btn btn-outline-success">권한 변경</button></td>
-				      <td><button type="button" class="btn btn-outline-danger">계정 삭제</button></td>
-				    </tr>
-				    <tr>
-				      <th scope="row">아이디2</th>
-				      <td>MANAGER</td>
-				      <td>김희철</td>
-				      <td>2088-29-32</td>
-				      <td><button type="button" class="btn btn-outline-success">권한 변경</button></td>
-				      <td><button type="button" class="btn btn-outline-danger">계정 삭제</button></td>
-				    </tr>
-				    <tr>
-				      <th scope="row">아이디2</th>
-				      <td>MANAGER</td>
-				      <td>노진경</td>
-				      <td>3931-23-42</td>
-				      <td><button type="button" class="btn btn-outline-success">권한 변경</button></td>
-				      <td><button type="button" class="btn btn-outline-danger">계정 삭제</button></td>
-				    </tr>
+				  	<c:if test="${empty adminList }">
+				  		<tr>
+				  			<th colspan="6">등록된 관리자 계정이 없습니다.</th>
+				  		</tr>
+				  	</c:if>
+				  	<c:if test="${not empty adminList }">
+				  		<c:forEach var="al" items="${adminList }">
+					    <tr>
+					      <th scope="row">${al.admin_id }</th>
+					      <td>${al.authority }</td>
+					      <td>${al.name }</td>
+					      <td>${al.inputdate }</td>
+					      <td colspan="2">
+						      <input type="button" class="btn btn-outline-success" onclick="javascript:changeAuth({'${al.admin_id}', '${al.authority}'})" value="권한 변경"/>
+						      <input type="button" class="btn btn-outline-danger" onclick="javascript:rermoveAcco('${al.admin_id}')" value="계정 삭제"/>
+					      </td>
+					    </tr>
+				  		</c:forEach>
+				  	</c:if>
 				  </tbody>
 				</table>
 			</div>
 		
 		</div>
-		<button type="button" class="btn btn-outline-secondary">뒤로 가기</button>
+		<button type="button" class="btn btn-outline-secondary" onclick="javascript:history.back();">뒤로 가기</button>
       
     </main>
   </div>

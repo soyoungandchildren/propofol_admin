@@ -16,8 +16,13 @@
 <!-- Google jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
+
+	var isRun = false;
 	$(function() {
 		$("#btnWrite").click(function(){
+			
+			if(!isRun ){
+				
 			$.ajax({
 				url:"confirm_write.do",
 				type:"post",
@@ -30,7 +35,10 @@
 					alert(jsonObj.resultMsg);
 					location.replace("notice.do");
 				}
-			})
+			});
+			isRun = true;
+			
+			}//end if
 		})//btnWrite
 		
 		$("#btnExit").click(function(){

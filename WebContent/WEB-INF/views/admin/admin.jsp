@@ -20,7 +20,69 @@
 		$("#btnAccount").click(function(){
 			location.href="admin_list.do";
 		})//btnAccount
+		
+		$("#btnModifyAdminInfo").click(function(){
+			
+			var frm = document.frmInfo;
+			var inputPass = frm.password.value;
+			var inputConfirmPass = frm.confirmPassword.value;
+			var inputName = frm.name.value;
+			
+			if(""==inputName && ""==inputPass && ""==inputConfirmPass){
+				alert("변경할 부분을 입력해주세요.");
+				return;
+			}//end if
+			
+			if(inputName == null && inputPass == null && inputConfirmPass == null){
+				alert("변경할 부분을 입력해주세요.");
+				return;
+			}//end if 
+			
+			if(inputPass!=inputConfirmPass){
+				alert("작성하신 비밀번호가 서로 다릅니다. 다시 확인해주세요.");
+				frm.password.value = "";
+				frm.confirmPassword.value = "";
+				frm.password.focus();
+				return;
+			}//end if
+			
+			if(inputName!=""){
+				if(inputName.replace(/ /g, "").length == 0){
+					alert("이름을 입력해주세요.")
+					frm.name.focus();
+					return;
+				}//end if
+			}//end if
+			
+			if(inputPass.indexOf(" ") != -1){
+				alert("비밀번호는 공백이 들어갈 수 없습니다.");
+				frm.password.value = "";
+				frm.confirmPassword.value = "";
+				frm.password.focus();
+				return;
+			}//end if
+			
+			
+			$.ajax({
+				url:"modify_admin_info.do",
+				type:"post",
+				dataType:"json",
+				data:$("[name='frmInfo']").serialize(),
+				error:function(xhr){
+					console.log(xhr.status+"///"+xhr.statusText)
+				},
+				success:function(jsonObj){
+					alert(jsonObj.resultMsg);
+					location.replace("admin.do");
+				}
+			})//ajax
+			
+		})//btnModifyAdminInfo
+		
 	})//ready
+	
+	
+	
 </script>
 
 
@@ -135,29 +197,31 @@
       
 		<div id="body">
 		
+		<form name = "frmInfo">
 			<div class="input-group mb-3">
 			  <div class="input-group-prepend">
 			    <span class="input-group-text" id="basic-addon3">비밀번호</span>
 			  </div>
-			  <input type="password" class="form-control" id="" aria-describedby="basic-addon3">
+			  <input type="password" class="form-control"  name="password" aria-describedby="basic-addon3">
 			</div>
 			
 			<div class="input-group mb-3" style="margin-top: 15px;">
 			  <div class="input-group-prepend">
 			    <span class="input-group-text">비밀번호 확인</span>
 			  </div>
-			  <input type="password" class="form-control" aria-describedby="basic-addon3">
+			  <input type="password" class="form-control" aria-describedby="basic-addon3" name="confirmPassword">
 			</div>
 			
 			<div class="input-group mb-3" style="margin-top: 15px;">
 			  <div class="input-group-prepend">
 			    <span class="input-group-text">관리자 이름</span>
 			  </div>
-			  <input type="text" class="form-control" aria-describedby="basic-addon3">
+			  <input type="text" class="form-control"  name="name" aria-describedby="basic-addon3">
 			</div>
+		</form>
 			
 			<div>
-				<button type="button" class="btn btn-outline-primary" style="width: 90px; margin-left: 328px;">변경</button>
+				<button type="button" class="btn btn-outline-primary" style="width: 90px; margin-left: 328px;" id="btnModifyAdminInfo">변경</button>
 			</div>
 			
 			<div>

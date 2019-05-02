@@ -8,7 +8,9 @@ import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class PropofolSqlSessionFactory {
-
+/*
+ *  AdminService : id에 id1으로 강제로 넣고있는 중. Sesseion값 받는 것으로 수정.
+ */
 	private static PropofolSqlSessionFactory ssf;
 	
 	private PropofolSqlSessionFactory() {

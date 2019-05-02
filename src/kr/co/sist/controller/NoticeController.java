@@ -51,9 +51,6 @@ public class NoticeController {
 	@ResponseBody
 	@RequestMapping(value="/confirm_write.do", method=POST, produces="text/plain;charset=UTF-8")
 	public String writeNotice(WriteNoticeVO wnVO) {
-		System.out.println("오긴하냐");
-		System.out.println(wnVO.getTitle());
-		System.out.println(wnVO.getBody());
 		wnVO.setAdmin_id("test");
 		JSONObject js = ns.writeNotice(wnVO);
 		return js.toJSONString();
