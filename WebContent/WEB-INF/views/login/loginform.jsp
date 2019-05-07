@@ -67,7 +67,7 @@ h4 {
 	$(function(){
 		var id=$("#userName").val();
 		$(".btn").click(function(){
-			alert(id);
+		//	alert(id);
 		});
 		
 	});
@@ -85,9 +85,9 @@ h4 {
             <div class="form-login">
            	 <h4>가즈아~~~~</h4>
            	 <div style="padding-top: 70px; text-align: center;">
-          		 <input type="text" name="userID" class="form-control" placeholder="ID" />
+          		 <input type="text" name="userID" class="form-control" placeholder="ID"  required="required"/>
            		 <br/>
-           		 <input type="text" name="Password" class="form-control" placeholder="password" />
+           		 <input type="password" name="Password" class="form-control" placeholder="password"  />
           	 	 <br/>
           	  </div><br/>
           		  <div class="wrapper">

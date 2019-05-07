@@ -13,4 +13,49 @@
   <select id="logincheck" resultMap="LoginCheckResult" parameterType="kr.co.sist.vo.LoginCheckVO">
     	select name, authority from admin where admin_id=#{id} and password=#{pass}
   </select>
+  
+  <select id="diaryTotalCnt" resultType="int">
+		select count(*) cnt from inquery
+	</select>
+  
+  
+  <resultMap type="kr.co.sist.domain.InquiryList" id="ListResult">
+		<result column="num" property="num"/>
+		<result column="user_id" property="user_id"/>
+		<result column="subject" property="subject"/>
+		<result column="user_contents" property="user_contents"/>
+		<result column="status" property="status"/>
+		<result column="w_date" property="w_date"/>
+		<result column="views" property="views"/>
+	</resultMap>
+  
+  <select id="inquiryList" resultMap="ListResult" parameterType="kr.co.sist.vo.InquiryPageSetVO">
+  
+		SELECT NUM, USER_ID, SUBJECT, USER_CONTENTS, STATUS, to_char(W_DATE, 'yyyy-mm-dd') as w_date ,views
+		FROM (SELECT NUM, USER_ID, SUBJECT, USER_CONTENTS, STATUS, W_DATE,views,
+        ROW_NUMBER() OVER( ORDER BY W_DATE DESC) AS R_NUM 
+        FROM INQUERY)
+        WHERE R_NUM BETWEEN #{startNum} AND #{endNum }
+       
+           
+	</select>
+  
+  
+  <!-- 	<select id="diaryDetail" parameterType="int" resultType="kr.co.sist.domain.DiaryDetail">
+		SELECT WRITER, SUBJECT, CONTENTS, TO_CHAR(W_DATE, 'YYYY-MM-DD DY HH24:MI') W_DATE, IP
+        FROM DIARY
+        WHERE NUM=#{num}
+	</select>
+	<select id="diaryReply" resultType="kr.co.sist.domain.DiaryReply" parameterType="int">
+		select num,writer,content,to_char(input_date,'yyyy-mm-dd hh24:mi') input_date
+		from diary_reply
+		where num_ref=#{num_ref}
+		order by num desc
+	</select>
+	<insert id="insertReply" parameterType="kr.co.sist.vo.ReplyVO">
+		insert into diary_reply(num,num_ref,writer,content,input_date)
+		values(seq_reply.nextval,#{num_ref},#{writer},#{content},sysdate)
+	</insert> -->
+  
+
 </mapper>

@@ -2,7 +2,10 @@ package kr.co.sist.service;
 
 import java.util.List;
 
+
 import kr.co.sist.dao.MyBatisDao;
+import kr.co.sist.domain.InquiryList;
+import kr.co.sist.vo.InquiryPageSetVO;
 
 
 
@@ -67,12 +70,12 @@ public class InquiryService {
 	       return endNum;
 	    }//endNum
 	    
-	    public List<Diary> searchDiaryList(DiaryVO dv){
-	    	List<Diary> list =null;
-	    	list = mb_dao.selectList(dv);
+	    public List<InquiryList> searchDiaryList(InquiryPageSetVO ipsvo){
+	    	List<InquiryList> list =null;
+	    	list = mb_dao.selectList(ipsvo);
 			//글의 제목은 24자 까지만 보여준다
 			
-				Diary dl_vo=null;
+				/*Diary dl_vo=null;
 				String subject="";
 				String writer="";
 				for(int i=0; i<list.size();i++) {
@@ -87,7 +90,7 @@ public class InquiryService {
 						writer=writer.substring(0, 23)+"**";
 						dl_vo.setWriter(writer);
 					}
-				}
+				}*/
 				
 	    	return list;
 	    }
@@ -102,7 +105,7 @@ public class InquiryService {
 	     * @param list_url
 	     * @return
 	     */
-	    public String indexList(int current_page, int total_page, String list_url) {
+	/*    public String indexList(int current_page, int total_page, String list_url) {
 	    int pagenumber; // 화면에 보여질 페이지 인덱스 수
 	    int startpage; // 화면에 보여질 시작페이지 번호
 	    int endpage; // 화면에 보여질 마지막페이지 번호
@@ -162,7 +165,7 @@ public class InquiryService {
 
 	    return strList;
 	    }//indexList
-	    
+	    */
 /*	    public DiaryDetail searchBbs(int num) {
 	    	DiaryDetail dd=mb_dao.selectDiaryDetail(num);
 	    	return dd;
@@ -182,4 +185,21 @@ public class InquiryService {
 	        return json;
 	     } // writeReply
 */
+	    
+	    
+/*	    public static void main(String[] args) {
+			InquiryService is=new InquiryService();
+			System.out.println(is.totalCount()    );
+			System.out.println(is.pageScale()    );
+			System.out.println(is.totalPage(is.totalCount())    );
+			System.out.println(is.searchDiaryList() );
+			
+			
+			is.startNum(currentPage);
+			is.endNum(startNum);
+			
+		}*/
+	    
+	    
+	    
 }

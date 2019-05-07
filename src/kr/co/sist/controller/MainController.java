@@ -38,7 +38,10 @@ public class MainController {
 		
 //		LoginCheckVO lcvo=new LoginCheckVO("sso", "1234");
 		lcr=ls.loginProcess(id,pass);
-		
+		if(lcr == null) {
+			
+			return "/login/loginform";
+		}
 		if( !("".equals(id) && "".equals(pass)) ) {
 			System.out.println(lcr.getName()+"///////////");
 			if(!(session.getAttribute("name")==lcr.getName())) {
@@ -48,7 +51,6 @@ public class MainController {
 			}
 		}
 		
-		System.out.println(lcr.getName()+"///"+lcr.getAuthority());
 		model.addAttribute("userinfo",lcr);
 		
 		return "login/temp";

@@ -2,6 +2,7 @@ package kr.co.sist.dao;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -9,7 +10,9 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
+import kr.co.sist.domain.InquiryList;
 import kr.co.sist.domain.LoginCheckResult;
+import kr.co.sist.vo.InquiryPageSetVO;
 import kr.co.sist.vo.LoginCheckVO;
 
 @Component
@@ -58,26 +61,41 @@ public class MyBatisDao {
 				new LoginCheckResult();
 			}
 		}
-		catch(NullPointerException npe) {
+		catch(Exception npe) {
 			System.out.println("널널 하구만");
 			System.out.println("======="+lcr);
 			System.out.println(lcr.getName()+"///"+lcr.getAuthority());
 			
 			
+		}finally {
+			ss.close();
 		}
-		ss.close();
-		System.out.println(lcr.getName()+" /DAO "+lcr.getAuthority());
+	//	System.out.println(lcr.getName()+" /DAO "+lcr.getAuthority());
 		
 		
 		
 		return lcr;
 		
-	}	
-	
-	public static void main(String[] args) {
-		MyBatisDao mm=new MyBatisDao();
-		LoginCheckVO dd=new LoginCheckVO("sso",	"1234");
-		mm.idCheck(dd); 
 	}
+	public int selectTotalCount() {
+		SqlSession ss=getSessionFactory().openSession();
+		int cnt=ss.selectOne("diaryTotalCnt");
+		ss.close();
+		return cnt;
+	}
+	public List<InquiryList>selectList(InquiryPageSetVO ipsvo){
+		List<InquiryList> list=null;
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("inquiryList", ipsvo);
+		ss.close();
+		return list;
+	}
+	
+	
+	
+	/*public static void main(String[] args) {
+		MyBatisDao mm=new MyBatisDao();
+		System.out.println(mm.selectList()); 
+	}*/
 	
 } // class

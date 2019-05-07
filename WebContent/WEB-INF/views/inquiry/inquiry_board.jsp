@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -141,30 +142,41 @@
 					  <thead>
 					    <tr >
 					      <th style="width: 50px" >No</th>
+					      <th style="width: 50px" >No</th>
 					      <th style="width: 300px" >제목</th>
-					      <th style="width: 100px" >아이디</th>
+					      <th style="width: 60px" >아이디</th>
 					      <th style="width: 100px" >작성날짜</th>
-					      <th style="width: 100px" >상태</th>
-					      <th style="width: 100px" >조회수</th>
+					      <th style="width: 50px" >상태</th>
+					      <th style="width: 60px" >조회수</th>
 					    </tr>
 					  </thead>
 					  <tbody>
-					    <tr>
-					    <%
-							for(int i=0; i<20;i++){
-						%>
-						<tr>
-							<td id="contentsList">9999999999999999</td>
-							<td id="contentsList">2</td>
-							<td id="contentsList">3</td>
-							<td id="contentsList">4</td>
-							<td id="contentsList">5</td>
-							<td id="contentsList">6</td>
-						</tr>
-						<%
-							}
-						%>
-					     
+						<c:if test="${ not empty e }">
+				                     <tr>
+				                        <td colspan="5">서비스가 원활하지 못한 점 죄송합니다.</td>
+				                     </tr>
+				        </c:if>	
+				         <c:if test="${ empty inquiryList }">
+				                     <tr>
+				                        <td colspan="5">이벤트가 존재하지 않습니다.<a href="diary.jsp">이벤트 작성</a></td>
+				                     </tr>
+				         </c:if>
+				          <c:if test="${not empty inquiryList }">
+		                   <c:forEach var="data" items="${ inquiryList }">
+		                     <c:set var="i" value="${ i + 1 }" />
+		                     <tr>
+		                        <td class="center"><c:out value="${i}" /></td>
+		                        <td class="center"><c:out value="${ data.num}" /></td>
+<%-- 		                        <td><a href="bbs_read.do?num=${data.num }"><c:out value="${ data.subject }" /></a></td> --%>
+		             
+		                         <td><c:out value="${ data.subject }" /></td>
+		                        <td class="center"><c:out value="${data.user_id }" /></td>
+		                        <td class="center"><c:out value="${data.w_date  }" /></td> 
+		                        <td class="center"><c:out value="${data.status  }" /></td> 
+		                        <td class="center"><c:out value="${data.views  }" /></td> 
+		                     </tr>
+		                  </c:forEach>
+		                  </c:if>				  
 					  </tbody>
 					</table>
 				
