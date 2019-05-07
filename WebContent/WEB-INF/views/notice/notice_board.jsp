@@ -27,11 +27,23 @@
 
 	function moveIndex(i){
 		var move = document.page;
-		if(i<=0){
-			i = 1;
+		if(move.bigPage.value==null || move.bigPage.value==""){
+			move.bigPage.value = 0;
 		}
 		
 		move.selectedPageIndex.value = i;
+		move.method = "post";
+		move.action = "notice.do";
+		move.submit();
+	}
+	
+	function moveBigPage(i){
+		var move = document.page;
+		if(move.selectedPageIndex.value==null || move.selectedPageIndex.value==""){
+			move.selectedPageIndex.value = 1;
+		}
+		
+		move.bigPage.value = i;
 		move.method = "post";
 		move.action = "notice.do";
 		move.submit();
@@ -185,19 +197,34 @@
 					<div style="margin-top: 50px;">
 						<nav aria-label="Page navigation example">
 						  <ul class="pagination justify-content-center">
-						    <li class="page-item">
-						      <a class="page-link" href="javascript:moveIndex(${param.selectedPageIndex-1 });"  tabindex="-1" aria-disabled="true">Previous</a>
+						    <li class="page-item ${requestScope.bigPage != 0 ?'':'disabled'}">
+						      <a class="page-link" href="javascript:moveBigPage(${param.bigPage-1 });"  tabindex="-1" aria-disabled="true">Previous</a>
 						    </li>
-						    <c:out value="${ requestScope.pageIdx }" escapeXml="false"/>
-						    <li class="page-item">
-						      <a class="page-link" href="javascript:moveIndex(${param.selectedPageIndex+1 });">Next</a>
+						    <%
+						    	int totalIdx = ((Integer)request.getAttribute("pageIdx")).intValue();
+						    	int bigPage = ((Integer)request.getAttribute("bigPage")).intValue();
+						    	for(int i = 1; i<=10; i++){
+						    		if(bigPage*10+i<=totalIdx){
+						    %>
+			  <li class='page-item'>
+			  	<a class="page-link" 
+			  	href='javascript:moveIndex(<%=i+(bigPage*10)%>)'><%=i+(bigPage*10)%></a>
+			  </li>
+						    <%
+						    		}//end if
+						    	}//end for
+						    %>
+						    <%-- <c:out value="${ requestScope.pageIdx }" escapeXml="false"/> --%>
+						    <li class="page-item ${requestScope.maxBigPage == requestScope.bigPage ?'disabled':''}">
+						      <a class="page-link" href="javascript:moveBigPage(${param.bigPage+1 });">Next</a>
 						    </li>
 						  </ul>
 						</nav>
 					</div>
 					
 					<form name="page">
-						<input type="hidden" name="selectedPageIndex"/>
+						<input type="hidden" name="selectedPageIndex" value="${param.selectedPageIndex}"/>
+						<input type="hidden" name="bigPage" value="${param.bigPage}"/>
 					</form>
 					
 					

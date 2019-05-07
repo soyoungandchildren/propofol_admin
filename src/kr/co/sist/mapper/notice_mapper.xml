@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.co.sist.Notice">
+<mapper namespace="kr.co.sist.notice">
 
-	<resultMap type="kr.co.sist.domain.SearchNotice" id="NoticeResult">
+	<resultMap type="kr.co.sist.domain.NoticeList" id="NoticeResult">
 		<result column="notice_no" property="notice_no"/>
 		<result column="title" property="title"/>
 		<result column="admin_id" property="admin_id"/>
@@ -31,7 +31,7 @@
 		)
 		where r_num between #{startNum} and #{endNum}
 	</select>
-	<select id="SelectTotalPageCount" resultType="int">
+	<select id="selectTotalPageCount" resultType="int">
 		select count(*) cnt
 		from mine_notice
 	</select>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +16,54 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!-- Google jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+/*
+id="btnSearchTotal">전체 계정 조회</button>
+				<button type="button" class="btn btn-outline-warning" id="btnSearchBlocked">차단 계정 조회</button>
+				<button type="button" class="btn btn-outline-info" id="btnSearchWaiting">
+*/
+	$("#btnSearchTotal").click(function(){
+		location.href="member_list.do";
+	})//btnSearchTotal
+	
+	$("#btnSearchBlocked").click(function(){
+		var page = document.page;
+		page.searchFlag.value = "차단된 계정";
+		page.method = "post";
+		page.action = "member_list.do";
+		page.submit();
+	})//btnSearchBlocked
+	
+	$("#btnSearchWaiting").click(function(){
+		
+	})//btnSearchWaiting
+})//ready
+
+function moveIndex(i){
+	var move = document.page;
+	if(move.bigPage.value==null || move.bigPage.value==""){
+		move.bigPage.value = 0;
+	}
+	
+	move.selectedPageIndex.value = i;
+	move.method = "post";
+	move.action = "member_list.do";
+	move.submit();
+}
+
+function moveBigPage(i){
+	var move = document.page;
+	if(move.selectedPageIndex.value==null || move.selectedPageIndex.value==""){
+		move.selectedPageIndex.value = 1;
+	}
+	
+	move.bigPage.value = i;
+	move.method = "post";
+	move.action = "member_list.do";
+	move.submit();
+}
+</script>
 
 
     <style>
@@ -133,58 +182,69 @@
 				</select>
 				<input type="text" style="height: 25px;"/>
 				<input type="button" class="btn btn-outline-secondary" id="btn_search" value="검색"/>
-				<button type="button" class="btn btn-outline-info">전체 계정 조회</button>
-				<button type="button" class="btn btn-outline-warning">차단 계정 조회</button>
-				<button type="button" class="btn btn-outline-info">포폴 대기 조회</button>
+				<button type="button" class="btn btn-outline-info" id="btnSearchTotal">전체 계정 조회</button>
+				<button type="button" class="btn btn-outline-warning" id="btnSearchBlocked">차단 계정 조회</button>
+				<button type="button" class="btn btn-outline-info" id="btnSearchWaiting">포폴 대기 조회</button>
 			</div>
 			
 			<div>
 				<table class="table">
 				  <thead>
 				    <tr>
-				      <th scope="col">#</th>
-				      <th scope="col">First</th>
-				      <th scope="col">Last</th>
-				      <th scope="col">Handle</th>
+				      <th scope="col">아이디</th>
+				      <th scope="col">이름</th>
+				      <th scope="col">가입일</th>
+				      <th scope="col">차단여부</th>
+				      <th scope="col">포폴 승인여부</th>
 				    </tr>
 				  </thead>
 				  <tbody>
-				    <tr>
-				      <th scope="row">1</th>
-				      <td>Mark</td>
-				      <td>Otto</td>
-				      <td>@mdo</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">2</th>
-				      <td>Jacob</td>
-				      <td>Thornton</td>
-				      <td>@fat</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">3</th>
-				      <td>Larry</td>
-				      <td>the Bird</td>
-				      <td>@twitter</td>
-				    </tr>
+				  	<c:forEach var="ml" items="${requestScope.memberList}">
+				  		<tr>
+				  			<th><c:out value="${ml.user_id}"/></th>
+				  			<td><c:out value="${ml.name}"/></td>
+				  			<td><c:out value="${ml.inputdate}"/></td>
+				  			<td><c:out value="${ml.isbanned}"/></td>
+				  			<td><c:out value="${ml.permit_st}"/></td>
+				  		</tr>
+				  	</c:forEach>
 				  </tbody>
 				</table>
 			</div>
 			
 			<div style="margin-top: 50px;">
-				<nav aria-label="Page navigation example">
-				  <ul class="pagination justify-content-center">
-				    <li class="page-item disabled">
-				      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-				    </li>
-				    <li class="page-item"><a class="page-link" href="#">1</a></li>
-				    <li class="page-item"><a class="page-link" href="#">2</a></li>
-				    <li class="page-item"><a class="page-link" href="#">3</a></li>
-				    <li class="page-item">
-				      <a class="page-link" href="#">Next</a>
-				    </li>
-				  </ul>
-				</nav>
+						<nav aria-label="Page navigation example">
+						  <ul class="pagination justify-content-center">
+						    <li class="page-item ${requestScope.bigPage != 0 ?'':'disabled'}">
+						      <a class="page-link" href="javascript:moveBigPage(${param.bigPage-1 });"  tabindex="-1" aria-disabled="true">Previous</a>
+						    </li>
+						    <%
+						    	int totalIdx = ((Integer)request.getAttribute("pageIdx")).intValue();
+						    	int bigPage = ((Integer)request.getAttribute("bigPage")).intValue();
+						    	for(int i = 1; i<=10; i++){
+						    		if(bigPage*10+i<=totalIdx){
+						    %>
+			  <li class='page-item'>
+			  	<a class="page-link" 
+			  	href='javascript:moveIndex(<%=i+(bigPage*10)%>)'><%=i+(bigPage*10)%></a>
+			  </li>
+						    <%
+						    		}//end if
+						    	}//end for
+						    %>
+						    <%-- <c:out value="${ requestScope.pageIdx }" escapeXml="false"/> --%>
+						    <li class="page-item ${requestScope.maxBigPage == requestScope.bigPage ?'disabled':''}">
+						      <a class="page-link" href="javascript:moveBigPage(${param.bigPage+1 });">Next</a>
+						    </li>
+						  </ul>
+						</nav>
+						
+					<form name="page">
+						<input type="hidden" name="selectedPageIndex" value="${param.selectedPageIndex}"/>
+						<input type="hidden" name="bigPage" value="${param.bigPage}"/>
+						<input type="hidden" name="searchFlag" value="${param.searchFlag}"/>
+						<input type="hidden" name="searchKeyWord" value="${param.searchKeyWord}"/>
+					</form>
 			</div>
 		
 		</div>

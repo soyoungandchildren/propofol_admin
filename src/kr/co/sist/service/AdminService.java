@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import kr.co.sist.dao.AdminDAO;
 import kr.co.sist.domain.Admin;
 import kr.co.sist.vo.AddAdminVO;
+import kr.co.sist.vo.ChangeAuthorityVO;
 import kr.co.sist.vo.ModifyAdminInfoVO;
 
 @Component
@@ -55,9 +56,9 @@ public class AdminService {
 	}//addAdmin
 	
 	
-	public JSONObject changeAuthority(String admin_id) {
+	public JSONObject changeAuthority(ChangeAuthorityVO caVO) {
 		Map<Object, Object> map = new HashMap<>();
-		if(aDAO.updateAuthority(admin_id)==1) {
+		if(aDAO.updateAuthority(caVO)==1) {
 			map.put("resultFlag", true);
 		}else {
 			map.put("resultFlag", false);
@@ -66,6 +67,21 @@ public class AdminService {
 		JSONObject json = new JSONObject(map);
 		return json;
 	}//changeAuthority
+	
+	
+	public JSONObject removeAccount(String admin_id) {
+		Map<Object, Object> map = new HashMap<>();
+		String resultMsg = "계정 삭제에 실패했습니다. 기술 지원에 문의해주세요.";
+		
+		if(aDAO.deleteAccount(admin_id)==1) {
+			resultMsg = "삭제하였습니다.";
+		}//end if
+		map.put("resultMsg", resultMsg);
+		
+		JSONObject json = new JSONObject(map);
+		
+		return json;
+	}
 	
 
 }//Class

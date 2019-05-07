@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.domain.NoticeDetail;
-import kr.co.sist.domain.SearchNotice;
+import kr.co.sist.domain.NoticeList;
 import kr.co.sist.vo.ModifyNoticeVO;
 import kr.co.sist.vo.SearchNoticeVO;
 import kr.co.sist.vo.WriteNoticeVO;
@@ -14,8 +14,8 @@ import kr.co.sist.vo.WriteNoticeVO;
 public class NoticeDAO {
 
 	
-	public List<SearchNotice> selectNotice(SearchNoticeVO snVO){
-		List<SearchNotice> list = null;
+	public List<NoticeList> selectNotice(SearchNoticeVO snVO){
+		List<NoticeList> list = null;
 		
 		SqlSession ss = PropofolSqlSessionFactory.getInstance().getSqlSessionFactory().openSession();
 		list = ss.selectList("SelectNoticeList", snVO);
@@ -27,7 +27,7 @@ public class NoticeDAO {
 	
 	public int selectTotalPageCount() {
 		SqlSession ss = PropofolSqlSessionFactory.getInstance().getSqlSessionFactory().openSession();
-		int pageCount = ss.selectOne("SelectTotalPageCount");
+		int pageCount = ss.selectOne("kr.co.sist.notice.selectTotalPageCount");
 		ss.close();
 		
 		return pageCount; 

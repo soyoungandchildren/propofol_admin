@@ -25,30 +25,54 @@
 		
 	})//ready
 	
-	function changeAuth(data){
+	function changeAuth(admin_id, authority){
 		/* 로그인 계정의 권한 확인 과정 필요 */
 		
-		
-		alert(data[0]);
-		
-	/* 	if( confirm("정말 "+data[0]+" 계정의 권한을 변경하시겠습니까?") ){
+	 	if( confirm("정말 "+admin_id+" 계정의 권한을 변경하시겠습니까?") ){
 			$.ajax({
 				url:"change_auth.do",
 				type:"post",
 				dataType:"json",
-				data: data,
+				data: {authority, admin_id},
 				error:function(xhr){
 					console.log(xhr.status+"///"+xhr.statusText);
+					
 				},
-				success:function(resultMsg){
-					console.log("성공");
-				}
+				success:function(jsonObj){
+					if(jsonObj.resultFlag){
+						location.reload();
+					}else{
+						alert("변경 중 오류가 발생하였습니다. 기술지원에 문의해 주세요.");
+						location.reload();
+					}//end else
+				}//success
 			});
 		}else{
 			return;
-		}//end else */
+		}//end else 
 			
 	}//changeAuth
+	
+	function removeAcco(admin_id){
+	 	if( confirm("정말 "+admin_id+" 계정을 삭제하시겠습니까?") ){
+			$.ajax({
+				url:"remove_acco.do",
+				type:"post",
+				dataType:"json",
+				data: {admin_id},
+				error:function(xhr){
+					console.log(xhr.status+"///"+xhr.statusText);
+				},
+				success:function(jsonObj){
+					alert(jsonObj.resultMsg);
+					location.reload();
+				}//success
+			});
+		}else{
+			return;
+		}//end else 
+	}//removeAcco
+	
 </script>
 
 
@@ -192,8 +216,8 @@
 					      <td>${al.name }</td>
 					      <td>${al.inputdate }</td>
 					      <td colspan="2">
-						      <input type="button" class="btn btn-outline-success" onclick="javascript:changeAuth({'${al.admin_id}', '${al.authority}'})" value="권한 변경"/>
-						      <input type="button" class="btn btn-outline-danger" onclick="javascript:rermoveAcco('${al.admin_id}')" value="계정 삭제"/>
+						      <input type="button" class="btn btn-outline-success" onclick="javascript:changeAuth( '${al.admin_id}', '${al.authority}')" value="권한 변경"/>
+						      <input type="button" class="btn btn-outline-danger" onclick="javascript:removeAcco('${al.admin_id}')" value="계정 삭제"/>
 					      </td>
 					    </tr>
 				  		</c:forEach>

@@ -27,8 +27,19 @@
   	values(#{admin_id} , #{password} , #{name})
   </insert>
   
-  <update id="updateAuthority" parameterType="String">
+  <update id="updateAuthority" parameterType="kr.co.sist.vo.ChangeAuthorityVO">
   	update mine_admin
-  	
+  	<if test="authority == 'MANAGER'">
+  	set authority = 'ADMIN' 
+  	</if>
+  	<if test="authority == 'ADMIN'">
+  	set authority = 'MANAGER' 
+  	</if>
+  	where admin_id = #{admin_id}
   </update>
+  
+  <delete id="deleteAccount" parameterType="String">
+  	delete from mine_admin
+  	where admin_id = #{admin_id}
+  </delete>
 </mapper>

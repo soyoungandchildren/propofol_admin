@@ -1,7 +1,7 @@
 package kr.co.sist.vo;
 
-public class SearchNoticeVO {
-	
+public class SearchMemberVO {
+
 	private String searchKeyword, searchFlag;
 	private int startNum, endNum, selectedPageIndex, pageCnt, bigPage;
 	public String getSearchKeyword() {
@@ -9,6 +9,12 @@ public class SearchNoticeVO {
 	}
 	public void setSearchKeyword(String searchKeyword) {
 		this.searchKeyword = searchKeyword;
+	}
+	public String getSearchFlag() {
+		return searchFlag;
+	}
+	public void setSearchFlag(String searchFlag) {
+		this.searchFlag = searchFlag;
 	}
 	public int getStartNum() {
 		return startNum;
@@ -34,16 +40,20 @@ public class SearchNoticeVO {
 	public void setPageCnt(int pageCnt) {
 		this.pageCnt = pageCnt;
 	}
+	
 	public int getBigPage() {
 		return bigPage;
 	}
 	public void setBigPage(int bigPage) {
 		this.bigPage = bigPage;
 	}
-	public String getSearchFlag() {
-		return searchFlag;
-	}
-	public void setSearchFlag(String searchFlag) {
-		this.searchFlag = searchFlag;
+	@Override
+	public String toString() {
+		return "SearchMemberVO [searchKeyword=" + searchKeyword + ", searchFlag=" + searchFlag + ", startNum="
+				+ startNum + ", endNum=" + endNum + ", selectedPageIndex=" + selectedPageIndex + ", pageCnt=" + pageCnt
+				+ ", getSearchKeyword()=" + getSearchKeyword() + ", getSearchFlag()=" + getSearchFlag()
+				+ ", getStartNum()=" + getStartNum() + ", getEndNum()=" + getEndNum() + ", getSelectedPageIndex()="
+				+ getSelectedPageIndex() + ", getPageCnt()=" + getPageCnt() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 }

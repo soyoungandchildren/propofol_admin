@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import kr.co.sist.dao.NoticeDAO;
 import kr.co.sist.domain.NoticeDetail;
-import kr.co.sist.domain.SearchNotice;
+import kr.co.sist.domain.NoticeList;
 import kr.co.sist.vo.ModifyNoticeVO;
 import kr.co.sist.vo.SearchNoticeVO;
 import kr.co.sist.vo.WriteNoticeVO;
@@ -20,10 +20,8 @@ public class NoticeService {
 	@Autowired(required=false)
 	private NoticeDAO nDAO;
 	
-	public List<SearchNotice> searchNoticeList(SearchNoticeVO snVO) {
-		List<SearchNotice> list = null;
-		
-		
+	public List<NoticeList> searchNoticeList(SearchNoticeVO snVO) {
+		List<NoticeList> list = null;
 		
 		snVO.setStartNum(snVO.getSelectedPageIndex()*singlePageScale()-singlePageScale()+1);
 		snVO.setEndNum(snVO.getStartNum()+singlePageScale()-1);
@@ -37,21 +35,10 @@ public class NoticeService {
 		return 10;
 	}
 	
-	public String totalPageIndexList() {
+	public int totalPageIndexList() {
 		int pageCount = nDAO.selectTotalPageCount();
 		int idxCount = (int)Math.ceil((double)pageCount/singlePageScale());
-		
-		StringBuilder sb = new StringBuilder();
-		for(int i = 1; i<=idxCount; i++) {
-			
-			sb.append("<li class='page-item'><a class='page-link' href='javascript:moveIndex(")
-			  .append(i)
-			  .append(");'>")
-			  .append(i)
-			  .append("</a></li>");
-		}//end for
-		
-		return sb.toString();
+		return idxCount;
 	}//totalPageIndex
 	
 	

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import kr.co.sist.domain.Admin;
 import kr.co.sist.vo.AddAdminVO;
+import kr.co.sist.vo.ChangeAuthorityVO;
 import kr.co.sist.vo.ModifyAdminInfoVO;
 
 @Component
@@ -40,12 +41,26 @@ public class AdminDAO {
 	}//insertAdmin
 	
 	
-	public int updateAuthority(String admin_id) {
+	public int updateAuthority(ChangeAuthorityVO caVO) {
 		SqlSession ss = PropofolSqlSessionFactory.getInstance().getSqlSessionFactory().openSession();
-		int sqlResult = ss.update("updateAuthority", admin_id);
+		int sqlResult = ss.update("updateAuthority", caVO);
 		ss.commit();
 		ss.close();
 		return sqlResult;
 	}//updateAuthority
+	
+	
+	public int deleteAccount(String admin_id) {
+		SqlSession ss = PropofolSqlSessionFactory.getInstance().getSqlSessionFactory().openSession();
+		int sqlResult = ss.delete("deleteAccount", admin_id);
+		if(sqlResult==1) {
+			ss.commit();
+		}else {
+			ss.rollback();
+		}//end else
+		ss.close();
+		
+		return sqlResult;
+	}//deleteAccount
 	
 }//Class

@@ -17,5 +17,6 @@
   <mappers>
     <mapper resource="kr/co/sist/mapper/notice_mapper.xml"/>
     <mapper resource="kr/co/sist/mapper/admin_mapper.xml"/>
+    <mapper resource="kr/co/sist/mapper/member_mapper.xml"/>
   </mappers>
 </configuration>

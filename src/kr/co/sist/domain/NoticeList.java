@@ -1,6 +1,6 @@
 package kr.co.sist.domain;
 
-public class SearchNotice {
+public class NoticeList {
 	
 	private String notice_no, title, admin_id, inputdate, view_count;
 

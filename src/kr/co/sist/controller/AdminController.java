@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.co.sist.domain.Admin;
 import kr.co.sist.service.AdminService;
 import kr.co.sist.vo.AddAdminVO;
+import kr.co.sist.vo.ChangeAuthorityVO;
 import kr.co.sist.vo.ModifyAdminInfoVO;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -57,11 +58,18 @@ public class AdminController {
 		return json.toJSONString();
 	}//addAdmin
 
-	
+	@ResponseBody
 	@RequestMapping(value="/change_auth.do", method=POST)
-	public String changeAuthority(String admin_id) {
-		JSONObject json = as.changeAuthority(admin_id);
+	public String changeAuthority(ChangeAuthorityVO caVO) {
+		JSONObject json = as.changeAuthority(caVO);
 		return json.toJSONString();
 	}//changeAuthority
+	
+	@ResponseBody
+	@RequestMapping(value="/remove_acco.do", method=POST, produces="text/plain;charset=UTF-8")
+	public String removeAccount(String admin_id) {
+		JSONObject json = as.removeAccount(admin_id);
+		return json.toJSONString();
+	}
 	
 }//Class
