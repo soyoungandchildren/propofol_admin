@@ -69,7 +69,6 @@ public class NoticeDAO {
 		ss.close();
 		
 		return sqlResult;
-	}//
-	
+	}//deleteNotice
 	
 }//Class

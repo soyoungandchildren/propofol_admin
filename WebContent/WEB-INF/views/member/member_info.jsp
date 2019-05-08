@@ -15,7 +15,74 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!-- Google jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-
+<script type="text/javascript">
+$(function(){
+	$("#btnChangeBlock").click(function(){
+		var frm = document.frmMemberInfo;
+	 	var user_id = frm.user_id.value;
+	 	
+	 	if( confirm("정말 "+user_id+" 계정의 권한을 변경하시겠습니까?") ){
+	 		var isbanned = $("[name='isbanned']").val();
+ 			$.ajax({
+				url:"change_isbanned.do",
+				type:"post",
+				dataType:"json",
+				data: $("[name='frmMemberInfo']").serialize(),
+				error:function(xhr){
+					console.log(xhr.status+"///"+xhr.statusText);
+				},
+				success:function(jsonObj){
+					alert(jsonObj.resultMsg);
+					location.reload();
+				}//success
+			});
+		}else{
+			return;
+		}//end else  
+	})//btnChangeBlock
+	
+  /*<form name="frmMemberInfo">
+	<input type="hidden" name="user_id" value="${param.user_id}"/> 
+	<input type="hidden" name="isbanned" value="${requestScope.memberInfo.isbanned}"/> 
+	<input type="hidden" name="name" value="${param.name}"/> 
+	<input type="hidden" name="phone" value="${param.phone}"/> 
+	<input type="hidden" name="birth" value="${param.birth}"/> 
+	<input type="hidden" name="password"/> 
+	</form> */
+	
+	$("#btnModifyMemberInfo").click(function(){
+		var frm = document.frmMemberInfo;
+	 	var user_id = frm.user_id.value;
+	 	var name = $("#tfName").val();
+	 	var phone = $("#tfPhone").val();
+	 	var birth = $("#tfBirth").val();
+	 	var password = $("#tfPassword").val();
+	 	
+	 	if( confirm("정말 "+user_id+" 계정의 정보를 변경하시겠습니까?") ){
+	 		frm.name.value = name;
+	 		frm.phone.value = phone;
+	 		frm.birth.value = birth;
+	 		frm.password.value = password;
+	 		
+ 			$.ajax({
+				url:"modify_member_info.do",
+				type:"post",
+				dataType:"json",
+				data: $("[name='frmMemberInfo']").serialize(),
+				error:function(xhr){
+					console.log(xhr.status+"///"+xhr.statusText);
+				},
+				success:function(jsonObj){
+					alert(jsonObj.resultMsg);
+					location.reload();
+				}//success
+			});
+		}else{
+			return;
+		}//end else  
+	})//btnChangeBlock
+})
+</script>
 
 
     <style>
@@ -117,6 +184,14 @@
       </div>
       
     </nav>
+    <form name="frmMemberInfo">
+    	<input type="hidden" name="user_id" value="${param.user_id}"/> 
+    	<input type="hidden" name="isbanned" value="${requestScope.memberInfo.isbanned}"/> 
+    	<input type="hidden" name="name" value="${requestScope.memberInfo.name}"/> 
+    	<input type="hidden" name="phone" value="${requestScope.memberInfo.phone}"/> 
+    	<input type="hidden" name="birth" value="${requestScope.memberInfo.birth}"/> 
+    	<input type="hidden" name="password"/> 
+    </form>
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" id="main">
     <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; 
@@ -142,63 +217,63 @@
 					  <div class="input-group-prepend">
 					    <span class="input-group-text">아이디</span>
 					  </div>
-					  <input type="text" class="form-control" aria-describedby="basic-addon3" readonly>
+					  <input type="text" id="tfId" class="form-control" aria-describedby="basic-addon3" value="${requestScope.memberInfo.user_id}" readonly>                                
 					</div>
 					
 					<div class="input-group mb-3" style="margin-top: 15px;">
 					  <div class="input-group-prepend">
 					    <span class="input-group-text">비밀번호</span>
 					  </div>
-					  <input type="password" class="form-control" aria-describedby="basic-addon3">
+					  <input type="password" id="tfPassword" class="form-control" aria-describedby="basic-addon3" >
 					</div>
 					
 					<div class="input-group mb-3" style="margin-top: -15px;">
 					  <div class="input-group-prepend">
 					    <span class="input-group-text">비밀번호 확인</span>
 					  </div>
-					  <input type="password" class="form-control" aria-describedby="basic-addon3">
+					  <input type="password" id="tfConfirmPassword" class="form-control" aria-describedby="basic-addon3">
 					</div>
 					
 					<div class="input-group mb-3" style="margin-top: 15px;">
 					  <div class="input-group-prepend">
 					    <span class="input-group-text">이름</span>
 					  </div>
-					  <input type="text" class="form-control" aria-describedby="basic-addon3">
+					  <input type="text" id="tfName" class="form-control" aria-describedby="basic-addon3" value="${requestScope.memberInfo.name}">
 					</div>
 					
 					<div class="input-group mb-3" style="margin-top: 15px;">
 					  <div class="input-group-prepend">
 					    <span class="input-group-text">생년월일</span>
 					  </div>
-					  <input type="text" class="form-control" aria-describedby="basic-addon3">
+					  <input type="text" id="tfBirth" class="form-control" aria-describedby="basic-addon3" value="${requestScope.memberInfo.birth}">
 					</div>
 					
 					<div class="input-group mb-3" style="margin-top: 15px;">
 					  <div class="input-group-prepend">
 					    <span class="input-group-text">핸드폰번호</span>
 					  </div>
-					  <input type="text" class="form-control" aria-describedby="basic-addon3">
+					  <input type="text" id="tfPhone" class="form-control" aria-describedby="basic-addon3" value="${requestScope.memberInfo.phone}">
 					</div>
 					
 					<div class="input-group mb-3" style="margin-top: 15px;">
 					  <div class="input-group-prepend">
 					    <span class="input-group-text">가입일</span>
 					  </div>
-					  <input type="text" class="form-control" aria-describedby="basic-addon3" readonly>
+					  <input type="text" class="form-control" aria-describedby="basic-addon3" value="${requestScope.memberInfo.inputdate}" readonly>
 					</div>
 					
 					<div class="input-group mb-3" style="margin-top: 15px;">
 					  <div class="input-group-prepend">
 					    <span class="input-group-text">차단여부</span>
 					  </div>
-					  <input type="text" class="form-control" aria-describedby="basic-addon3" readonly>
+					  <input type="text" class="form-control" aria-describedby="basic-addon3" value="${requestScope.memberInfo.isbanned}" readonly>
 					</div>
 					
 					<div class="input-group mb-3" style="margin-top: 15px;">
 					  <div class="input-group-prepend">
 					    <span class="input-group-text">포폴상태</span>
 					  </div>
-					  <input type="text" class="form-control" aria-describedby="basic-addon3" readonly>
+					  <input type="text" class="form-control" aria-describedby="basic-addon3" value="${requestScope.memberInfo.permit_st}" readonly>
 					</div>
 					
 				</div>
@@ -206,8 +281,8 @@
 			</div>
 			
 			<div style="text-align: center; margin-top: 30px;">
-				<button type="button" class="btn btn-outline-primary btn_bottom">회원정보 수정</button>
-				<button type="button" class="btn btn-outline-primary btn_bottom">차단상태 변경</button>
+				<button type="button" class="btn btn-outline-primary btn_bottom" id="btnModifyMemberInfo">회원정보 수정</button>
+				<button type="button" class="btn btn-outline-primary btn_bottom" id="btnChangeBlock">차단상태 변경</button>
 				<button type="button" class="btn btn-outline-primary btn_bottom">닫기</button>
 			</div>
 			

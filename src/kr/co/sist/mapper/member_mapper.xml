@@ -9,19 +9,79 @@
 	(
 	select rownum r_num, user_id, name, inputdate, isbanned, permit_st
 	from
-	(select m.user_id, name, inputdate, isbanned, nvl(permit_st, '미작성') permit_st
-	from mine_member m
-	left join mine_portfolio p
+	(select m.user_id, name, to_char(inputdate, 'yyyy.mm.dd') inputdate, isbanned, nvl(permit_st, '미작성') permit_st
+	from member m
+	left join portfolio p
 	on m.user_id = p.user_id
+	<if test="searchFlag == 'blocked'">
+		where isbanned = 'Y'
+	</if>
+	<if test="searchFlag == 'waiting'">
+		where permit_st = 'N'
+	</if>
+	<if test="searchFlag == 'searchToId'">
+		where m.user_id = #{searchKeyword}
+	</if>
+	<if test="searchFlag == 'searchToName'">
+		where m.name = #{searchKeyword}
+	</if>
 	order by user_id asc)
 	)
 	where r_num between #{startNum} and #{endNum} 
-	<if test="searchFlag == '차단된 계정'">
-		and isbanned = 'Y'
+</select>
+<select id="selectTotalPageCount" resultType="int" parameterType="kr.co.sist.vo.SearchMemberVO">
+	select count(*) cnt
+	<choose>
+		<when test="searchFlag == 'waiting'">
+			from
+		    (
+		    select m.user_id, name, inputdate, isbanned, permit_st
+			from member m
+			left join portfolio p
+			on m.user_id = p.user_id
+		    where permit_st = 'N'
+			order by user_id asc)
+		</when>
+		<otherwise>from member</otherwise>
+	</choose>
+	<if test="searchFlag == 'blocked'">
+		where isbanned = 'Y'
+	</if>
+	<if test="searchFlag == 'searchToId'">
+		where user_id = #{searchKeyword}
+	</if>
+	<if test="searchFlag == 'searchToName'">
+		where name = #{searchKeyword}
 	</if>
 </select>
-<select id="selectTotalPageCount" resultType="int">
-	select count(*) cnt
-	from mine_member
+<select id="selectMemberInfo" parameterType="String" resultType="kr.co.sist.domain.MemberInfo">
+	select m.user_id, name, birth, phone, inputdate, isbanned, nvl(permit_st, '미작성') permit_st
+	from member m
+	left join portfolio p
+	on m.user_id = p.user_id
+	where m.user_id = #{user_id}
 </select>
+<update id="updateBanStatus" parameterType="kr.co.sist.vo.ChangeBanStatusVO">
+	update member
+	set isbanned= #{isbanned}
+	where user_id = #{user_id}
+</update>
+<update id="updateMemberInfo" parameterType="kr.co.sist.vo.ModifyMemberInfoVO">
+	update member
+	<set>
+		<if test="password != null and !''.equalsIgnoreCase(password)">
+			password = #{password},
+		</if>
+		<if test="phone != null and !''.equalsIgnoreCase(password)">
+			phone = #{phone},
+		</if>
+		<if test="birth != null and !''.equalsIgnoreCase(birth)">
+			birth = #{birth},
+		</if>
+		<if test="name != null and !''.equalsIgnoreCase(name)">
+			name = #{name}
+		</if>
+	</set>
+	where user_id = #{user_id}
+</update>
 </mapper>

@@ -18,26 +18,37 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
 $(function(){
-/*
-id="btnSearchTotal">전체 계정 조회</button>
-				<button type="button" class="btn btn-outline-warning" id="btnSearchBlocked">차단 계정 조회</button>
-				<button type="button" class="btn btn-outline-info" id="btnSearchWaiting">
-*/
 	$("#btnSearchTotal").click(function(){
 		location.href="member_list.do";
 	})//btnSearchTotal
 	
 	$("#btnSearchBlocked").click(function(){
-		var page = document.page;
-		page.searchFlag.value = "차단된 계정";
-		page.method = "post";
-		page.action = "member_list.do";
-		page.submit();
+		var frm = document.frmSearch;
+		
+		frm.searchFlag.value = "blocked";
+		frm.method = "get";
+		frm.action = "member_list.do";
+		frm.submit();
 	})//btnSearchBlocked
 	
 	$("#btnSearchWaiting").click(function(){
+		var frm = document.frmSearch;
 		
+		frm.searchFlag.value = "waiting";
+		frm.method = "get";
+		frm.action = "member_list.do";
+		frm.submit();
 	})//btnSearchWaiting
+	
+	$("#btnSearch").click(function(){
+		var frm = document.frmSearch;
+		
+		frm.searchKeyword.value = $("#tfSearch").val().trim();
+		frm.searchFlag.value = $("#selectSearch").val();
+		frm.method = "get";
+		frm.action = "member_list.do";
+		frm.submit();
+	})
 })//ready
 
 function moveIndex(i){
@@ -47,7 +58,7 @@ function moveIndex(i){
 	}
 	
 	move.selectedPageIndex.value = i;
-	move.method = "post";
+	move.method = "get";
 	move.action = "member_list.do";
 	move.submit();
 }
@@ -59,7 +70,7 @@ function moveBigPage(i){
 	}
 	
 	move.bigPage.value = i;
-	move.method = "post";
+	move.method = "get";
 	move.action = "member_list.do";
 	move.submit();
 }
@@ -175,13 +186,12 @@ function moveBigPage(i){
 		<div id="body">
 		
 			<div id="condition_group">
-				<select style="height: 30px;">
-					<option>글 제목</option>
-					<option>작성자</option>
-					<option>내용</option>
+				<select style="height: 30px;" id="selectSearch">
+					<option>아이디</option>
+					<option>이름</option>
 				</select>
-				<input type="text" style="height: 25px;"/>
-				<input type="button" class="btn btn-outline-secondary" id="btn_search" value="검색"/>
+				<input type="text" style="height: 25px;" id="tfSearch"/>
+				<input type="button" class="btn btn-outline-secondary" id="btnSearch" value="검색"/>
 				<button type="button" class="btn btn-outline-info" id="btnSearchTotal">전체 계정 조회</button>
 				<button type="button" class="btn btn-outline-warning" id="btnSearchBlocked">차단 계정 조회</button>
 				<button type="button" class="btn btn-outline-info" id="btnSearchWaiting">포폴 대기 조회</button>
@@ -199,9 +209,14 @@ function moveBigPage(i){
 				    </tr>
 				  </thead>
 				  <tbody>
+				  		<c:if test="${empty requestScope.memberList}">
+				  		<tr>
+				  			<th colspan="5" style="text-align: center; font-size: 1.1rem;">검색된 회원이 없습니다.</th>
+				  		</tr>	
+				  		</c:if>
 				  	<c:forEach var="ml" items="${requestScope.memberList}">
 				  		<tr>
-				  			<th><c:out value="${ml.user_id}"/></th>
+				  			<th><a href="member_info.do?user_id=${ml.user_id}"><c:out value="${ml.user_id}"/></a></th>
 				  			<td><c:out value="${ml.name}"/></td>
 				  			<td><c:out value="${ml.inputdate}"/></td>
 				  			<td><c:out value="${ml.isbanned}"/></td>
@@ -218,22 +233,17 @@ function moveBigPage(i){
 						    <li class="page-item ${requestScope.bigPage != 0 ?'':'disabled'}">
 						      <a class="page-link" href="javascript:moveBigPage(${param.bigPage-1 });"  tabindex="-1" aria-disabled="true">Previous</a>
 						    </li>
-						    <%
-						    	int totalIdx = ((Integer)request.getAttribute("pageIdx")).intValue();
-						    	int bigPage = ((Integer)request.getAttribute("bigPage")).intValue();
-						    	for(int i = 1; i<=10; i++){
-						    		if(bigPage*10+i<=totalIdx){
-						    %>
-			  <li class='page-item'>
-			  	<a class="page-link" 
-			  	href='javascript:moveIndex(<%=i+(bigPage*10)%>)'><%=i+(bigPage*10)%></a>
-			  </li>
-						    <%
-						    		}//end if
-						    	}//end for
-						    %>
-						    <%-- <c:out value="${ requestScope.pageIdx }" escapeXml="false"/> --%>
-						    <li class="page-item ${requestScope.maxBigPage == requestScope.bigPage ?'disabled':''}">
+						    <c:forEach begin="1" end="10">
+				    			<c:set var="i" value="${i+1}"/>
+							    	<c:if test="${ (requestScope.bigPage*10)+i le requestScope.totalPageIdx }">
+								    	<li class='page-item'>
+										  	<a class="page-link" href='javascript:moveIndex(<c:out value="${i+(requestScope.bigPage*10)}"/>)'>
+										  		<c:out value="${i+(requestScope.bigPage*10)}"/>
+										  	</a>
+										</li>
+									</c:if>
+						    </c:forEach>
+						    <li class="page-item ${requestScope.maxBigPage > requestScope.bigPage ?'':'disabled'}">
 						      <a class="page-link" href="javascript:moveBigPage(${param.bigPage+1 });">Next</a>
 						    </li>
 						  </ul>
@@ -243,10 +253,13 @@ function moveBigPage(i){
 						<input type="hidden" name="selectedPageIndex" value="${param.selectedPageIndex}"/>
 						<input type="hidden" name="bigPage" value="${param.bigPage}"/>
 						<input type="hidden" name="searchFlag" value="${param.searchFlag}"/>
-						<input type="hidden" name="searchKeyWord" value="${param.searchKeyWord}"/>
+						<input type="hidden" name="searchKeyword" value="${param.searchKeyword}"/>
+					</form>
+					<form name="frmSearch">
+						<input type="hidden" name="searchFlag" value="${param.searchFlag}"/>
+						<input type="hidden" name="searchKeyword" value="${param.searchKeyword}"/>
 					</form>
 			</div>
-		
 		</div>
       
     </main>

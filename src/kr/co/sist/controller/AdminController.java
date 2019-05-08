@@ -46,7 +46,10 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping(value="/modify_admin_info.do", method=POST, produces="text/plain;charset=UTF-8")
 	public String modifyAdminInfo(ModifyAdminInfoVO maiVO) {
+		//////////////////////////////////////
 		maiVO.setAdmin_id("id1");
+		//////////////////////////////////////
+		
 		JSONObject json = as.modifyAdminInfo(maiVO);
 		return json.toJSONString();
 	}//modifyAdminInfo

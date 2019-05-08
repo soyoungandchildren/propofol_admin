@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.sist.admin">
   <update id="updateAdminInfo" parameterType="kr.co.sist.vo.ModifyAdminInfoVO">
-  	update mine_admin
+  	update admin
   	<set>
   		<if test="password != null and !''.equalsIgnoreCase(password)">
   			password=#{password},
@@ -13,22 +13,22 @@
   			name=#{name}
   		</if>
   	</set>
-  	where admin_id=#{admin_id} and (select isremoved from mine_admin where admin_id=#{admin_id}) = 'N'
+  	where admin_id=#{admin_id} and (select isremoved from admin where admin_id=#{admin_id}) = 'N'
   </update>
   
   <select id="selectAdminList" resultType="kr.co.sist.domain.Admin">
   	select admin_id, authority, to_char(inputdate, 'yyyy-mm-dd') inputdate, name
-  	from mine_admin
+  	from admin
   	where isremoved = 'N'
   </select>
   
   <insert id="insertAdmin" parameterType="kr.co.sist.vo.AddAdminVO">
-  	insert into mine_admin(admin_id, password, name)
+  	insert into admin(admin_id, password, name)
   	values(#{admin_id} , #{password} , #{name})
   </insert>
   
   <update id="updateAuthority" parameterType="kr.co.sist.vo.ChangeAuthorityVO">
-  	update mine_admin
+  	update admin
   	<if test="authority == 'MANAGER'">
   	set authority = 'ADMIN' 
   	</if>
@@ -39,7 +39,7 @@
   </update>
   
   <delete id="deleteAccount" parameterType="String">
-  	delete from mine_admin
+  	delete from admin
   	where admin_id = #{admin_id}
   </delete>
 </mapper>

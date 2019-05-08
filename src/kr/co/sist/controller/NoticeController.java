@@ -52,7 +52,10 @@ public class NoticeController {
 	@ResponseBody
 	@RequestMapping(value="/confirm_write.do", method=POST, produces="text/plain;charset=UTF-8")
 	public String writeNotice(WriteNoticeVO wnVO) {
-		wnVO.setAdmin_id("test");
+		///////////////////////////////////
+		wnVO.setAdmin_id("id1");
+		///////////////////////////////////
+		
 		JSONObject js = ns.writeNotice(wnVO);
 		return js.toJSONString();
 	}//writeNotice

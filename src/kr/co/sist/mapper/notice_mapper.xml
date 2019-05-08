@@ -26,32 +26,31 @@
 		select rownum r_num, notice_no, admin_id, title, inputdate, view_count
 		from
 		(select notice_no, admin_id, title, inputdate, view_count
-		from mine_notice
+		from notice
 		order by inputdate desc)
 		)
 		where r_num between #{startNum} and #{endNum}
 	</select>
 	<select id="selectTotalPageCount" resultType="int">
 		select count(*) cnt
-		from mine_notice
+		from notice
 	</select>
 	<select id="selectNoticeDetail" parameterType="int" resultMap="NoticeDetail">
 		select admin_id, title, body, to_char(inputdate, 'yyyy.mm.dd hh24:mi') inputdate 
-		from mine_notice 
+		from notice 
 		where notice_no = #{notice_no} 
 	</select> 
 	<update id="updateNoticeDetail" parameterType="kr.co.sist.vo.ModifyNoticeVO">
-		update mine_notice 
+		update notice 
 		set title=#{title}, body=#{body} 
 		where notice_no = #{num} 
 	</update>
 	<insert id="insertNotice" parameterType="kr.co.sist.vo.WriteNoticeVO">
-		insert into mine_notice(notice_no, admin_id, title, body)
-		values(seq_notice_num.nextval, #{admin_id}, #{title}, #{body})
+		insert into notice(notice_no, admin_id, title, body)
+		values(seq_notice_no.nextval, #{admin_id}, #{title}, #{body})
 	</insert>
 	<delete id="deleteNotice" parameterType="int">
-		delete from mine_notice
+		delete from notice
 		where notice_no = #{notice_no}
 	</delete>
-  
 </mapper>
