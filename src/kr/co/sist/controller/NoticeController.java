@@ -27,19 +27,20 @@ public class NoticeController {
 	
 	
 	@RequestMapping(value="/notice.do", method= {GET,POST})
-	public String searchNoticeList(SearchNoticeVO snVO, Model m) {
+	public String searchNoticeList(SearchNoticeVO snVO, Model model) {
 		if(snVO.getSelectedPageIndex() == 0) {
 			snVO.setSelectedPageIndex(1);
 		}//end if
 		
 		List<NoticeList> list = ns.searchNoticeList(snVO);
-		int pageIdx = ns.totalPageIndexList();
+		int totalPageIdx = ns.totalPageIndexList(snVO);
 		
-		m.addAttribute("noticeList", list);
-		m.addAttribute("pageIdx", pageIdx);
-		m.addAttribute("pageScale", ns.singlePageScale());
-		m.addAttribute("bigPage", snVO.getBigPage());
-		m.addAttribute("maxBigPage", pageIdx/ns.singlePageScale());
+		model.addAttribute("selectedPageIndex", snVO.getSelectedPageIndex());
+		model.addAttribute("noticeList", list);
+		model.addAttribute("totalPageIdx", totalPageIdx);
+		model.addAttribute("pageScale", ns.singlePageScale());
+		model.addAttribute("bigPage", snVO.getBigPage());
+		model.addAttribute("maxBigPage", totalPageIdx/ns.singlePageScale());
 		return "notice/notice_board";
 	}//searchNoticeList
 	
@@ -61,10 +62,10 @@ public class NoticeController {
 	}//writeNotice
 	
 	
-	@RequestMapping(value="/notice_read.do", method=GET)
-	public String moveToNoticeRead(int num, Model model) {
+	@RequestMapping(value="/notice_read.do", method=POST)
+	public String moveToNoticeRead(int notice_no, Model model) {
 		
-		NoticeDetail nd = ns.searchNoticeDetail(num);
+		NoticeDetail nd = ns.searchNoticeDetail(notice_no);
 		model.addAttribute("noticeDetail", nd);
 		
 		return "notice/notice_read";

@@ -19,7 +19,7 @@
 		<result column="inputdate" property="inputdate"/>
 	</resultMap>
 
-	<select id="SelectNoticeList" parameterType="kr.co.sist.vo.SearchNoticeVO" resultMap="NoticeResult">
+	<select id="selectNoticeList" parameterType="kr.co.sist.vo.SearchNoticeVO" resultMap="NoticeResult">
 		select notice_no, admin_id, title, to_char(inputdate, 'yy.mm.dd') inputdate, view_count
 		from
 		(
@@ -27,13 +27,25 @@
 		from
 		(select notice_no, admin_id, title, inputdate, view_count
 		from notice
+		<if test="searchFlag == 'searchToTitle'">
+			where title = #{searchKeyword}
+		</if>
+		<if test="searchFlag == 'searchToWriter'">
+			where admin_id = #{searchKeyword}
+		</if>
 		order by inputdate desc)
 		)
 		where r_num between #{startNum} and #{endNum}
 	</select>
-	<select id="selectTotalPageCount" resultType="int">
+	<select id="selectTotalPageCount" parameterType="kr.co.sist.vo.SearchNoticeVO" resultType="int">
 		select count(*) cnt
 		from notice
+		<if test="searchFlag == 'searchToTitle'">
+			where title = #{searchKeyword}
+		</if>
+		<if test="searchFlag == 'searchToWriter'">
+			where admin_id = #{searchKeyword}
+		</if>
 	</select>
 	<select id="selectNoticeDetail" parameterType="int" resultMap="NoticeDetail">
 		select admin_id, title, body, to_char(inputdate, 'yyyy.mm.dd hh24:mi') inputdate 

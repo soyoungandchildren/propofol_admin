@@ -34,6 +34,7 @@ public class MemberController {
 		List<MemberList> list = ms.searchMemberList(smVO);
 		int totalPageIdx = ms.totalPageIndexList(smVO);
 		
+		model.addAttribute("selectedPageIndex", smVO.getSelectedPageIndex());
 		model.addAttribute("memberList", list);
 		model.addAttribute("totalPageIdx", totalPageIdx);
 		model.addAttribute("pageScale", ms.singlePageScale());
@@ -48,7 +49,7 @@ public class MemberController {
 	}//goToMemberList
 	
 	
-	@RequestMapping(value="/member_info.do", method=GET)
+	@RequestMapping(value="/member_info.do", method=POST)
 	public String goToMemberInfo(Model model, String user_id) {
 		MemberInfo mi = ms.searchMemberInfo(user_id);
 		model.addAttribute("memberInfo", mi);
@@ -62,6 +63,7 @@ public class MemberController {
 		JSONObject json = ms.changeBanStatus(cbsVO);
 		return json.toJSONString();
 	}//changeBanStatus
+	
 	
 	@ResponseBody
 	@RequestMapping(value="/modify_member_info.do", method=POST, produces="text/plain;charset=UTF-8")

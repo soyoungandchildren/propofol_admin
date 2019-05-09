@@ -68,7 +68,7 @@
 	function goToMain(){
 		
 		if(confirm("변경된 내용은 저장되지 않습니다. 나가시겠습니까?")){
-			location.href = "notice.do";
+			document.frmPage.submit();
 		}//end if
 		
 	}//goToMain
@@ -214,6 +214,13 @@
 			<button type="button" class="btn btn-outline-danger" id="btnRemove">삭제하기</button>
 			<button type="button" class="btn btn-outline-dark" onclick="goToMain();">나가기</button>
 		</div>
+			
+	    <form action="notice.do" method="post" name="frmPage">
+	    	<input type="hidden" name="selectedPageIndex" value="${param.selectedPageIndex}"/>
+			<input type="hidden" name="bigPage" value="${param.bigPage}"/>
+			<input type="hidden" name="searchFlag" value="${param.searchFlag}"/>
+			<input type="hidden" name="searchKeyword" value="${param.searchKeyword}"/>
+	    </form>
       
     </main>
   </div>

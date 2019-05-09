@@ -15,19 +15,16 @@ public class NoticeDAO {
 
 	
 	public List<NoticeList> selectNotice(SearchNoticeVO snVO){
-		List<NoticeList> list = null;
-		
 		SqlSession ss = PropofolSqlSessionFactory.getInstance().getSqlSessionFactory().openSession();
-		list = ss.selectList("SelectNoticeList", snVO);
+		List<NoticeList> list = ss.selectList("selectNoticeList", snVO);
 		ss.close();
-		
 		return list;
 	}//selectNotice
 	
 	
-	public int selectTotalPageCount() {
+	public int selectTotalPageCount(SearchNoticeVO snVO) {
 		SqlSession ss = PropofolSqlSessionFactory.getInstance().getSqlSessionFactory().openSession();
-		int pageCount = ss.selectOne("kr.co.sist.notice.selectTotalPageCount");
+		int pageCount = ss.selectOne("kr.co.sist.notice.selectTotalPageCount", snVO);
 		ss.close();
 		
 		return pageCount; 

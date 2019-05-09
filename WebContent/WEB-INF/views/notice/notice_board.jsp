@@ -22,6 +22,16 @@
 		$("#btnWrite").click(function(){
 			location.href = "notice_write.do";
 		})//click
+		
+		$("#btnSearch").click(function(){
+			var frm = document.frmSearch;
+			
+			frm.searchKeyword.value = $("#tfSearch").val().trim();
+			frm.searchFlag.value = $("#selectSearch").val();
+			frm.method = "get";
+			frm.action = "notice.do";
+			frm.submit();
+		})//btnSearch
 	})
 
 
@@ -48,6 +58,20 @@
 		move.action = "notice.do";
 		move.submit();
 	}
+	
+	function moveNoticeRead(notice_no){
+		var frm = document.page;
+		if(frm.selectedPageIndex.value==""){
+			frm.selectedPageIndex.value = 1;
+		}
+		if(frm.bigPage.value==""){
+			frm.bigPage.value = 0;
+		}
+		frm.notice_no.value = notice_no;
+		frm.method = "post";
+		frm.action = "notice_read.do";
+		frm.submit();
+	}//moveMemberInfo
 </script>
 
     <style>
@@ -86,6 +110,8 @@
 	
 	#table_notice>thead>tr{border-bottom: 2px solid #333;}
 	#table_notice>tbody>tr{border-bottom: 1px solid #b2bec3;}
+	
+	#selIndex{background-color: #74b9ff; color: #f5f6fa;}
       
             
      </style>
@@ -177,10 +203,20 @@
 							</tr>
 						</thead>
 						<tbody>
+							<c:if test="${empty requestScope.noticeList}">
+						  		<tr>
+						  			<th colspan="5" style="text-align: center; font-size: 1.1rem;">검색된 공지사항이 없습니다.</th>
+						  		</tr>	
+					  		</c:if>
 							<c:forEach var="nl" items="${ requestScope.noticeList}">
 								<tr>
 									<td class="notice_no"><c:out value="${nl.notice_no }"/></td>
-									<td class="notice_title"><a href="notice_read.do?num=${nl.notice_no }"><c:out value="${nl.title }"/></a></td>
+									<%-- <td class="notice_title"><a href="notice_read.do?num=${nl.notice_no }"><c:out value="${nl.title }"/></a></td> --%>
+									<td class="notice_title">
+										<a href="javascript:moveNoticeRead(${nl.notice_no})">
+					  						<c:out value="${nl.title}"/>
+				  						</a>
+			  						</td>
 									<td class="notice_writer"><c:out value="${nl.admin_id }"/></td>
 									<td class="notice_date"><c:out value="${nl.inputdate }"/></td>
 									<td class="view"><c:out value="${nl.view_count }"/></td>
@@ -200,22 +236,17 @@
 						    <li class="page-item ${requestScope.bigPage != 0 ?'':'disabled'}">
 						      <a class="page-link" href="javascript:moveBigPage(${param.bigPage-1 });"  tabindex="-1" aria-disabled="true">Previous</a>
 						    </li>
-						    <%
-						    	int totalIdx = ((Integer)request.getAttribute("pageIdx")).intValue();
-						    	int bigPage = ((Integer)request.getAttribute("bigPage")).intValue();
-						    	for(int i = 1; i<=10; i++){
-						    		if(bigPage*10+i<=totalIdx){
-						    %>
-			  <li class='page-item'>
-			  	<a class="page-link" 
-			  	href='javascript:moveIndex(<%=i+(bigPage*10)%>)'><%=i+(bigPage*10)%></a>
-			  </li>
-						    <%
-						    		}//end if
-						    	}//end for
-						    %>
-						    <%-- <c:out value="${ requestScope.pageIdx }" escapeXml="false"/> --%>
-						    <li class="page-item ${requestScope.maxBigPage == requestScope.bigPage ?'disabled':''}">
+						    <c:forEach begin="1" end="10">
+				    			<c:set var="i" value="${i+1}"/>
+							    	<c:if test="${ (requestScope.bigPage*10)+i le requestScope.totalPageIdx }">
+								    	<li class='page-item'>
+										  	<a class="page-link" ${(requestScope.bigPage*10)+i == requestScope.selectedPageIndex ?"id='selIndex'":''} href='javascript:moveIndex(<c:out value="${i+(requestScope.bigPage*10)}"/>)'>
+										  		<c:out value="${i+(requestScope.bigPage*10)}"/>
+										  	</a>
+										</li>
+									</c:if>
+						    </c:forEach>
+						    <li class="page-item ${requestScope.maxBigPage > requestScope.bigPage ?'':'disabled'}">
 						      <a class="page-link" href="javascript:moveBigPage(${param.bigPage+1 });">Next</a>
 						    </li>
 						  </ul>
@@ -223,18 +254,25 @@
 					</div>
 					
 					<form name="page">
+						<input type="hidden" name="notice_no"/>
 						<input type="hidden" name="selectedPageIndex" value="${param.selectedPageIndex}"/>
 						<input type="hidden" name="bigPage" value="${param.bigPage}"/>
+						<input type="hidden" name="searchFlag" value="${param.searchFlag}"/>
+						<input type="hidden" name="searchKeyword" value="${param.searchKeyword}"/>
+					</form>
+					<form name="frmSearch">
+						<input type="hidden" name="searchFlag" value="${param.searchFlag}"/>
+						<input type="hidden" name="searchKeyword" value="${param.searchKeyword}"/>
 					</form>
 					
 					
 					<div style="text-align: center; padding-bottom: 40px;">
-						<select style="height: 30px;">
+						<select style="height: 30px;" id="selectSearch">
 							<option>글 제목</option>
 							<option>작성자</option>
 						</select>
-						<input type="text" style="height: 25px;"/>
-						<input type="button" class="btn btn-outline-secondary" id="btn_search" value="검색"/>
+						<input type="text" style="height: 25px;" id="tfSearch"/>
+						<input type="button" class="btn btn-outline-secondary" id="btnSearch" value="검색"/>
 					</div>
 					
 				</div>

@@ -81,6 +81,10 @@ $(function(){
 			return;
 		}//end else  
 	})//btnChangeBlock
+	
+	$("#btnExit").click(function(){
+		document.frmPage.submit();
+	})
 })
 </script>
 
@@ -192,6 +196,12 @@ $(function(){
     	<input type="hidden" name="birth" value="${requestScope.memberInfo.birth}"/> 
     	<input type="hidden" name="password"/> 
     </form>
+    <form action="member_list.do" method="post" name="frmPage">
+    	<input type="hidden" name="selectedPageIndex" value="${param.selectedPageIndex}"/>
+		<input type="hidden" name="bigPage" value="${param.bigPage}"/>
+		<input type="hidden" name="searchFlag" value="${param.searchFlag}"/>
+		<input type="hidden" name="searchKeyword" value="${param.searchKeyword}"/>
+    </form>
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" id="main">
     <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; 
@@ -283,7 +293,7 @@ $(function(){
 			<div style="text-align: center; margin-top: 30px;">
 				<button type="button" class="btn btn-outline-primary btn_bottom" id="btnModifyMemberInfo">회원정보 수정</button>
 				<button type="button" class="btn btn-outline-primary btn_bottom" id="btnChangeBlock">차단상태 변경</button>
-				<button type="button" class="btn btn-outline-primary btn_bottom">닫기</button>
+				<button type="button" class="btn btn-outline-primary btn_bottom" id="btnExit">닫기</button>
 			</div>
 			
 		</div>

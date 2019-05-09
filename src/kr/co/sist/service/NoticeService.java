@@ -22,6 +22,11 @@ public class NoticeService {
 	
 	public List<NoticeList> searchNoticeList(SearchNoticeVO snVO) {
 		List<NoticeList> list = null;
+		if("글 제목".equals(snVO.getSearchFlag())) {
+			snVO.setSearchFlag("searchToTitle");
+		}else if("작성자".equals(snVO.getSearchFlag())) {
+			snVO.setSearchFlag("searchToWriter");
+		}//end else if
 		
 		snVO.setStartNum(snVO.getSelectedPageIndex()*singlePageScale()-singlePageScale()+1);
 		snVO.setEndNum(snVO.getStartNum()+singlePageScale()-1);
@@ -35,8 +40,8 @@ public class NoticeService {
 		return 10;
 	}
 	
-	public int totalPageIndexList() {
-		int pageCount = nDAO.selectTotalPageCount();
+	public int totalPageIndexList(SearchNoticeVO snVO) {
+		int pageCount = nDAO.selectTotalPageCount(snVO);
 		int idxCount = (int)Math.ceil((double)pageCount/singlePageScale());
 		return idxCount;
 	}//totalPageIndex

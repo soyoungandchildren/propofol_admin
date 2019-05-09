@@ -74,6 +74,20 @@ function moveBigPage(i){
 	move.action = "member_list.do";
 	move.submit();
 }
+
+function moveMemberInfo(user_id){
+	var frm = document.page;
+	if(frm.selectedPageIndex.value==""){
+		frm.selectedPageIndex.value = 1;
+	}
+	if(frm.bigPage.value==""){
+		frm.bigPage.value = 0;
+	}
+	frm.user_id.value = user_id;
+	frm.method = "post";
+	frm.action = "member_info.do";
+	frm.submit();
+}//moveMemberInfo
 </script>
 
 
@@ -106,6 +120,10 @@ function moveBigPage(i){
     
     #condition_group{text-align: right; margin-top: 20px; margin-right: 15px; margin-bottom: 10px;}
             
+    .badge{font-size: 100%; font-weight: 500;}
+           
+    #selIndex{background-color: #74b9ff; color: #f5f6fa;}
+           
      </style>
     <!-- Custom styles for this template -->
   <style type="text/css">/* Chart.js */
@@ -216,7 +234,11 @@ function moveBigPage(i){
 				  		</c:if>
 				  	<c:forEach var="ml" items="${requestScope.memberList}">
 				  		<tr>
-				  			<th><a href="member_info.do?user_id=${ml.user_id}"><c:out value="${ml.user_id}"/></a></th>
+				  			<th>
+				  				<a href="javascript:moveMemberInfo('${ml.user_id}')" class="badge badge-light">
+				  					<c:out value="${ml.user_id}"/>
+				  				</a>
+				  			</th>
 				  			<td><c:out value="${ml.name}"/></td>
 				  			<td><c:out value="${ml.inputdate}"/></td>
 				  			<td><c:out value="${ml.isbanned}"/></td>
@@ -237,7 +259,7 @@ function moveBigPage(i){
 				    			<c:set var="i" value="${i+1}"/>
 							    	<c:if test="${ (requestScope.bigPage*10)+i le requestScope.totalPageIdx }">
 								    	<li class='page-item'>
-										  	<a class="page-link" href='javascript:moveIndex(<c:out value="${i+(requestScope.bigPage*10)}"/>)'>
+										  	<a class="page-link" ${(requestScope.bigPage*10)+i == requestScope.selectedPageIndex ?"id='selIndex'":''} href='javascript:moveIndex(<c:out value="${i+(requestScope.bigPage*10)}"/>)'>
 										  		<c:out value="${i+(requestScope.bigPage*10)}"/>
 										  	</a>
 										</li>
@@ -250,6 +272,7 @@ function moveBigPage(i){
 						</nav>
 						
 					<form name="page">
+						<input type="hidden" name="user_id"/>
 						<input type="hidden" name="selectedPageIndex" value="${param.selectedPageIndex}"/>
 						<input type="hidden" name="bigPage" value="${param.bigPage}"/>
 						<input type="hidden" name="searchFlag" value="${param.searchFlag}"/>
