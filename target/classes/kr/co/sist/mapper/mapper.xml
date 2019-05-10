@@ -11,7 +11,7 @@
 	
 	</resultMap>
   <select id="logincheck" resultMap="LoginCheckResult" parameterType="kr.co.sist.vo.LoginCheckVO">
-    	select name, authority from admin where admin_id=#{id} and password=#{pass}
+    	select admin_id, authority from admin where admin_id=#{id} and password=#{pass}
   </select>
   
   <select id="diaryTotalCnt" resultType="int">

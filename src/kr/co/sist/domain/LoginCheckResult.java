@@ -1,14 +1,14 @@
 package kr.co.sist.domain;
 
 public class LoginCheckResult {
-	private String name,authority;
+	private String admin_id,authority;
 
-	public String getName() {
-		return name;
+	public String getAdmin_id() {
+		return admin_id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setAdmin_id(String admin_id) {
+		this.admin_id = admin_id;
 	}
 
 	public String getAuthority() {
@@ -18,7 +18,8 @@ public class LoginCheckResult {
 	public void setAuthority(String authority) {
 		this.authority = authority;
 	}
-	
+
+
 	
 
 }

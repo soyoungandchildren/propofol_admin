@@ -67,7 +67,6 @@ public class MyBatisDao {
 		catch(Exception npe) {
 			System.out.println("널널 하구만");
 			System.out.println("======="+lcr);
-			System.out.println(lcr.getName()+"///"+lcr.getAuthority());
 			
 			
 		}finally {

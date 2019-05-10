@@ -38,12 +38,13 @@
       <div id="container">
         
         성공
-      name=  <c:out value="${userinfo.name }"/> <br/>
-   	   권한= <c:out value="${userinfo.authority }"/><br/> 
-   	   새션 <c:out value="${sessionscope.name }"/>      <br/>
+      <%-- name=  <c:out value="${userinfo.name }"/> <br/>
+   	   권한= <c:out value="${userinfo.authority }"/><br/>  --%>
+   	   
+   	   새션 <c:out value="${sessionscope.id }"/>      <br/>
    	   		<c:out value="${sessionscope.auth }"/><br/>
                
-   	   새션== ${sessionScope.name }      <br/>
+   	   새션== ${sessionScope.id }      <br/>
    	   		${sessionScope.auth }<br/>
                
                <br>

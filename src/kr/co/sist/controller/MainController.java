@@ -36,24 +36,23 @@ public class MainController {
 		String id = request.getParameter("userID");
 		String pass = request.getParameter("Password");
 		
-//		LoginCheckVO lcvo=new LoginCheckVO("sso", "1234");
 		lcr=ls.loginProcess(id,pass);
 		if(lcr == null) {
 			
 			return "/login/loginform";
 		}
-		if( !("".equals(id) && "".equals(pass)) ) {
-			System.out.println(lcr.getName()+"///////////");
-			if(!(session.getAttribute("name")==lcr.getName())) {
-				session.setAttribute("name", lcr.getName());
+		if( !("".equals(id) && "".equals(pass)) ) {// 널이 아니면 들어가지
+//			if(!(session.getAttribute("name")==lcr.getAdmin_id())) {
+				
+				session.setAttribute("id", lcr.getAdmin_id());
 				session.setAttribute("auth", lcr.getAuthority());
 				session.setMaxInactiveInterval(60);
-			}
+//			}
 		}
 		
-		model.addAttribute("userinfo",lcr);
 		
-		return "login/temp";
+		
+		return "notice/notice_board.do";
 	} 
 	
 	// 로그아웃!

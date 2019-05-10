@@ -76,17 +76,18 @@ public class InquiryController {
 		InquiryService is=new InquiryService();
 		InquiryDetail id=is.searchSelectInquiry(num);
 		InquiryReply ir=null;
-		String name="";
-		name=(String)session.getAttribute("name");
+		String adminid="";
+		
+		adminid=(String)session.getAttribute("id");
 		System.out.println(id.getStatus());
 		if("Y".equals(id.getStatus())) {
 			System.out.println("YYYYYYYYYYYYYYYYYY");
 				ir=is.selectReadReply(num);
 				model.addAttribute("readreply", ir);
-				name=ir.getAdmin_id();
+				adminid=ir.getAdmin_id();
 		}
 		model.addAttribute("selectinquiry", id);
-		model.addAttribute("adminName",name );
+		model.addAttribute("adminid",adminid );
 		
 		return "/inquiry/inquiry_read";
 	}
