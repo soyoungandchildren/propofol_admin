@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,7 +70,7 @@
   <a class="navbar-brand col-sm-3 col-md-2 mr-0" >프로포폴 관리자</a>
   <ul class="navbar-nav px-3">
     <li class="text-nowrap">
-      <a class="nav-link" href="#void">Sign out</a>
+      <a class="nav-link" href="logout.do">Sign out</a>
     </li>
   </ul>
 </nav>
@@ -135,60 +136,42 @@
       <h2>후&nbsp;기</h2>
       
       <div class="content_div">
+      <table border="1" class="table table-striped" style="max-width: 1000px">
+					  <thead>
+					    <tr >
+					      <th style="width: 50px" >No</th>
+					      <th style="width: 50px" >Re_No</th>
+					      <th style="width: 300px" >제목</th>
+					      <th style="width: 60px" >아이디</th>
+					      <th style="width: 100px" >작성날짜</th>
+					      <th style="width: 50px" >후 기 댓글수</th>
+					      <th style="width: 60px" >조회수</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+						<c:if test="${ not empty e }">
+				                     <tr>
+				                        <td colspan="5">서비스가 원활하지 못한 점 죄송합니다.</td>
+				                     </tr>
+				        </c:if>	
+				         <c:if test="${ empty inquiryList }">
+				                     <tr>
+				                        <td colspan="7">이벤트가 존재하지 않습니다.<a href="#">이벤트 작성</a></td>
+				                     </tr>
+				         </c:if>
       
-        <table border="1" >
-      		  <tr>
-						<th id="th1">No</th>
-						<th id="th2">제목</th>
-						<th id="th3">아이디</th>
-						<th id="th4">작성날짜</th>
-						<th id="th5">조회수</th>
-				</tr>
-						<%
-							for(int i=0; i<10;i++){
-						%>
-						<tr>
-							<td id="contentsList">1</td>
-							<td id="contentsList">2</td>
-							<td id="contentsList">3</td>
-							<td id="contentsList">4</td>
-							<td id="contentsList">5</td>
-						</tr>
-						<%
-							}
-						%>
-					</table>
+					       <c:forEach  var="data" items="${ inquiryList }">
+					       	<c:set var="j" value="${j+1 }"/>
+					       	
+					    	   <c:if test="${j le cnt}"> 
+					    	   		<tr>
+				                        <td colspan="7">이벤트가 존재하지 않습니다.<a href="#">이벤트 작성</a></td>
+				                     </tr>
+						 	 </c:if> 
+						       </c:forEach>
 				
-				</div><br/>
-				<div style="text-align: center; max-width: 900px;">
-				<%for(int i=1; i<11;i++){
-				%>
-					<a href="#void"><%=i %></a>
-					<%} %>
-				</div>
-				
-				<br/>
-					<div id="div_bottom">
-						<table border="1" >
-							<tr>
-								<td style="width: 450px; height:10px">No:</td>
-								<td style="width: 450px; height:10px">날짜</td>
-							
-							</tr>
-							<tr>
-								<td style="width: 370px; height:10px">제목</td>
-								<td>작성자</td>
-							</tr>
-							<tr>
-								<td colspan="2" style="min-height: 100px">내용:</td>
-							</tr>
-							<tr>
-								<td colspan="2" style="width: 740px; height:10px; text-align:center;">
-									<input type="submit" value="삭제"class="btn">&nbsp;&nbsp;&nbsp;
-									<input type="submit" value="답변"class="btn">
-								</td>
-							</tr>
-       		 </table>
+				</tbody>
+			</table>
         
       </div>
       

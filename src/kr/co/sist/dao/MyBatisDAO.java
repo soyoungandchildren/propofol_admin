@@ -8,15 +8,18 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.aop.target.LazyInitTargetSource;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.domain.InquiryDetail;
 import kr.co.sist.domain.InquiryList;
 import kr.co.sist.domain.InquiryReply;
 import kr.co.sist.domain.LoginCheckResult;
+import kr.co.sist.domain.ReviewList;
 import kr.co.sist.vo.InquiryPageSetVO;
 import kr.co.sist.vo.InquiryReplyVO;
 import kr.co.sist.vo.LoginCheckVO;
+import kr.co.sist.vo.ReviewPageSetVO;
 
 @Component
 public class MyBatisDao {
@@ -59,20 +62,13 @@ public class MyBatisDao {
 		LoginCheckResult lcr=null;
 		try {
 		lcr=ss.selectOne("logincheck",lcvo);
-		System.out.println(lcr);	
+		
 		if(null==lcr) {
 				new LoginCheckResult();
 			}
-		}
-		catch(Exception npe) {
-			System.out.println("널널 하구만");
-			System.out.println("======="+lcr);
-			
-			
 		}finally {
 			ss.close();
 		}
-	//	System.out.println(lcr.getName()+" /DAO "+lcr.getAuthority());
 		
 		
 		
@@ -131,12 +127,30 @@ public class MyBatisDao {
 		
 		return cnt;
 	}
+//	아래부턴 review 에 대한
+	public int reviewCnt() {
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt=ss.selectOne("reviewcnt");
+		ss.close();
+		
+		return cnt;
+		
+	}
+	public List<ReviewList> reviewList(ReviewPageSetVO rpsvo) {
+		List<ReviewList> rl=null;
+		SqlSession ss=getSessionFactory().openSession();
+		rl=ss.selectList("reviewlist",rpsvo);
+		ss.close();
+		
+		return rl;
+	}
 	
 	
 	
 /*	public static void main(String[] args) {
 		MyBatisDao mm=new MyBatisDao();
-		System.out.println(mm.readReply(23)); 
-	}
-	*/
+		System.out.println(mm.reviewList()); 
+	}*/
+	
 } // class

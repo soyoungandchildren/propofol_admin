@@ -44,9 +44,6 @@ public class InquiryController {
 			int startNum=is.startNum(ipsvo.getCurrentPage());//시작번호
 			int endNum=is.endNum(startNum);//끝번호
 			
-			System.out.println(startNum+"controller--startnum");
-			System.out.println(ipsvo.getBigPage());
-			
 			
 			ipsvo.setStartNum(startNum);
 			ipsvo.setEndNum(endNum);
@@ -61,9 +58,6 @@ public class InquiryController {
 			model.addAttribute("totalCount",totalCount);
 			model.addAttribute("bigpage", ipsvo.getBigPage());
 			
-			System.out.println(endNum+"controller-endnum");
-			System.out.println(pageScale+"controller-pageScale");
-			System.out.println(totalPage+"controller-totalPage");
 		return "/inquiry/inquiry_board";
 	}
 	

@@ -188,7 +188,7 @@
 				      <li class="page-item"><a class="page-link" href="inquiry_board.do?BigPage=${bigPage-10}">Previous</a></li>
 							<c:forEach  begin="1" end="10">
 							<c:set var="j" value="${j+1 }"/>
-							<c:out value="${bigpage }"/>
+							
 							 <c:if test="${j le requestScope.totalPage}"> 
 				 			   <li class="page-item"><a class="page-link" href="inquiry_board.do?currentPage=<c:out value="${j }"/>"><c:out value="${j }"/></a></li>
 				 		 	   </c:if> 
