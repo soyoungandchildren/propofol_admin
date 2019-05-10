@@ -43,7 +43,7 @@
       
       
       /* 내가 수정한 부분 */
-      .btn{background-color: #0000FF;}
+     /*  .btn{background-color: #0000FF;} */
       
      </style>
     <!-- Custom styles for this template -->
@@ -57,14 +57,99 @@
 	#th4{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 100px}
 	#th5{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 100px}
 	#th6{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 100px}
-	#contentsList{padding:1px; text-align: center; height: 12px; word-break:break-all;}
-  
+	#contentsList{ text-align: center;}
+
 	th{text-align: center; background-color:#A2A099; }
 	
 	.mine_th{width: 11%;}
-	
+	#write{display: none;}
 
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#btlist").click(function(){
+			location.href="inquiry_board.do";
+			
+		});
+		
+		$("#deleteuserbtn").click(function(){
+			var number = $("#usernum").val();
+			var queryString="num="+number;
+			
+			if(confirm(number+"삭제 합니다")){
+				alert("asdfadsf");
+				 $.ajax({
+					url : "deleteuserinquiry.do",
+					data : queryString,
+					type:"get",
+			        dataType:"json",
+					error:function(xhr){
+			              alert("작성 실패");
+			              console.log(xhr.status+" / "+xhr.statusText);
+			           }, // error
+			           success:function( json ){
+			        	   alert("삭제 완료");
+			        	   location.href="inquiry_board.do";
+			           }
+				}); 
+			} //if
+			else{
+				alert("취소");
+			}
+		});
+		$("#btbt").click(function(){
+			
+	           var txt = $("#replyView").text();
+	         if(txt == "댓글 열기"){
+	            $("#replyView").text("댓글 접기")
+	         } else {
+	            $("#replyView").text("댓글 열기")
+	         } // end else 
+	         $("#write").slideToggle(500); 
+	      });  
+	
+	
+	$("#btnsave").click(function(){
+      
+        var reply = $("#contents").val();
+        var numnum= $("#number").val();
+        if( reply == "" ){
+           alert("내용은  필수 입력!!!");
+           $("#contents").focus();
+           return;
+        } // end if
+        
+        var queryString="num="+numnum+"&admin_id="+$("#admin").val()+"&r_contents="+reply
+      	alert(queryString);
+         $.ajax({
+           url:"add_reply.do",
+           data:queryString,
+           type:"get",
+           dataType:"json",
+           error:function(xhr){
+              alert("작성 실패");
+              console.log(xhr.status+" / "+xhr.statusText);
+           }, // error
+           success:function( json ){
+              if( json.result ){
+                 // <div>의 자식 노드로 작성한 값을 추가(append)
+                 // 자식 노드 전에 추가 (prepend())
+        /*          var date=new Date();
+                
+                 $("#reply").prepend(output);
+                 $("[name='writer']").val(""); 
+                  $("[name='reply']").val("");  */
+                 
+                 alert("댓글이 정상적으로 등록되었습니다.");
+              } // end if
+           } // success
+        }); // AJAX 
+        
+     }); // click
+	
+	});
+</script>
 </head>
 <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -124,7 +209,7 @@
       
     </nav>
 
-     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" id="main"> 
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" id="main">
     <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; 
     bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
 	    <div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;
@@ -134,73 +219,68 @@
 	    </div>
     </div>
 
-      <h2>문의사항</h2>
+      <h2>문의사항</h2><br/>
       
       <div class="content_div">
-      
-       <table border="1" class="table table-striped" style="max-width: 1000px">
-					  <thead>
-					    <tr >
-					      <th style="width: 50px" >No</th>
-					      <th style="width: 50px" >No</th>
-					      <th style="width: 300px" >제목</th>
-					      <th style="width: 60px" >아이디</th>
-					      <th style="width: 100px" >작성날짜</th>
-					      <th style="width: 50px" >상태</th>
-					      <th style="width: 60px" >조회수</th>
-					    </tr>
-					  </thead>
-					  <tbody>
-						<c:if test="${ not empty e }">
-				                     <tr>
-				                        <td colspan="5">서비스가 원활하지 못한 점 죄송합니다.</td>
-				                     </tr>
-				        </c:if>	
-				         <c:if test="${ empty inquiryList }">
-				                     <tr>
-				                        <td colspan="7">이벤트가 존재하지 않습니다.<a href="#">이벤트 작성</a></td>
-				                     </tr>
-				         </c:if>
-				          <c:if test="${not empty inquiryList }">
-				        
-		                   <c:forEach var="data" items="${ inquiryList }">
-		                     <c:set var="i" value="${ i + 1 }" />
-		                     <tr>
-		                        <td class="center"><c:out value="${i}" /></td>
-		                        <td class="center"><c:out value="${ data.num}" /></td>
- 		                        <td class="center"><a href="bbs_read.do?num=${data.num }"><c:out value="${ data.subject }" /></a></td>
-		             
-		                     <%--     <td><c:out value="${ data.subject }" /></td> --%>
-		                        <td class="center"><c:out value="${data.user_id }" /></td>
-		                        <td class="center"><c:out value="${data.w_date  }" /></td> 
-		                        <td class="center"><c:out value="${data.status  }" /></td> 
-		                        <td class="center"><c:out value="${data.views  }" /></td> 
-		                     </tr>
-		                  </c:forEach>
-		                  </c:if>				  
-					  </tbody>
-					</table>
-				
-				</div><br/>
-				<div style="text-align: center; max-width: 900px;">
-					<nav aria-label="Page navigation example">
-					  <ul class="pagination justify-content-center" >
-				      <li class="page-item"><a class="page-link" href="inquiry_board.do?BigPage=${bigPage-10}">Previous</a></li>
-							<c:forEach  begin="1" end="10">
-							<c:set var="j" value="${j+1 }"/>
-							<c:out value="${bigpage }"/>
-							 <c:if test="${j le requestScope.totalPage}"> 
-				 			   <li class="page-item"><a class="page-link" href="inquiry_board.do?currentPage=<c:out value="${j }"/>"><c:out value="${j }"/></a></li>
-				 		 	   </c:if> 
-							</c:forEach>
-					
-				    <li class="page-item"><a class="page-link" href="inquiry_board.do?bigPage=${bigPage+10}">Next</a></li>
-				  </ul>
-				</nav>
-				
-					
-				</div>
 	
+				<form >
+					  <div class="form-group" style="max-width:1000px; border: 1px solid gold">
+					    <label >제&nbsp;&nbsp;&nbsp;목</label>
+					    <input type="text" class="form-control" id="" value="${selectinquiry.subject }" maxlength="30" style="max-width: 445px; display:inline-block;" disabled="disabled">
+					    <label >작성자</label>
+					    <input type="text" class="form-control" id="" value="${selectinquiry.user_id }" style="max-width: 445px; display:inline-block;" disabled="disabled"><br/>
+					    <label >글번호</label>
+					    <input type="text" class="form-control" id="usernum" value="${selectinquiry.num }" style="max-width: 445px; display:inline-block;" disabled="disabled">
+					    <label >작성일</label>
+					    <input type="text" class="form-control" id="" value="${selectinquiry.w_date }" style="max-width: 440px; display:inline-block;" disabled="disabled">
+					     
+					  </div> 
+					  <div class="input-group"> 
+						  <div class="input-group-prepend" >
+						    <span class="input-group-text">내&nbsp;용</span>
+						  </div>
+						  <textarea class="form-control"  style="max-width:945px; min-height: 300px" disabled="disabled"><c:out value="${selectinquiry.user_contents }" /> ss</textarea>
+						</div>  
+						<br/>
+					  <div style="text-align: center; max-width: 1000px;">
+						  <input type="button" id="btlist" class="btn btn-outline-primary" value="리스트"  >
+						  <input type="button" id="deleteuserbtn" class="btn btn-outline-primary" value="삭&nbsp;&nbsp;제"  >
+						  <input type="button" id="btbt" class="btn btn-outline-primary" value="답변쓰기" >
+						
+					  </div>   
+					</form>
+				   
+		</div><br/>
+		
+		<div id="write">
+			<form >
+					  <div class="form-group" style="max-width:1000px; border: 1px solid gold">
+					    <label >제&nbsp;&nbsp;&nbsp;목</label>
+					    <input type="text" class="form-control" id="" value="${selectinquiry.subject }" maxlength="30" style="max-width: 445px; display:inline-block;" disabled="disabled">
+					    <label >작성자</label>
+					    <input type="text" class="form-control" id="admin" value="${adminName }" style="max-width: 445px; display:inline-block;" disabled="disabled"><br/>
+					    <label >글번호</label>
+					    <input type="text" class="form-control" id="number" value="${selectinquiry.num}" style="max-width: 445px; display:inline-block;" disabled="disabled">
+					    <label >작성일</label>
+					    <input type="text" class="form-control" id="" value="${readreply.r_date }" style="max-width: 440px; display:inline-block;" disabled="disabled">
+					     
+					  </div> 
+					  <div class="input-group"> 
+						  <div class="input-group-prepend" >
+						    <span class="input-group-text">내&nbsp;용</span>
+						  </div>
+						  <textarea class="form-control" id="contents" name="contents" style="max-width:945px; min-height: 300px"><c:out value="${readreply.r_contents }"/></textarea>
+						</div>  
+						<br/>
+					  <div style="text-align: center; max-width: 1000px;">
+						  <input type="button"  class="btn btn-outline-primary" value="삭&nbsp;&nbsp;제" />
+						  <input type="button" id="btnsave" class="btn btn-outline-primary " value="답변저장" /><br/>
+					  </div>
+			</form>
+		<br/>
+		
+		</div>
+      
     </main>
   </div>
 </div>
