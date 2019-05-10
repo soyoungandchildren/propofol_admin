@@ -2,7 +2,7 @@ package kr.co.sist.vo;
 
 public class InquiryPageSetVO {
 
-	private int startNum,endNum,currentPage;
+	private int startNum,endNum,currentPage,bigPage;
 
 	public int getStartNum() {
 		return startNum;
@@ -27,4 +27,14 @@ public class InquiryPageSetVO {
 	public void setCurrentPage(int currentPage) {
 		this.currentPage = currentPage;
 	}
+
+	public int getBigPage() {
+		return bigPage;
+	}
+
+	public void setBigPage(int bigPage) {
+		this.bigPage = bigPage;
+	}
+	
+	
 }

@@ -158,18 +158,19 @@
 				        </c:if>	
 				         <c:if test="${ empty inquiryList }">
 				                     <tr>
-				                        <td colspan="5">이벤트가 존재하지 않습니다.<a href="diary.jsp">이벤트 작성</a></td>
+				                        <td colspan="7">이벤트가 존재하지 않습니다.<a href="#">이벤트 작성</a></td>
 				                     </tr>
 				         </c:if>
 				          <c:if test="${not empty inquiryList }">
+				        
 		                   <c:forEach var="data" items="${ inquiryList }">
 		                     <c:set var="i" value="${ i + 1 }" />
 		                     <tr>
 		                        <td class="center"><c:out value="${i}" /></td>
 		                        <td class="center"><c:out value="${ data.num}" /></td>
-<%-- 		                        <td><a href="bbs_read.do?num=${data.num }"><c:out value="${ data.subject }" /></a></td> --%>
+ 		                        <td class="center"><a href="bbs_read.do?num=${data.num }"><c:out value="${ data.subject }" /></a></td>
 		             
-		                         <td><c:out value="${ data.subject }" /></td>
+		                     <%--     <td><c:out value="${ data.subject }" /></td> --%>
 		                        <td class="center"><c:out value="${data.user_id }" /></td>
 		                        <td class="center"><c:out value="${data.w_date  }" /></td> 
 		                        <td class="center"><c:out value="${data.status  }" /></td> 
@@ -184,13 +185,16 @@
 				<div style="text-align: center; max-width: 900px;">
 					<nav aria-label="Page navigation example">
 					  <ul class="pagination justify-content-center" >
-				      <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-					<%for(int i=1; i<11;i++){
-					%>
-					   <li class="page-item"><a class="page-link" href="#"><%=i %></a></li>
+				      <li class="page-item"><a class="page-link" href="inquiry_board.do?BigPage=${bigPage-10}">Previous</a></li>
+							<c:forEach  begin="1" end="10">
+							<c:set var="j" value="${j+1 }"/>
+							<c:out value="${bigpage }"/>
+							 <c:if test="${j le requestScope.totalPage}"> 
+				 			   <li class="page-item"><a class="page-link" href="inquiry_board.do?currentPage=<c:out value="${j }"/>"><c:out value="${j }"/></a></li>
+				 		 	   </c:if> 
+							</c:forEach>
 					
-					<%} %>
-				    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+				    <li class="page-item"><a class="page-link" href="inquiry_board.do?bigPage=${bigPage+10}">Next</a></li>
 				  </ul>
 				</nav>
 				

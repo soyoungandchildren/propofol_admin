@@ -85,7 +85,7 @@ h4 {
             <div class="form-login">
            	 <h4>가즈아~~~~</h4>
            	 <div style="padding-top: 70px; text-align: center;">
-          		 <input type="text" name="userID" class="form-control" placeholder="ID"  required="required"/>
+          		 <input type="text" name="userID" class="form-control" placeholder="ID"  required="required"autofocus="autofocus"/>
            		 <br/>
            		 <input type="password" name="Password" class="form-control" placeholder="password"  />
           	 	 <br/>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +43,7 @@
       
       
       /* 내가 수정한 부분 */
-      .btn{background-color: #0000FF;}
+     /*  .btn{background-color: #0000FF;} */
       
      </style>
     <!-- Custom styles for this template -->
@@ -67,8 +68,38 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		$(".btn").click(function(){
-			alert("adsfasdfasdfasdf");
+		$("#btlist").click(function(){
+			location.href="inquiry_board.do";
+			
+		});
+		
+		$("#deleteuserbtn").click(function(){
+			var number = $("#usernum").val();
+			var queryString="num="+number;
+			
+			if(confirm(number+"삭제 합니다")){
+				alert("asdfadsf");
+				 $.ajax({
+					url : "deleteuserinquiry.do",
+					data : queryString,
+					type:"get",
+			        dataType:"json",
+					error:function(xhr){
+			              alert("작성 실패");
+			              console.log(xhr.status+" / "+xhr.statusText);
+			           }, // error
+			           success:function( json ){
+			        	   alert("삭제 완료");
+			        	   location.href="inquiry_board.do";
+			           }
+				}); 
+			} //if
+			else{
+				alert("취소");
+			}
+		});
+		$("#btbt").click(function(){
+			
 	           var txt = $("#replyView").text();
 	         if(txt == "댓글 열기"){
 	            $("#replyView").text("댓글 접기")
@@ -77,8 +108,47 @@
 	         } // end else 
 	         $("#write").slideToggle(500); 
 	      });  
-	});
 	
+	
+	$("#btnsave").click(function(){
+      
+        var reply = $("#contents").val();
+        var numnum= $("#number").val();
+        if( reply == "" ){
+           alert("내용은  필수 입력!!!");
+           $("#contents").focus();
+           return;
+        } // end if
+        
+        var queryString="num="+numnum+"&admin_id="+$("#admin").val()+"&r_contents="+reply
+      	alert(queryString);
+         $.ajax({
+           url:"add_reply.do",
+           data:queryString,
+           type:"get",
+           dataType:"json",
+           error:function(xhr){
+              alert("작성 실패");
+              console.log(xhr.status+" / "+xhr.statusText);
+           }, // error
+           success:function( json ){
+              if( json.result ){
+                 // <div>의 자식 노드로 작성한 값을 추가(append)
+                 // 자식 노드 전에 추가 (prepend())
+        /*          var date=new Date();
+                
+                 $("#reply").prepend(output);
+                 $("[name='writer']").val(""); 
+                  $("[name='reply']").val("");  */
+                 
+                 alert("댓글이 정상적으로 등록되었습니다.");
+              } // end if
+           } // success
+        }); // AJAX 
+        
+     }); // click
+	
+	});
 </script>
 </head>
 <body>
@@ -156,26 +226,26 @@
 				<form >
 					  <div class="form-group" style="max-width:1000px; border: 1px solid gold">
 					    <label >제&nbsp;&nbsp;&nbsp;목</label>
-					    <input type="text" class="form-control" id="" maxlength="30" style="max-width: 445px; display:inline-block;" readonly>
+					    <input type="text" class="form-control" id="" value="${selectinquiry.subject }" maxlength="30" style="max-width: 445px; display:inline-block;" disabled="disabled">
 					    <label >작성자</label>
-					    <input type="text" class="form-control" id="" style="max-width: 445px; display:inline-block;" readonly><br/>
+					    <input type="text" class="form-control" id="" value="${selectinquiry.user_id }" style="max-width: 445px; display:inline-block;" disabled="disabled"><br/>
 					    <label >글번호</label>
-					    <input type="text" class="form-control" id="" style="max-width: 445px; display:inline-block;" readonly>
+					    <input type="text" class="form-control" id="usernum" value="${selectinquiry.num }" style="max-width: 445px; display:inline-block;" disabled="disabled">
 					    <label >작성일</label>
-					    <input type="text" class="form-control" id="" style="max-width: 440px; display:inline-block;" readonly>
+					    <input type="text" class="form-control" id="" value="${selectinquiry.w_date }" style="max-width: 440px; display:inline-block;" disabled="disabled">
 					     
 					  </div> 
 					  <div class="input-group"> 
 						  <div class="input-group-prepend" >
 						    <span class="input-group-text">내&nbsp;용</span>
 						  </div>
-						  <textarea class="form-control"  style="max-width:945px; min-height: 300px" readonly>bhjklf</textarea>
+						  <textarea class="form-control"  style="max-width:945px; min-height: 300px" disabled="disabled"><c:out value="${selectinquiry.user_contents }" /> ss</textarea>
 						</div>  
 						<br/>
 					  <div style="text-align: center; max-width: 1000px;">
-						  <input type="button" class="btn" value="리스트로" style="color: #ffffff" >
-						  <input type="button" class="btn btn-primary" value="삭&nbsp;&nbsp;제" style="color: #ffffff" >
-						  <input type="button" class="btn" value="답변쓰기" style="color: #ffffff">
+						  <input type="button" id="btlist" class="btn btn-outline-primary" value="리스트"  >
+						  <input type="button" id="deleteuserbtn" class="btn btn-outline-primary" value="삭&nbsp;&nbsp;제"  >
+						  <input type="button" id="btbt" class="btn btn-outline-primary" value="답변쓰기" >
 						
 					  </div>   
 					</form>
@@ -186,29 +256,28 @@
 			<form >
 					  <div class="form-group" style="max-width:1000px; border: 1px solid gold">
 					    <label >제&nbsp;&nbsp;&nbsp;목</label>
-					    <input type="text" class="form-control" id="" maxlength="30" style="max-width: 445px; display:inline-block;">
+					    <input type="text" class="form-control" id="" value="${selectinquiry.subject }" maxlength="30" style="max-width: 445px; display:inline-block;" disabled="disabled">
 					    <label >작성자</label>
-					    <input type="text" class="form-control" id="" style="max-width: 445px; display:inline-block;"><br/>
+					    <input type="text" class="form-control" id="admin" value="${adminName }" style="max-width: 445px; display:inline-block;" disabled="disabled"><br/>
 					    <label >글번호</label>
-					    <input type="text" class="form-control" id="" style="max-width: 445px; display:inline-block;">
+					    <input type="text" class="form-control" id="number" value="${selectinquiry.num}" style="max-width: 445px; display:inline-block;" disabled="disabled">
 					    <label >작성일</label>
-					    <input type="text" class="form-control" id="" style="max-width: 440px; display:inline-block;">
+					    <input type="text" class="form-control" id="" value="${readreply.r_date }" style="max-width: 440px; display:inline-block;" disabled="disabled">
 					     
 					  </div> 
 					  <div class="input-group"> 
 						  <div class="input-group-prepend" >
 						    <span class="input-group-text">내&nbsp;용</span>
 						  </div>
-						  <textarea class="form-control"  style="max-width:945px; min-height: 300px">bhjklf</textarea>
+						  <textarea class="form-control" id="contents" name="contents" style="max-width:945px; min-height: 300px"><c:out value="${readreply.r_contents }"/></textarea>
 						</div>  
 						<br/>
 					  <div style="text-align: center; max-width: 1000px;">
-						  <input type="button" class="btn btn-primary" />리스트로
-						  <input type="button" class="btn btn-primary" />삭&nbsp;&nbsp;제
-						  <input type="button" class="btnsave" />답변 저장
+						  <input type="button"  class="btn btn-outline-primary" value="삭&nbsp;&nbsp;제" />
+						  <input type="button" id="btnsave" class="btn btn-outline-primary " value="답변저장" /><br/>
 					  </div>
 			</form>
-		
+		<br/>
 		
 		</div>
       

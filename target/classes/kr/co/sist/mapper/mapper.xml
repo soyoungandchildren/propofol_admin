@@ -15,7 +15,7 @@
   </select>
   
   <select id="diaryTotalCnt" resultType="int">
-		select count(*) cnt from inquery
+		select count(*) cnt from INQUIRY_BOARD
 	</select>
   
   
@@ -31,31 +31,58 @@
   
   <select id="inquiryList" resultMap="ListResult" parameterType="kr.co.sist.vo.InquiryPageSetVO">
   
-		SELECT NUM, USER_ID, SUBJECT, USER_CONTENTS, STATUS, to_char(W_DATE, 'yyyy-mm-dd') as w_date ,views
+	 	SELECT NUM, USER_ID, SUBJECT, USER_CONTENTS, STATUS, to_char(W_DATE, 'yyyy-mm-dd') as w_date ,views
 		FROM (SELECT NUM, USER_ID, SUBJECT, USER_CONTENTS, STATUS, W_DATE,views,
-        ROW_NUMBER() OVER( ORDER BY W_DATE DESC) AS R_NUM 
-        FROM INQUERY)
-        WHERE R_NUM BETWEEN #{startNum} AND #{endNum }
+		ROW_NUMBER() OVER( ORDER BY to_number(num) desc ) AS R_NUM
+		FROM INQUIRY_BOARD)
+        WHERE R_NUM BETWEEN #{startNum} AND #{endNum } 
+        
        
            
 	</select>
   
   
-  <!-- 	<select id="diaryDetail" parameterType="int" resultType="kr.co.sist.domain.DiaryDetail">
-		SELECT WRITER, SUBJECT, CONTENTS, TO_CHAR(W_DATE, 'YYYY-MM-DD DY HH24:MI') W_DATE, IP
-        FROM DIARY
-        WHERE NUM=#{num}
+   	<select id="inquiryDetail" parameterType="int" resultType="kr.co.sist.domain.InquiryDetail">
+		select num ,user_id,subject,user_contents,status, to_char(w_date, 'yyyy-mm-dd dy hh24:mi') w_date
+        from inquiry_board
+        where num=#{num}
 	</select>
+	
+<!-- 	
 	<select id="diaryReply" resultType="kr.co.sist.domain.DiaryReply" parameterType="int">
 		select num,writer,content,to_char(input_date,'yyyy-mm-dd hh24:mi') input_date
 		from diary_reply
 		where num_ref=#{num_ref}
 		order by num desc
+	</select> -->
+	<!-- <insert id="insertReply" parameterType="kr.co.sist.vo.InquiryReplyVO">
+		insert into inquiry_board(ADMIN_ID,R_CONTENTS,R_DATE)
+		values(#{admin_id},#{r_contents},sysdate)
+		
+	</insert> --> 
+	
+	<update id="insertReply" parameterType="kr.co.sist.vo.InquiryReplyVO">
+	update inquiry_board
+	set ADMIN_ID =#{admin_id},
+	R_CONTENTS=#{r_contents},
+	R_DATE=sysdate,
+	status='Y'
+	where num = #{num}
+	
+	</update>
+	
+	<select id="readreply" parameterType="int" resultType="kr.co.sist.domain.InquiryReply">
+	select admin_id,r_contents,to_char(r_DATE, 'yyyy-mm-dd') as r_date 
+	from inquiry_board 
+	where num=#{num}
+	
 	</select>
-	<insert id="insertReply" parameterType="kr.co.sist.vo.ReplyVO">
-		insert into diary_reply(num,num_ref,writer,content,input_date)
-		values(seq_reply.nextval,#{num_ref},#{writer},#{content},sysdate)
-	</insert> -->
+	<delete id="deleteUserInquiry" parameterType="int" >
+	delete from inquiry_board
+	where num = #{num}
+	</delete>
+	
+	
   
 
 </mapper>

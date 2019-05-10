@@ -10,9 +10,12 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
+import kr.co.sist.domain.InquiryDetail;
 import kr.co.sist.domain.InquiryList;
+import kr.co.sist.domain.InquiryReply;
 import kr.co.sist.domain.LoginCheckResult;
 import kr.co.sist.vo.InquiryPageSetVO;
+import kr.co.sist.vo.InquiryReplyVO;
 import kr.co.sist.vo.LoginCheckVO;
 
 @Component
@@ -91,11 +94,50 @@ public class MyBatisDao {
 		return list;
 	}
 	
+	public InquiryDetail selectInquiryDetail(int num) {
+		
+		InquiryDetail dd=null;
+		SqlSession ss=getSessionFactory().openSession();
+		dd=ss.selectOne("inquiryDetail", num);
+		ss.close();
+		return dd;
+	}
+	
+	public int insertReply(InquiryReplyVO irvo) {
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt=ss.update("insertReply",irvo);
+		if(cnt==1) {
+			ss.commit();
+		}
+		ss.close();
+		return cnt;
+	}
+	
+	public InquiryReply readReply(int num) {
+		InquiryReply ir=null;
+		SqlSession ss =getSessionFactory().openSession();
+		ir=ss.selectOne("readreply", num);
+		ss.close();
+		return ir;
+	}
+	public int deleteUserInquiry(int num) {
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt=ss.delete("deleteUserInquiry",num);
+		if(cnt==1) {
+			ss.commit();
+		}
+		ss.close();
+		
+		return cnt;
+	}
 	
 	
-	/*public static void main(String[] args) {
+	
+/*	public static void main(String[] args) {
 		MyBatisDao mm=new MyBatisDao();
-		System.out.println(mm.selectList()); 
-	}*/
-	
+		System.out.println(mm.readReply(23)); 
+	}
+	*/
 } // class

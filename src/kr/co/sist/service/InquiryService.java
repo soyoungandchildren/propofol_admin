@@ -2,10 +2,14 @@ package kr.co.sist.service;
 
 import java.util.List;
 
+import org.json.simple.JSONObject;
 
 import kr.co.sist.dao.MyBatisDao;
+import kr.co.sist.domain.InquiryDetail;
 import kr.co.sist.domain.InquiryList;
+import kr.co.sist.domain.InquiryReply;
 import kr.co.sist.vo.InquiryPageSetVO;
+import kr.co.sist.vo.InquiryReplyVO;
 
 
 
@@ -41,9 +45,10 @@ public class InquiryService {
 	    * @param totalCount
 	    * @return
 	    */
-	   public int totalPage(int totalCount) {
-	      int totalPage = totalCount/pageScale();
-	      if(totalCount % pageScale() !=0){
+	   public int totalPage() {
+		   int tempTotalCount=totalCount();
+	      int totalPage = tempTotalCount/pageScale();
+	      if(tempTotalCount % pageScale() !=0){
 	         totalPage++;
 	      }//end if
 	      return totalPage;
@@ -105,7 +110,7 @@ public class InquiryService {
 	     * @param list_url
 	     * @return
 	     */
-	/*    public String indexList(int current_page, int total_page, String list_url) {
+/*	    public String indexList(int current_page, int total_page, String list_url) {
 	    int pagenumber; // 화면에 보여질 페이지 인덱스 수
 	    int startpage; // 화면에 보여질 시작페이지 번호
 	    int endpage; // 화면에 보여질 마지막페이지 번호
@@ -165,38 +170,57 @@ public class InquiryService {
 
 	    return strList;
 	    }//indexList
+	    
 	    */
-/*	    public DiaryDetail searchBbs(int num) {
-	    	DiaryDetail dd=mb_dao.selectDiaryDetail(num);
+	    /** 선택한 글 읽어오기
+	     * @param num
+	     * @return
+	     */
+	    public InquiryDetail searchSelectInquiry(int num) {
+	    	InquiryDetail dd=mb_dao.selectInquiryDetail(num);
 	    	return dd;
 	    }
-	    public List<DiaryReply> searchReplyList(int num){
+	    public InquiryReply selectReadReply(int num) {
+	    	InquiryReply ir=mb_dao.readReply(num);
+	    	
+	    	return ir;
+	    }
+	    /*public List<DiaryReply> searchReplyList(int num){
 	    	List<DiaryReply> list =null;
 	    	list = mb_dao.selectReplyList(num);
 						
 	    	return list;
+	    }*/
+	    
+	    public JSONObject delete(int num) {
+	    	JSONObject json = new JSONObject();
+	        int cnt=0;
+	        cnt=mb_dao.deleteUserInquiry(num);
+	        
+	        json.put("deleteresult", cnt==1);
+	    	return json;
 	    }
-	    public JSONObject writeReply(ReplyVO r_vo) {
+	    public JSONObject writeReply(InquiryReplyVO irvo) {
 	        JSONObject json = new JSONObject();
-	        int cnt = mb_dao.insertReply(r_vo);
+	        int cnt = mb_dao.insertReply(irvo);
 	        
 	        json.put("result", cnt == 1); // bbs_read.jsp 의 result 와 동일한 key명을 줘 일치시켜주고 value는 boolean형을 넣는다. (true | false)
 	        
 	        return json;
 	     } // writeReply
-*/
+
 	    
 	    
 /*	    public static void main(String[] args) {
 			InquiryService is=new InquiryService();
 			System.out.println(is.totalCount()    );
 			System.out.println(is.pageScale()    );
-			System.out.println(is.totalPage(is.totalCount())    );
-			System.out.println(is.searchDiaryList() );
+			System.out.println(is.totalPage()    );
+//			System.out.println(is.searchDiaryList() );
 			
 			
-			is.startNum(currentPage);
-			is.endNum(startNum);
+//			is.startNum(currentPage);
+//			is.endNum(startNum);
 			
 		}*/
 	    
