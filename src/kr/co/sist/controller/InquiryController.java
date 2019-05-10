@@ -9,7 +9,6 @@ import kr.co.sist.domain.InquiryDetail;
 import kr.co.sist.domain.InquiryList;
 import kr.co.sist.domain.InquiryReply;
 import kr.co.sist.service.InquiryService;
-import kr.co.sist.service.LoginService;
 import kr.co.sist.vo.InquiryPageSetVO;
 import kr.co.sist.vo.InquiryReplyVO;
 
@@ -21,14 +20,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 @Controller
 public class InquiryController {
 	
-	@Autowired
-	private LoginService ls;
+	
 	
 	
 
