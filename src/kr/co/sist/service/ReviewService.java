@@ -3,6 +3,7 @@ package kr.co.sist.service;
 import java.util.List;
 
 import kr.co.sist.dao.MyBatisDao;
+import kr.co.sist.domain.ReviewDetail;
 import kr.co.sist.domain.ReviewList;
 import kr.co.sist.vo.ReviewPageSetVO;
 
@@ -58,6 +59,12 @@ public class ReviewService {
 		 
 		 
 		 return list;
+	 }
+	 public ReviewDetail reviewread(int num) {
+		 ReviewDetail rd=null;
+		 rd=mb_dao.reviewRead(num);
+		 
+		 return rd;
 	 }
 	
 

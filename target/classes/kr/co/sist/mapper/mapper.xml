@@ -103,6 +103,22 @@
 	WHERE R_NUM BETWEEN #{startNum} AND #{endNum}
 	</select>
 	
+	<resultMap type="kr.co.sist.domain.ReviewDetail" id="reviewselect">
+		<result column="re_num" property="re_num"/>
+		<result column="user_id" property="user_id"/>
+		<result column="re_title" property="re_title"/>
+		<result column="re_contens" property="re_contens"/>
+		<result column="re_inputdate" property="re_inputdate"/>
+		<result column="re_cnt" property="re_cnt"/>
+	</resultMap>
+	
+	<select id="reviewread" resultMap="reviewselect" parameterType="int">
+		SELECT re_num, user_id, re_title,re_contens, to_char(re_inputdate, 'yyyy-mm-dd') as re_inputdate ,re_cnt
+		from review_board
+		where re_num=#{num}
+	
+	</select>
+	
   
 
 </mapper>

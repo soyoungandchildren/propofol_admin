@@ -15,6 +15,7 @@ import kr.co.sist.domain.InquiryDetail;
 import kr.co.sist.domain.InquiryList;
 import kr.co.sist.domain.InquiryReply;
 import kr.co.sist.domain.LoginCheckResult;
+import kr.co.sist.domain.ReviewDetail;
 import kr.co.sist.domain.ReviewList;
 import kr.co.sist.vo.InquiryPageSetVO;
 import kr.co.sist.vo.InquiryReplyVO;
@@ -144,6 +145,15 @@ public class MyBatisDao {
 		ss.close();
 		
 		return rl;
+	}
+	public ReviewDetail reviewRead(int num) {
+		ReviewDetail rd=null;
+		SqlSession ss=getSessionFactory().openSession();
+		rd=ss.selectOne("reviewread",num);
+		ss.close();
+		
+		
+		return rd;
 	}
 	
 	

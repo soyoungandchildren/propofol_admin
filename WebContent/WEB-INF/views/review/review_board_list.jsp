@@ -61,7 +61,8 @@
 	#th5{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 120px;text-align: center;}
 	#contentsList{ text-align: center;}
 
-
+	th{text-align: center; background-color:#A2A099; }
+	.mine_th{width: 11%;}
 
 </style>
 </head>
@@ -144,8 +145,8 @@
 					      <th style="width: 300px" >제목</th>
 					      <th style="width: 60px" >아이디</th>
 					      <th style="width: 100px" >작성날짜</th>
-					      <th style="width: 50px" >후 기 댓글수</th>
-					      <th style="width: 60px" >조회수</th>
+					      <th style="width: 50px" >후기 댓글수</th>
+					      <th style="width: 50px" >조회수</th>
 					    </tr>
 					  </thead>
 					  <tbody>
@@ -154,25 +155,48 @@
 				                        <td colspan="5">서비스가 원활하지 못한 점 죄송합니다.</td>
 				                     </tr>
 				        </c:if>	
-				         <c:if test="${ empty inquiryList }">
+				         <c:if test="${ empty reviewlist }">
 				                     <tr>
-				                        <td colspan="7">이벤트가 존재하지 않습니다.<a href="#">이벤트 작성</a></td>
+				                        <td colspan="7">이벤트가 존재하지 않습니다.</td>
 				                     </tr>
 				         </c:if>
-      
-					       <c:forEach  var="data" items="${ inquiryList }">
-					       	<c:set var="j" value="${j+1 }"/>
-					       	
-					    	   <c:if test="${j le cnt}"> 
-					    	   		<tr>
-				                        <td colspan="7">이벤트가 존재하지 않습니다.<a href="#">이벤트 작성</a></td>
-				                     </tr>
-						 	 </c:if> 
+					       <c:forEach  var="data" items="${ reviewlist }">
+					       	<c:set var="i" value="${i+1 }"/>
+				              <tr>
+		                        <td class="center"><c:out value="${i}" /></td>
+		                        <td class="center"><c:out value="${ data.re_num}" /></td>
+ 		                        <td class="center"><a href="review_read.do?num=${data.re_num }"><c:out value="${ data.re_title }" /></a></td>
+		             
+		                     <%--     <td><c:out value="${ data.subject }" /></td> --%>
+		                        <td class="center"><c:out value="${data.user_id }" /></td>
+		                        <td class="center"><c:out value="${data.re_inputdate  }" /></td> 
+		                        <%-- <td class="center"><c:out value="${data.status  }" /></td> --%> 
+		                        <td class="center"><c:out value="${data.re_cnt  }" /></td> 
+		                     </tr>
 						       </c:forEach>
 				
+					    	   		
 				</tbody>
 			</table>
         
+       			 <div style="text-align: center; max-width: 900px;">
+					<nav aria-label="Page navigation example">
+					  <ul class="pagination justify-content-center" >
+				      <li class="page-item"><a class="page-link" href="inquiry_board.do?BigPage=${bigPage-10}">Previous</a></li>
+							<c:forEach  begin="1" end="10">
+							<c:set var="j" value="${j+1 }"/>
+							
+							 <c:if test="${j le requestScope.page}"> 
+				 			   <li class="page-item"><a class="page-link" href="review.do?currentPage=<c:out value="${j }"/>"><c:out value="${j }"/></a></li>
+				 		 	   </c:if> 
+							</c:forEach>
+					
+				 	   <li class="page-item"><a class="page-link" href="inquiry_board.do?bigPage=${bigPage+10}">Next</a></li>
+					  </ul>
+					</nav>
+				
+					
+				</div>
       </div>
       
     </main>
