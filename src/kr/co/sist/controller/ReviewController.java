@@ -7,12 +7,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.sist.domain.InquiryDetail;
 import kr.co.sist.domain.InquiryReply;
+import kr.co.sist.domain.ReviewComment;
 import kr.co.sist.domain.ReviewDetail;
 import kr.co.sist.domain.ReviewList;
 import kr.co.sist.service.InquiryService;
@@ -24,11 +28,10 @@ public class ReviewController {
 	
 	@RequestMapping(value="review.do",method=GET)
 	public String reviewList(ReviewPageSetVO rpsvo,Model model,HttpSession session) {
-	//	if(session.getAttribute("name").equals("null")) {
-			System.out.println(session.getAttribute("name")+"//세션");
+		if(null==session.getAttribute("id")) {
 			
-//			return "login.do";
-	//	}
+			return "/login/loginform";
+		}
 		ReviewService rs=new ReviewService();
 		int totalCount=rs.reviewCnt();//총 개시물의 수를 구해야한다
 		int pageScale=rs.pageScale();//한화면에 보여줄 개시물의수 10개
@@ -48,36 +51,60 @@ public class ReviewController {
 		
 		List<ReviewList> list=rs.reviewList(rpsvo);
 		
-		System.out.println(rpsvo.getStartNum()+"/start//"+rpsvo.getEndNum()+"/end//"+rpsvo.getCurrentPage()+"//current");
-	//	System.out.println(list.get(1).getRe_num()+"번호");
-		System.out.println(list.size()+"사이즈");
 		
 		model.addAttribute("cnt", totalCount);
 		model.addAttribute("page", totalPage);
 		model.addAttribute("reviewlist",list);
+		model.addAttribute("admin",session.getAttribute("id"));
+		model.addAttribute("auth", session.getAttribute("auth"));
 	
 		return "review/review_board_list";
 	}
 	
 	@RequestMapping(value="review_read.do",method=GET)
-	public String review_read(int num,Model model,HttpServletRequest request ) {
+	public String review_read(int num,Model model,HttpServletRequest request,HttpSession session ) {
+		if(null==session.getAttribute("id")) {
+			
+			return "/login/loginform";
+		}
 		
 		ReviewService rs=new ReviewService();
 		ReviewDetail rd=rs.reviewread(num);
+		int reviewCommentCnt=rs.reviewCommentCnt(num);
+		List<ReviewComment> rc=rs.reviewComment(num);
 		
-		/*String adminid="";*/
-		
-//		adminid=(String)session.getAttribute("id");
-/*		if("Y".equals(id.getStatus())) {
-			System.out.println("YYYYYYYYYYYYYYYYYY");
-				ir=is.selectReadReply(num);
-				model.addAttribute("readreply", ir);
-				adminid=ir.getAdmin_id();
-		}*/
 		model.addAttribute("selectreview",rd);
-//		model.addAttribute("adminid",adminid );
+		model.addAttribute("reviewCommentCnt", reviewCommentCnt);
+		model.addAttribute("reviewcomment",rc );
+		model.addAttribute("hiddennumber",num);
+		model.addAttribute("admin",session.getAttribute("id"));
+		model.addAttribute("auth", session.getAttribute("auth"));
 		
 		return "/review/review_selectread";
 	}
+	@ResponseBody
+	@RequestMapping(value="delete_review.do",method=GET)
+	public String reviewDelete(int deletenum) {
+		JSONObject json=null;
+		ReviewService rs=new ReviewService();
+		
+		json=rs.deletereview(deletenum);
+		
+		return json.toJSONString();
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="deletecomment.do",method=GET)
+	public String reviewDeleteComment(int deletenumber) {
+		JSONObject json=null;
+		ReviewService rs=new ReviewService();
+		
+		json=rs.deleteReviewComment(deletenumber);
+		
+		return json.toJSONString();
+	}
+	
+	
 	
 }

@@ -2,7 +2,10 @@ package kr.co.sist.service;
 
 import java.util.List;
 
+import org.json.simple.JSONObject;
+
 import kr.co.sist.dao.MyBatisDao;
+import kr.co.sist.domain.ReviewComment;
 import kr.co.sist.domain.ReviewDetail;
 import kr.co.sist.domain.ReviewList;
 import kr.co.sist.vo.ReviewPageSetVO;
@@ -66,6 +69,46 @@ public class ReviewService {
 		 
 		 return rd;
 	 }
+	 public int reviewCommentCnt(int num) {
+		 int commentCnt=0;
+		 commentCnt=mb_dao.reviewCommentCnt(num);
+		 
+		 return commentCnt; 
+	 }
+	 public List<ReviewComment> reviewComment(int num){
+		 List<ReviewComment> rc=null;
+		 rc=mb_dao.reviewComment(num);
+		 
+		 return rc;
+	 }
+	 public JSONObject deletereview(int num) {
+		 JSONObject json = new JSONObject();
+	        int cnt=0;
+	        cnt=mb_dao.deleteReview(num);
+	        
+	        json.put("deleteReviewResult", cnt==1);
+	    	return json;
+	 }
+	 
+	 public JSONObject deleteReviewComment(int num) {
+	    	JSONObject json = new JSONObject();
+	        int cnt=0;
+	        cnt=mb_dao.deleteCommentResult(num);
+	        
+	        json.put("deleteCommentResult", cnt==1);
+	    	return json;
+	    }
+	 
+	 
+	 
+	  public int checkSession(String check) {
+	    	int cnt=0;
+	    		if("null".equals(check)) {
+	    			cnt=1;
+	    		}
+	    	
+	    	return cnt;
+	    }
 	
 
 }

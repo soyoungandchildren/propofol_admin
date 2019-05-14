@@ -80,98 +80,27 @@ public class InquiryService {
 	    	list = mb_dao.selectList(ipsvo);
 			//글의 제목은 24자 까지만 보여준다
 			
-				/*Diary dl_vo=null;
 				String subject="";
 				String writer="";
 				for(int i=0; i<list.size();i++) {
-					dl_vo=list.get(i);
-					subject=dl_vo.getSubject();
-					writer=dl_vo.getWriter();
+					
+					subject=list.get(i).getSubject();
+					writer=list.get(i).getUser_id();
 					if(subject.length()>25) {
 						subject=subject.substring(0, 23)+".......";
-						dl_vo.setSubject(subject);
+						list.get(i).setSubject(subject);
 					}
 					if(writer.length()>25) {
 						writer=writer.substring(0, 23)+"**";
-						dl_vo.setWriter(writer);
+						list.get(i).setUser_id(writer);
 					}
-				}*/
+				}
 				
 	    	return list;
 	    }
 	    
 	    
 	    
-	   // 현재 게시판의 페이지 인덱스 설정
-	    /**
-	     * 인덱스 리스트[1][2][3][4]
-	     * @param current_page
-	     * @param total_page
-	     * @param list_url
-	     * @return
-	     */
-/*	    public String indexList(int current_page, int total_page, String list_url) {
-	    int pagenumber; // 화면에 보여질 페이지 인덱스 수
-	    int startpage; // 화면에 보여질 시작페이지 번호
-	    int endpage; // 화면에 보여질 마지막페이지 번호
-	    int curpage; // 이동하고자 하는 페이지 번호
-
-	    String strList=""; // 리턴될 페이지 인덱스 리스트
-
-	    pagenumber = 10; // 한 화면의 페이지 인덱스 수 
-
-	    // 시작 페이지번호 구하기
-	    startpage = ((current_page - 1) / pagenumber) * pagenumber + 1;
-
-	    // 마지막 페이지번호 구하기
-	    endpage = (((startpage - 1) + pagenumber) / pagenumber) * pagenumber;
-
-	    // 총 페이지 수가 계산된 마지막페이지 번호보다 작을경우 
-
-	    // 총 페이지 수가 마지막페이지 번호가 됨
-
-
-	    if (total_page <= endpage){
-	       endpage = total_page;
-	    }//end if
-
-	    // 첫번째 페이지 인덱스 화면이 아닌경우
-	    if ( current_page > pagenumber) {
-	       curpage = startpage - 1; // 시작페이지 번호보다 1 적은 페이지로 이동
-	       strList = strList + "[ <a href="+list_url+"?currentPage="+curpage+">&lt;&lt;</a> ]";
-	    }else{
-	       strList = strList + "[<<]";
-	    }
-
-	    strList = strList + " ... ";
-
-	    // 시작페이지 번호부터 마지막페이지 번호까지 화면에 표시
-	    curpage = startpage;
-
-	    while (curpage <= endpage){
-	       if (curpage == current_page) {
-	          strList = strList + "["+current_page+"]";
-	       } else {
-	          strList = strList +"[ <a href="+list_url+"?currentPage="+curpage+">"+curpage+"</a> ]";
-	       }//end else
-
-	       curpage++;
-	    }//end while
-
-	    strList = strList + " ... ";
-
-	    // 뒤에 페이지가 더 있는경우
-	    if ( total_page > endpage) {
-	       curpage = endpage + 1; 
-	       strList = strList + "[ <a href="+list_url+"?currentPage="+curpage+">&gt;&gt;</a> ]";
-	    }else{
-	       strList = strList + "[>>]";
-	    }//end else
-
-	    return strList;
-	    }//indexList
-	    
-	    */
 	    /** 선택한 글 읽어오기
 	     * @param num
 	     * @return
@@ -185,12 +114,6 @@ public class InquiryService {
 	    	
 	    	return ir;
 	    }
-	    /*public List<DiaryReply> searchReplyList(int num){
-	    	List<DiaryReply> list =null;
-	    	list = mb_dao.selectReplyList(num);
-						
-	    	return list;
-	    }*/
 	    
 	    public JSONObject delete(int num) {
 	    	JSONObject json = new JSONObject();
@@ -208,6 +131,15 @@ public class InquiryService {
 	        
 	        return json;
 	     } // writeReply
+	    
+	   public JSONObject updatere(int num) {
+		   JSONObject json = new JSONObject();
+		   int cnt= mb_dao.updatere(num);
+		   
+		   json.put("deletere", cnt==1);
+		   
+		   return json;
+	   }
 
 	    
 	    

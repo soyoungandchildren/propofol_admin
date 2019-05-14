@@ -42,25 +42,33 @@ public class MainController {
 			return "/login/loginform";
 		}
 		if( !("".equals(id) && "".equals(pass)) ) {// 널이 아니면 들어가지
-			if(!(session.getAttribute("name")==lcr.getAdmin_id())) {
 				
 				session.setAttribute("id", lcr.getAdmin_id());
 				session.setAttribute("auth", lcr.getAuthority());
-				session.setMaxInactiveInterval(60);
-			}
+				session.setMaxInactiveInterval(60*60);
 		}
-		
-		
-		
-		return "/login/temp";
+		return "login/loading";
 	} 
+		
+		
+	/*	RequestDispatcher rd = request.getRequestDispatcher("notice.do");
+	      try {
+	         rd.forward(request, response);
+	      } catch (ServletException e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      } catch (IOException e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      }
+	      return "notice/notice_board";*/
+		
+		
 	
 	// 로그아웃!
 	@RequestMapping(value="logout.do",method=GET)
-	public String logout(SessionStatus ss) {
+	public String logout(SessionStatus ss,HttpSession session) {
 		ss.isComplete();
-		
-		
 		return "/login/loginform";
 	}
 	

@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="http://localhost:8080/jsp_prj/common/css/main_v190130.css" />
 <style type="text/css">
    #wrap{ margin: 0px auto; width:800px; height:860px;  }
-   #header{ mwidth:800px; height:140px; background:#FFF url('http://localhost:8080/jsp_prj/common/images/header_bg.png'); position:relative; }
+   #header{ mwidth:800px; height:140px; position:relative; }
    #headerTitle{ font-family: HY견고딕, 고딕; font-size: 35px; font-weight:bold; text-align:center; position:absolute; left:300px; top:30px; }
    #container{ width:800px; }
    #footer{ width:800px; height:120px; }
@@ -83,7 +83,7 @@ h4 {
         
         <form action="loginform.do" method="post">
             <div class="form-login">
-           	 <h4>가즈아~~~~</h4>
+           	 <h4>취직 하즈아~!</h4>
            	 <div style="padding-top: 70px; text-align: center;">
           		 <input type="text" name="userID" class="form-control" placeholder="ID"  required="required"autofocus="autofocus"/>
            		 <br/>

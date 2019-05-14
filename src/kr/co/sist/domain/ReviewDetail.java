@@ -1,7 +1,7 @@
 package kr.co.sist.domain;
 
 public class ReviewDetail {
-	private String re_num ,user_id,re_title,re_contens,re_inputdate;
+	private String re_num ,user_id,re_title,re_contents,re_inputdate;
 	private int re_cnt;
 	public String getRe_num() {
 		return re_num;
@@ -21,11 +21,11 @@ public class ReviewDetail {
 	public void setRe_title(String re_title) {
 		this.re_title = re_title;
 	}
-	public String getRe_contens() {
-		return re_contens;
+	public String getRe_contents() {
+		return re_contents;
 	}
-	public void setRe_contens(String re_contens) {
-		this.re_contens = re_contens;
+	public void setRe_contents(String re_contents) {
+		this.re_contents = re_contents;
 	}
 	public String getRe_inputdate() {
 		return re_inputdate;
@@ -40,5 +40,5 @@ public class ReviewDetail {
 		this.re_cnt = re_cnt;
 	}
 	
-
+	
 }

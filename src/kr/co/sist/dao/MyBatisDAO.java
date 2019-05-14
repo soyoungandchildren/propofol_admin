@@ -15,6 +15,7 @@ import kr.co.sist.domain.InquiryDetail;
 import kr.co.sist.domain.InquiryList;
 import kr.co.sist.domain.InquiryReply;
 import kr.co.sist.domain.LoginCheckResult;
+import kr.co.sist.domain.ReviewComment;
 import kr.co.sist.domain.ReviewDetail;
 import kr.co.sist.domain.ReviewList;
 import kr.co.sist.vo.InquiryPageSetVO;
@@ -128,7 +129,21 @@ public class MyBatisDao {
 		
 		return cnt;
 	}
-//	아래부턴 review 에 대한
+	public int updatere(int num) {
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt=ss.delete("updatere",num);
+		if(cnt==1) {
+			ss.commit();
+		}
+		ss.close();
+		return cnt;
+		
+	}
+	
+	
+	
+//	아래부턴 review 에 대한//////////////////////////////////////
 	public int reviewCnt() {
 		int cnt=0;
 		SqlSession ss=getSessionFactory().openSession();
@@ -156,11 +171,51 @@ public class MyBatisDao {
 		return rd;
 	}
 	
+	public int reviewCommentCnt(int num) {
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt=ss.selectOne("reviewcommentcnt", num);
+		ss.close();
+		
+		
+		return cnt;
+	}
+	public List<ReviewComment> reviewComment(int num) {
+		List<ReviewComment> rd=null;
+		SqlSession ss=getSessionFactory().openSession();
+		rd=ss.selectList("reviewcomment",num);
+		ss.close();
+		
+		return rd;
+	}
+	public int deleteReview(int num) {
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt=ss.delete("deletereview",num);
+		if(cnt==1) {
+			ss.commit();
+		}
+		ss.close();
+		
+		return cnt;
+	}
+	public int deleteCommentResult(int num) {
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt=ss.delete("deletecomment",num);
+		if(cnt==1) {
+			ss.commit();
+		}
+		ss.close();
+		
+		return cnt;
+	}
+	
 	
 	
 /*	public static void main(String[] args) {
 		MyBatisDao mm=new MyBatisDao();
-		System.out.println(mm.reviewList()); 
+		System.out.println(mm.); 
 	}*/
 	
 } // class

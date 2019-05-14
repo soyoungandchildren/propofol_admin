@@ -47,16 +47,16 @@
       
      </style>
     <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
+<!--     <link href="dashboard.css" rel="stylesheet"> -->
   <style type="text/css">/* Chart.js */
 @-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}
 /* ---------------------------------------------------------- */
-	#th1{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 100px}
-	#th2{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 400px}
-	#th3{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 100px}
-	#th4{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 100px}
-	#th5{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 100px}
-	#th6{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 100px}
+	#th1{background-color: #A2A099;border: 0px solid #ccc; float: center; width: 100px}
+	#th2{background-color: #A2A099;border: 0px solid #ccc; float: center; width: 400px}
+	#th3{background-color: #A2A099;border: 0px solid #ccc; float: center; width: 100px}
+	#th4{background-color: #A2A099;border: 0px solid #ccc; float: center; width: 100px}
+	#th5{background-color: #A2A099;border: 0px solid #ccc; float: center; width: 100px}
+	#th6{background-color: #A2A099;border: 0px solid #ccc; float: center; width: 100px}
 	#contentsList{ text-align: center;}
 
 	th{text-align: center; background-color:#A2A099; }
@@ -67,37 +67,77 @@
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
-	$(function(){
-		$("#btlist").click(function(){
-			location.href="inquiry_board.do";
+function delReply(number) {
+	var hiddenNum= $("#hidden").val();
+	var deletenumber=number;
+	
+		if(confirm("클릭한 댓글을 삭제 합니다")){
+			 $.ajax({
+				url:"deletecomment.do",
+				data: "deletenumber=" + deletenumber,
+				type:"get",
+		        dataType:"json",
+					error:function(xhr){
+		              alert("작성 실패");
+		              console.log(xhr.status+" / "+xhr.statusText);
+		           }, // error
+		           success:function( json ){
+		        	   
+		        	   if(json.deleteCommentResult==1){
+		        	   alert("삭제 완료");
+		        	   location.href="review_read.do?num="+hiddenNum;
+		        	   }
+		           }
+		          })
+				
 			
-		});
-		
+		} //if
+		else{
+			alert("취소");
+		}
+ 
+	
+};
+
+
+
+	$(function(){
 		$("#deleteuserbtn").click(function(){
 			var number = $("#usernum").val();
-			var queryString="num="+number;
+			var queryString="deletenum="+number;
 			
-			if(confirm(number+"삭제 합니다")){
-				alert("asdfadsf");
+			if(confirm("현재 페이지의 글을 삭제 합니다")){
+				
 				 $.ajax({
-					url : "deleteuserinquiry.do",
+					url : "delete_review.do",
 					data : queryString,
 					type:"get",
 			        dataType:"json",
 					error:function(xhr){
-			              alert("작성 실패");
+			              alert("삭제 실패");
 			              console.log(xhr.status+" / "+xhr.statusText);
+			              alert(xhr.responseText)
 			           }, // error
 			           success:function( json ){
+			        	   if(json.deleteReviewResult==1){
 			        	   alert("삭제 완료");
-			        	   location.href="inquiry_board.do";
-			           }
-				}); 
+			        	   location.href="review.do";
+			        	   }
+			           }//success
+				}); //ajax
+				
 			} //if
 			else{
 				alert("취소");
 			}
+		}); 
+		
+		$("#btlist").click(function(){
+			location.href="review.do";
+			
 		});
+		
+		
 		$("#btbt").click(function(){
 			
 	           var txt = $("#replyView").text();
@@ -110,43 +150,8 @@
 	      });  
 	
 	
-	$("#btnsave").click(function(){
+
       
-        var reply = $("#contents").val();
-        var numnum= $("#number").val();
-        if( reply == "" ){
-           alert("내용은  필수 입력!!!");
-           $("#contents").focus();
-           return;
-        } // end if
-        
-        var queryString="num="+numnum+"&admin_id="+$("#admin").val()+"&r_contents="+reply
-      	alert(queryString);
-         $.ajax({
-           url:"add_reply.do",
-           data:queryString,
-           type:"get",
-           dataType:"json",
-           error:function(xhr){
-              alert("작성 실패");
-              console.log(xhr.status+" / "+xhr.statusText);
-           }, // error
-           success:function( json ){
-              if( json.result ){
-                 // <div>의 자식 노드로 작성한 값을 추가(append)
-                 // 자식 노드 전에 추가 (prepend())
-        /*          var date=new Date();
-                
-                 $("#reply").prepend(output);
-                 $("[name='writer']").val(""); 
-                  $("[name='reply']").val("");  */
-                 
-                 alert("댓글이 정상적으로 등록되었습니다.");
-              } // end if
-           } // success
-        }); // AJAX 
-        
-     }); // click
 	
 	});
 </script>
@@ -154,6 +159,7 @@
 <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">프로포폴 관리자</a>
+  <div style="color: #FFFFFF;">${admin} 님 환영합니다. 권한은 ${auth} 입니다</div>
   <ul class="navbar-nav px-3">
     <li class="text-nowrap">
       <a class="nav-link" href="logout.do">Sign out</a>
@@ -219,12 +225,12 @@
 	    </div>
     </div>
 
-      <h2>후;&nbsp;기 </h2><br/>
+      <h2>후&nbsp;기 </h2><br/>
       
       <div class="content_div">
 	
 				<form >
-					  <div class="form-group" style="max-width:1000px; border: 1px solid gold">
+					  <div class="form-group" style="max-width:1000px; ">
 					    <label >제&nbsp;&nbsp;&nbsp;목</label>
 					    <input type="text" class="form-control" id="" value="${selectreview.re_title }" maxlength="30" style="max-width: 445px; display:inline-block;" disabled="disabled">
 					    <label >작성자</label>
@@ -245,7 +251,8 @@
 					  <div style="text-align: center; max-width: 1000px;">
 						  <input type="button" id="btlist" class="btn btn-outline-primary" value="리스트"  >
 						  <input type="button" id="deleteuserbtn" class="btn btn-outline-primary" value="삭&nbsp;&nbsp;제"  >
-						  <input type="button" id="btbt" class="btn btn-outline-primary" value="답변쓰기" >
+						  <input type="button" id="btbt" class="btn btn-outline-primary" value="댓글보기" >
+						  <input type="hidden" id="hidden" value="${selectreview.re_num }"/>
 						
 					  </div>   
 					</form>
@@ -254,28 +261,25 @@
 		
 		<div id="write">
 			<form >
-					  <div class="form-group" style="max-width:1000px; border: 1px solid gold">
-					    <label >제&nbsp;&nbsp;&nbsp;목</label>
-					    <input type="text" class="form-control" id="" value="${selectinquiry.subject }" maxlength="30" style="max-width: 445px; display:inline-block;" disabled="disabled">
-					    <label >작성자</label>
-					    <input type="text" class="form-control" id="admin" value="${adminid }" style="max-width: 445px; display:inline-block;" disabled="disabled"><br/>
-					    <label >글번호</label>
-					    <input type="text" class="form-control" id="number" value="${selectinquiry.num}" style="max-width: 445px; display:inline-block;" disabled="disabled">
-					    <label >작성일</label>
-					    <input type="text" class="form-control" id="" value="${readreply.r_date }" style="max-width: 440px; display:inline-block;" disabled="disabled">
+					  <div class="form-group" style="max-width:1000px; ">
 					     
+					     
+					     <div id="commentList">
+					     	<c:if test="${ 0 eq reviewCommentCnt }">
+					     		<div>댓글이 없습니다</div>
+					     	</c:if>
+					         <c:forEach var="comment" items="${ reviewcomment }">
+					            <div style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); width:600px; padding:15px; margin:10px 0; border-radius:15px">
+					               <span><strong><c:out value="${ comment.user_id }" /></strong></span><br />
+					               <c:out value="${ comment.com_contents }" /> ( <c:out value="${ comment.com_inputdate }" /> )
+					               <input type="button" id="deletevalue" onclick="delReply('${ comment.com_num }');" class="btn btn-outline-primary" value="삭제" style="text-align: right;" >
+					            </div>
+					         </c:forEach>
+					      </div>
+					      
+					      
 					  </div> 
-					  <div class="input-group"> 
-						  <div class="input-group-prepend" >
-						    <span class="input-group-text">내&nbsp;용</span>
-						  </div>
-						  <textarea class="form-control" id="contents" name="contents" style="max-width:945px; min-height: 300px"><c:out value="${readreply.r_contents }"/></textarea>
-						</div>  
 						<br/>
-					  <div style="text-align: center; max-width: 1000px;">
-						  <input type="button"  class="btn btn-outline-primary" value="삭&nbsp;&nbsp;제" />
-						  <input type="button" id="btnsave" class="btn btn-outline-primary " value="답변저장" /><br/>
-					  </div>
 			</form>
 		<br/>
 		

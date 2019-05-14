@@ -18,7 +18,6 @@ public class LoginService {
 		LoginCheckResult  lcr=null;
 		
 		lcr=mb_dao.idCheck(new LoginCheckVO(id, pass));
-		System.out.println("service"+id+"/"+pass);
 		
 		return lcr;
 	}

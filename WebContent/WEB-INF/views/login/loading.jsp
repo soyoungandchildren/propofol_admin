@@ -79,6 +79,14 @@
   }
 }
 </style>
+<script type="text/javascript">
+setTimeout(gogo, 5000);
+function gogo() {
+	location.href="inquiry_board.do";
+}
+</script>
+
+
 
 <div class="container">
 				  <div class="circle"></div>

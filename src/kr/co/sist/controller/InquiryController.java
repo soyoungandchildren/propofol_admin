@@ -30,7 +30,11 @@ public class InquiryController {
 	
 
 	@RequestMapping(value="inquiry_board.do",method=GET)
-	public String inquiry_board(InquiryPageSetVO ipsvo,Model model ) {
+	public String inquiry_board(InquiryPageSetVO ipsvo,Model model,HttpSession session) {
+		if(null==session.getAttribute("id")) {
+			
+			return "/login/loginform";
+		}
 			InquiryService is=new InquiryService();
 			int totalCount=is.totalCount();//총 개시물의 수를 구해야한다
 			int pageScale=is.pageScale();//한화면에 보여줄 개시물의수 10개
@@ -57,6 +61,8 @@ public class InquiryController {
 			model.addAttribute("totalPage",totalPage);
 			model.addAttribute("totalCount",totalCount);
 			model.addAttribute("bigpage", ipsvo.getBigPage());
+			model.addAttribute("admin",session.getAttribute("id"));
+			model.addAttribute("auth", session.getAttribute("auth"));
 			
 		return "/inquiry/inquiry_board";
 	}
@@ -65,7 +71,11 @@ public class InquiryController {
 	
 	
 	@RequestMapping(value="bbs_read.do",method=GET)
-	public String inquiry_read(int num,Model model,HttpServletRequest request,HttpSession session ) {
+	public String inquiry_read(int num,Model model,HttpSession session ) {
+		if(null==session.getAttribute("id")) {
+			
+			return "/login/loginform";
+		}
 		
 		InquiryService is=new InquiryService();
 		InquiryDetail id=is.searchSelectInquiry(num);
@@ -73,15 +83,14 @@ public class InquiryController {
 		String adminid="";
 		
 		adminid=(String)session.getAttribute("id");
-		System.out.println(id.getStatus());
 		if("Y".equals(id.getStatus())) {
-			System.out.println("YYYYYYYYYYYYYYYYYY");
 				ir=is.selectReadReply(num);
 				model.addAttribute("readreply", ir);
 				adminid=ir.getAdmin_id();
 		}
 		model.addAttribute("selectinquiry", id);
 		model.addAttribute("adminid",adminid );
+		model.addAttribute("auth", session.getAttribute("auth"));
 		
 		return "/inquiry/inquiry_read";
 	}
@@ -102,9 +111,19 @@ public class InquiryController {
 	public String deleteInquiry(int num) {
 		JSONObject json=null;
 		InquiryService is=new InquiryService();
-		System.out.println(num);
 		
 		json=is.delete(num);
+		
+		
+		return json.toJSONString();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="deleteinquiryre.do",method=GET)
+	public String updatere(int num) {
+			JSONObject json=null;
+		InquiryService is=new InquiryService();
+		json=is.updatere(num);
 		
 		
 		return json.toJSONString();

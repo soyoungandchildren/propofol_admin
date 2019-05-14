@@ -73,12 +73,37 @@
 			
 		});
 		
+		$("#btndelete").click(function(){
+			var number = $("#usernum").val();
+			var queryString="num="+number;
+			
+			if(confirm("현재페이지의 답글을 삭제 합니다")){
+				 $.ajax({
+					url : "deleteinquiryre.do",
+					data : queryString,
+					type:"get",
+			        dataType:"json",
+					error:function(xhr){
+			              alert("작성 실패");
+			              console.log(xhr.status+" / "+xhr.statusText);
+			           }, // error
+			           success:function( json ){
+			        	   if(json.deletere==1){
+			        	   alert("삭제 완료");
+			        	   location.href="inquiry_board.do?num="+number;
+			        	   }
+			           }
+				}); 
+			} //if
+			else{
+				alert("취소");
+			}
+		});
 		$("#deleteuserbtn").click(function(){
 			var number = $("#usernum").val();
 			var queryString="num="+number;
 			
-			if(confirm(number+"삭제 합니다")){
-				alert("asdfadsf");
+			if(confirm("현재페이지의 글을 삭제 합니다")){
 				 $.ajax({
 					url : "deleteuserinquiry.do",
 					data : queryString,
@@ -89,8 +114,10 @@
 			              console.log(xhr.status+" / "+xhr.statusText);
 			           }, // error
 			           success:function( json ){
+			        	   if(json.deleteresult==1){
 			        	   alert("삭제 완료");
 			        	   location.href="inquiry_board.do";
+			        	   }
 			           }
 				}); 
 			} //if
@@ -121,7 +148,6 @@
         } // end if
         
         var queryString="num="+numnum+"&admin_id="+$("#admin").val()+"&r_contents="+reply
-      	alert(queryString);
          $.ajax({
            url:"add_reply.do",
            data:queryString,
@@ -141,7 +167,7 @@
                  $("[name='writer']").val(""); 
                   $("[name='reply']").val("");  */
                  
-                 alert("댓글이 정상적으로 등록되었습니다.");
+                 alert(" 정상적으로 등록되었습니다.");
               } // end if
            } // success
         }); // AJAX 
@@ -154,6 +180,7 @@
 <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">프로포폴 관리자</a>
+  <div style="color: #FFFFFF;">${adminid} 님 환영합니다. 권한은 ${auth} 입니다</div>
   <ul class="navbar-nav px-3">
     <li class="text-nowrap">
       <a class="nav-link" href="logout.do">Sign out</a>
@@ -224,7 +251,7 @@
       <div class="content_div">
 	
 				<form >
-					  <div class="form-group" style="max-width:1000px; border: 1px solid gold">
+					  <div class="form-group" style="max-width:1000px;">
 					    <label >제&nbsp;&nbsp;&nbsp;목</label>
 					    <input type="text" class="form-control" id="" value="${selectinquiry.subject }" maxlength="30" style="max-width: 445px; display:inline-block;" disabled="disabled">
 					    <label >작성자</label>
@@ -254,7 +281,7 @@
 		
 		<div id="write">
 			<form >
-					  <div class="form-group" style="max-width:1000px; border: 1px solid gold">
+					  <div class="form-group" style="max-width:1000px;">
 					    <label >제&nbsp;&nbsp;&nbsp;목</label>
 					    <input type="text" class="form-control" id="" value="${selectinquiry.subject }" maxlength="30" style="max-width: 445px; display:inline-block;" disabled="disabled">
 					    <label >작성자</label>
@@ -273,7 +300,7 @@
 						</div>  
 						<br/>
 					  <div style="text-align: center; max-width: 1000px;">
-						  <input type="button"  class="btn btn-outline-primary" value="삭&nbsp;&nbsp;제" />
+						  <input type="button" id="btndelete" class="btn btn-outline-primary" value="삭&nbsp;&nbsp;제" />
 						  <input type="button" id="btnsave" class="btn btn-outline-primary " value="답변저장" /><br/>
 					  </div>
 			</form>
