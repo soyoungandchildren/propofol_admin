@@ -159,7 +159,7 @@ function delReply(number) {
 <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">프로포폴 관리자</a>
-  <div style="color: #FFFFFF;">${admin} 님 환영합니다. 권한은 ${auth} 입니다</div>
+  <div style="color: #FFFFFF;">${admin} 님 환영합니다. </div>
   <ul class="navbar-nav px-3">
     <li class="text-nowrap">
       <a class="nav-link" href="logout.do">Sign out</a>

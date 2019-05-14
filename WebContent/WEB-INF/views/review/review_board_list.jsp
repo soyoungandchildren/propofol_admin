@@ -69,7 +69,7 @@
 <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">프로포폴 관리자</a>
-	<div style="color: #FFFFFF;">${admin} 님 환영합니다. 권한은 ${auth} 입니다</div>
+	<div style="color: #FFFFFF;">${admin} 님 환영합니다.</div>
   <ul class="navbar-nav px-3">
     <li class="text-nowrap">
       <a class="nav-link" href="logout.do">Sign out</a>
@@ -141,8 +141,7 @@
       <table border="1" class="table table-striped" style="max-width: 1000px">
 					  <thead>
 					    <tr >
-					      <th style="width: 50px" >No</th>
-					      <th style="width: 50px" >Re_No</th>
+					      <th style="width: 80px" >Re_No</th>
 					      <th style="width: 300px" >제목</th>
 					      <th style="width: 60px" >아이디</th>
 					      <th style="width: 100px" >작성날짜</th>
@@ -163,7 +162,6 @@
 					       <c:forEach  var="data" items="${ reviewlist }">
 					       	<c:set var="i" value="${i+1 }"/>
 				              <tr>
-		                        <td class="center"><c:out value="${i}" /></td>
 		                        <td class="center"><c:out value="${ data.re_num}" /></td>
  		                        <td class="center"><a href="review_read.do?num=${data.re_num }"><c:out value="${ data.re_title }" /></a></td>
 		             
