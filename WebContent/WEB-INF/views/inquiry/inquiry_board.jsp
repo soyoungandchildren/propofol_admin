@@ -59,7 +59,7 @@
 	#th6{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 100px}
 	#contentsList{padding:1px; text-align: center; height: 12px; word-break:break-all;}
   
-	th{text-align: center; background-color:#A2A099; }
+	th{text-align: center; background-color: #2f3542; color: #ffffff;}
 	
 	.mine_th{width: 11%;}
 	
@@ -146,7 +146,7 @@
 					      <th style="width: 300px" >제목</th>
 					      <th style="width: 60px" >아이디</th>
 					      <th style="width: 100px" >작성날짜</th>
-					      <th style="width: 40px" >답변상태</th>
+					      <th style="width: 40px" >답변</th>
 					      <th style="width: 60px" >조회수</th>
 					    </tr>
 					  </thead>
@@ -184,16 +184,23 @@
 				<div style="text-align: center; max-width: 900px;">
 					<nav aria-label="Page navigation example">
 					  <ul class="pagination justify-content-center" >
-				      <li class="page-item"><a class="page-link" href="inquiry_board.do?BigPage=${bigPage-10}">Previous</a></li>
+					  <c:if test="${bigPage>9 ? true :false }">
+				      <li class="page-item"><a class="page-link" href="inquiry_board.do?currentPage=${bigPage }&bigPage=${bigPage-10}">Previous</a></li>
+				      </c:if>
 							<c:forEach  begin="1" end="10">
 							<c:set var="j" value="${j+1 }"/>
 							
-							 <c:if test="${j le requestScope.totalPage}"> 
-				 			   <li class="page-item"><a class="page-link" href="inquiry_board.do?currentPage=<c:out value="${j }"/>"><c:out value="${j }"/></a></li>
-				 		 	   </c:if> 
+							 <c:if test="${j le requestScope.totalPage-bigPage}"> 
+				 			   <li class="page-item"><a class="page-link" href="inquiry_board.do?currentPage=<c:out value="${bigPage+j }"/>&bigPage=${bigPage}"><c:out value="${bigPage+j }"/></a></li>
+				 		 	   </c:if>
+				 		 	    
 							</c:forEach>
+					<c:if test="${totalPage>bigPage ? true: false }">
+					<c:if test="${bigPage<totalPage && totalPage<bigPage+10 ? false: true }">
 					
-				    <li class="page-item"><a class="page-link" href="inquiry_board.do?bigPage=${bigPage+10}">Next</a></li>
+				    <li class="page-item"><a class="page-link" href="inquiry_board.do?currentPage=${bigPage+1 }&bigPage=${bigPage+10}">Next</a></li>
+				    </c:if>
+				    </c:if>
 				  </ul>
 				</nav>
 				

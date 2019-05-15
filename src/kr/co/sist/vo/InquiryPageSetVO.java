@@ -35,6 +35,12 @@ public class InquiryPageSetVO {
 	public void setBigPage(int bigPage) {
 		this.bigPage = bigPage;
 	}
+
+	@Override
+	public String toString() {
+		return "InquiryPageSetVO [startNum=" + startNum + ", endNum=" + endNum + ", currentPage=" + currentPage
+				+ ", bigPage=" + bigPage + "]";
+	}
 	
 	
 }

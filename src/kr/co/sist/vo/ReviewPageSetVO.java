@@ -35,6 +35,13 @@ public class ReviewPageSetVO {
 	public void setBigPage(int bigPage) {
 		this.bigPage = bigPage;
 	}
+
+	@Override
+	public String toString() {
+		return "ReviewPageSetVO [startNum=" + startNum + ", endNum=" + endNum + ", currentPage=" + currentPage
+				+ ", bigPage=" + bigPage + "]";
+	}
+	
 	
 	
 }

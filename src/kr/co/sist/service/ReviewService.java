@@ -29,6 +29,8 @@ public class ReviewService {
 	       int pageScale=10;
 	       return pageScale;
 	 }//pageScale
+	 
+	 
 	 public int totalPage() {
 		   int tempTotalCount=reviewCnt();
 	      int totalPage = tempTotalCount/pageScale();

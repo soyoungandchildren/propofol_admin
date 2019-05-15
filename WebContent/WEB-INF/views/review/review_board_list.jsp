@@ -61,7 +61,7 @@
 	#th5{background-color: #A2A099;border: 1px solid #ccc; float: center; width: 120px;text-align: center;}
 	#contentsList{ text-align: center;}
 
-	th{text-align: center; background-color:#A2A099; }
+	th{text-align: center; background-color: #2f3542; color: #ffffff; }
 	.mine_th{width: 11%;}
 
 </style>
@@ -179,18 +179,42 @@
         
        			 <div style="text-align: center; max-width: 900px;">
 					<nav aria-label="Page navigation example">
-					  <ul class="pagination justify-content-center" >
-				      <li class="page-item"><a class="page-link" href="inquiry_board.do?BigPage=${bigPage-10}">Previous</a></li>
+					  <%-- <ul class="pagination justify-content-center" >
+					  <c:if test="${bigPage>9 ? true :false }">
+				      <li class="page-item"><a class="page-link" href="review.do?currentPage=${bigPage }&bigPage=${bigPage-10}">Previous</a></li>
+				      </c:if>
 							<c:forEach  begin="1" end="10">
 							<c:set var="j" value="${j+1 }"/>
 							
-							 <c:if test="${j le requestScope.page}"> 
-				 			   <li class="page-item"><a class="page-link" href="review.do?currentPage=<c:out value="${j }"/>"><c:out value="${j }"/></a></li>
+							 <c:if test="${j le requestScope.totalpage-bigPage}"> 
+				 			   <li class="page-item"><a class="page-link" href="review.do?currentPage=<c:out value="${bigPage+j }"/>&bigPage=${bigPage}"><c:out value="${bigPage+j }"/></a></li>
 				 		 	   </c:if> 
 							</c:forEach>
+						<c:if test="${totalpage>bigPage ?true:false}">
+						<c:if test="${bigPage<totalPage && totalPage<bigPage+10 ? false: true }">
+				 		   <li class="page-item"><a class="page-link" href="review.do?currentPage=${bigPage+1 }&bigPage=${bigPage+10}">Next</a></li>
+				    </c:if>
+				    </c:if>
+					  </ul> --%>
+					  <ul class="pagination justify-content-center" >
+					  <c:if test="${bigPage>9 ? true :false }">
+				      <li class="page-item"><a class="page-link" href="inquiry_board.do?currentPage=${bigPage }&bigPage=${bigPage-10}">Previous</a></li>
+				      </c:if>
+							<c:forEach  begin="1" end="10">
+							<c:set var="j" value="${j+1 }"/>
+							
+							 <c:if test="${j le requestScope.totalpage-bigPage}"> 
+				 			   <li class="page-item"><a class="page-link" href="inquiry_board.do?currentPage=<c:out value="${bigPage+j }"/>&bigPage=${bigPage}"><c:out value="${bigPage+j }"/></a></li>
+				 		 	   </c:if>
+				 		 	    
+							</c:forEach>
+					<c:if test="${totalpage>bigPage ? true: false }">
+					<c:if test="${bigPage<totalpage && totalpage<bigPage+10 ? false: true }">
 					
-				 	   <li class="page-item"><a class="page-link" href="inquiry_board.do?bigPage=${bigPage+10}">Next</a></li>
-					  </ul>
+				    <li class="page-item"><a class="page-link" href="inquiry_board.do?currentPage=${bigPage+1 }&bigPage=${bigPage+10}">Next</a></li>
+				    </c:if>
+				    </c:if>
+				  </ul>
 					</nav>
 				
 					

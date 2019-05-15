@@ -36,12 +36,16 @@ public class ReviewController {
 		int totalCount=rs.reviewCnt();//총 개시물의 수를 구해야한다
 		int pageScale=rs.pageScale();//한화면에 보여줄 개시물의수 10개
 		int totalPage=rs.totalPage();//전체 개시물을 보여주기 위한 총페이지수
+		
 		if(rpsvo.getCurrentPage() == 0) {//web parameter에 값이 없을때 
 			rpsvo.setCurrentPage(1);//1번부터 조회해야 하니까 1로 설정
 		}
-		if(rpsvo.getBigPage() == 0 || rpsvo.getBigPage() ==-1) {
+		/*if(rpsvo.getBigPage() == 0 || rpsvo.getBigPage() ==-1) {
 			rpsvo.setBigPage(0);
-		}
+		}*/
+		/*if(rpsvo.getBigPage()==10) {
+			rpsvo.setCurrentPage(rpsvo.getBigPage()+1);
+		}*/
 		int startNum=rs.startNum(rpsvo.getCurrentPage());//시작번호
 		int endNum=rs.endNum(startNum);//끝번호
 		
@@ -50,13 +54,17 @@ public class ReviewController {
 		rpsvo.setEndNum(endNum);
 		
 		List<ReviewList> list=rs.reviewList(rpsvo);
+		System.out.println(rpsvo+"/////"+totalPage);
 		
-		
-		model.addAttribute("cnt", totalCount);
-		model.addAttribute("page", totalPage);
 		model.addAttribute("reviewlist",list);
+		model.addAttribute("currentPage",rpsvo.getCurrentPage());
+		model.addAttribute("totalpage", totalPage);
+		model.addAttribute("cnt", totalCount);
+		model.addAttribute("bigPage", rpsvo.getBigPage());
 		model.addAttribute("admin",session.getAttribute("id"));
 		model.addAttribute("auth", session.getAttribute("auth"));
+		
+//		model.addAttribute("pageScale",pageScale);
 	
 		return "review/review_board_list";
 	}

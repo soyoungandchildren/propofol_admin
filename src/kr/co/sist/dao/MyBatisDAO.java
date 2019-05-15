@@ -34,7 +34,7 @@ public class MyBatisDao {
 	public static MyBatisDao getInstance() {
 		if(mb_dao == null) {
 			mb_dao = new MyBatisDao();
-			org.apache.ibatis.logging.LogFactory.useLog4JLogging();
+			org.apache.ibatis.logging.LogFactory.useLog4JLogging(); 
 		} // end if
 		return mb_dao;
 	} // getInstance

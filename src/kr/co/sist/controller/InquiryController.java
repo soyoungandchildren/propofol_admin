@@ -39,12 +39,17 @@ public class InquiryController {
 			int totalCount=is.totalCount();//총 개시물의 수를 구해야한다
 			int pageScale=is.pageScale();//한화면에 보여줄 개시물의수 10개
 			int totalPage=is.totalPage();//전체 개시물을 보여주기 위한 총페이지수
+			
+			System.out.println(ipsvo+"///"+totalPage+"----" );
 			if(ipsvo.getCurrentPage() == 0) {//web parameter에 값이 없을때 
 				ipsvo.setCurrentPage(1);//1번부터 조회해야 하니까 1로 설정
 			}
-			if(ipsvo.getBigPage() == 0 || ipsvo.getBigPage() ==-1) {
+			/*if(ipsvo.getBigPage() == 0 || ipsvo.getBigPage() ==-1) {
 				ipsvo.setBigPage(0);
-			}
+			}*/
+			/*if(ipsvo.getBigPage()>=10) {
+				ipsvo.setCurrentPage(ipsvo.getBigPage()+1);
+			}*/
 			int startNum=is.startNum(ipsvo.getCurrentPage());//시작번호
 			int endNum=is.endNum(startNum);//끝번호
 			
@@ -53,14 +58,15 @@ public class InquiryController {
 			ipsvo.setEndNum(endNum);
 			
 			List<InquiryList> inquiryList=is.searchDiaryList(ipsvo);// 리스트 목록을 조회
+			System.out.println(ipsvo+"///"+totalPage);
 			
 //			String indexList=is.indexList(ipsvo.getCurrentPage(),totalPage, "list.do");
 			model.addAttribute("inquiryList",inquiryList);
-//			model.addAttribute("indexList",indexList);
+			model.addAttribute("currentpage",ipsvo.getCurrentPage());
 //			model.addAttribute("pageScale",pageScale);
 			model.addAttribute("totalPage",totalPage);
 			model.addAttribute("totalCount",totalCount);
-			model.addAttribute("bigpage", ipsvo.getBigPage());
+			model.addAttribute("bigPage", ipsvo.getBigPage());
 			model.addAttribute("admin",session.getAttribute("id"));
 			model.addAttribute("auth", session.getAttribute("auth"));
 			
